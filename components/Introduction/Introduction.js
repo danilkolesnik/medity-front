@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { ImageBackground, View, Text, Pressable } from "react-native";
+import Arrow from '../../assets/icons/Arrow'
+import styles from "../../styles/Introduction";
 
-export default function Introduction() {
+export default function Introduction({navigation}) {
   return (
     <View
       style={{ flex: 1, width: null, height: null, backgroundColor: "#010101" }}
@@ -33,7 +35,7 @@ export default function Introduction() {
             >
               <Text
                 style={{
-                  fontFamily: "DMSans-Regular",
+                  fontFamily: "Urbanist-Regular",
                   fontWeight: 'normal',
                   color: "#FFF",
                   fontSize: "50px",
@@ -41,31 +43,26 @@ export default function Introduction() {
                   width: "80%",
                 }}
               >
-                A daily {"\n"}mind meditation practice
+                A daily {"\n"}<Text style={{color:"#515151"}}>mind</Text> meditation <Text style={{color:"#515151"}}>practice</Text>
               </Text>
             </View>
 
             <Pressable
               color="#131313"
-              style={{
-                height: "55px",
-                backgroundColor: "#131313",
-                borderRadius: "20px",
-              }}
-              title="Продолжить"
-              onPress={() => navigation.navigate("GetName")}
+              style={styles.buttonConteiner}
+              onPress={() => navigation.navigate("Auth")}
             >
-              <Text
-                style={{
-                  textAlign: "center",
-                  lineHeight: "51px",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  color: "#FFFFFF",
-                }}
+              <View
+                style={styles.button}
               >
-                Продолжить
-              </Text>
+                <Text
+                  style={styles.text}
+                >
+                  Get started
+                </Text>             
+                <Arrow></Arrow>         
+              </View>
+              
             </Pressable>
           </View>
         </View>

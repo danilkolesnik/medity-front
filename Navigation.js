@@ -25,20 +25,9 @@ const AppNavigator = () => {
 }
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    alignSelf: "stretch",
-    width: null,
-  },
   screenWrapper: {
     height: "100%",
     width: "100%",
-    backgroundColor: "red",
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "red",
   },
 });
 
