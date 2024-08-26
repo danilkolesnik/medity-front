@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     text:(active = false) =>{
         return{
-            fontSize:"10px",
+            fontSize:10,
             color:"#fff",
             fontWeight: active ? 800 : 400,
             fontFamily: active ? "Urbanist-Bold" : 'Urbanist-Regular'

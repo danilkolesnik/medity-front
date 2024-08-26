@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         justifyContent:'center',
-        paddingRight:'20px',
-        paddingLeft:"20px"
+        paddingRight:20,
+        paddingLeft:20
     },
     background:{
         flex: 1, 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     buttonConteiner:{
         display:"flex",
-        gap:"12px"
+        gap:12
     },
     button: (last = false) =>{
         return{
@@ -26,42 +26,42 @@ const styles = StyleSheet.create({
             flexDirection: "row",
             alignItems:"center",
             justifyContent:"center",
-            padding:'20px',
-            borderRadius:'12px'
+            padding:20,
+            borderRadius:12
         }
     },
     buttonText:(last = false) =>{
         return{
             color: !last ? "#121826" : '#fff',
-            fontSize: "16px",
+            fontSize: 16,
             fontWeight: "500",
-            paddingLeft:'19px',
+            paddingLeft:19,
             fontFamily:"Urbanist-Medium"
         }
     },
     
     title:{
         color:'#fff',
-        fontSize: "32px",
+        fontSize: 32,
         fontWeight: "800",
         textAlign:"center",
         fontFamily:"Urbanist-Bold"
     },
     text:{
         color:'#fff',
-        fontSize: "16px",
+        fontSize: 16,
         fontWeight: "400",
         textAlign:"center",
-        paddingBottom:"20px",
+        paddingBottom:20,
         fontFamily:"Urbanist-Regular"
     },
 
     textSingUp:{
         color:'#B4B4B4',
-        fontSize: "16px",
+        fontSize: 16,
         fontWeight: "400",
         textAlign:"center",
-        paddingTop:"21px",
+        paddingTop:21,
         fontFamily:"Urbanist-Regular"
     }
 
