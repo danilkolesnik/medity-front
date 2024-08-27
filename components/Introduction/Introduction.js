@@ -30,7 +30,7 @@ export default function Introduction({navigation}) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                marginTop: "30px",
+                
               }}
             >
               <Text
@@ -38,8 +38,8 @@ export default function Introduction({navigation}) {
                   fontFamily: "Urbanist-Regular",
                   fontWeight: 'normal',
                   color: "#FFF",
-                  fontSize: "50px",
-                  fontWeight: 400,
+                  fontSize: 50,
+                  fontWeight: "400",
                   width: "80%",
                 }}
               >
@@ -47,19 +47,15 @@ export default function Introduction({navigation}) {
               </Text>
             </View>
 
+           
             <Pressable
-              color="#131313"
-              style={styles.buttonConteiner}
+              color="#131313"        
               onPress={() => navigation.navigate("Auth")}
             >
               <View
                 style={styles.button}
               >
-                <Text
-                  style={styles.text}
-                >
-                  Get started
-                </Text>             
+                <Text style={styles.text}>Get started</Text> 
                 <Arrow></Arrow>         
               </View>
               
