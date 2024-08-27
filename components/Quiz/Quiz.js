@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground, View, Text, Pressable,TouchableOpacity,Animated} from "react-native";
+import {SERVER} from '../../constants/async'
+import axios from "axios";
 
 import styles from "../../styles/quiz";
 
@@ -24,6 +26,23 @@ const Quiz = () =>{
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState([]);
 
+  const getQuestions = async() =>{
+    try {
+        const res = await axios.get(`${SERVER}/question`,null,
+        { 
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        })
+        console.log(res);
+        
+        return res
+    } catch (error) {
+        console.log(error);      
+    }
+  }
+
 
   const handleNextStep = () => {
     if (currentStep < questions.length - 1) {
@@ -42,6 +61,9 @@ const Quiz = () =>{
 
   const currentQuestion = questions[currentStep];
 
+  useEffect(() =>{
+    getQuestions()
+  },[])
 
     return(
         <SafeAreaView

@@ -18,6 +18,7 @@ const AppNavigator = () => {
           screenOptions={{
             headerShown: false,
           }}
+          initialRouteName="Quiz"
         >
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
