@@ -3,6 +3,7 @@ import Auth from "./components/Auth/Auth";
 import Introduction from "./components/Introduction/Introduction";
 import Home from "./components/Home/Home";
 import Notifications from "./components/Notifications/Notifications";
+import Quiz from "./components/Quiz/Quiz";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,12 +18,12 @@ const AppNavigator = () => {
           screenOptions={{
             headerShown: false,
           }}
-         
         >
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen name="Quiz" component={Quiz} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
