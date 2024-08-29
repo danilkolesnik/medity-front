@@ -18,9 +18,6 @@ export function AppleButton() {
                 AppleAuthentication.AppleAuthenticationScope.EMAIL,
               ],
             })
-            console.log('====================================');
-            console.log(credential);
-            console.log('====================================');
             // Sign in via Supabase Auth.
             if (credential.identityToken) {
               const {
