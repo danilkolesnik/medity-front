@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "./components/Auth/Auth";
+import EmailAuth from "./components/Auth/EmailAuth";
 import Introduction from "./components/Introduction/Introduction";
 import Home from "./components/Home/Home";
 import Notifications from "./components/Notifications/Notifications";
@@ -18,10 +19,11 @@ const AppNavigator = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName="Quiz"
+          initialRouteName="Auth"
         >
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
+          <Stack.Screen name="EmailAuth" component={EmailAuth} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Quiz" component={Quiz} />

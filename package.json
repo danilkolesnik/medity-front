@@ -1,25 +1,30 @@
 {
   "name": "medity",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "npx expo start --dev-client",
+    "android": "npx expo run:android",
+    "ios": "npx expo run:ios",
+    "web": "npx expo start --web"
   },
   "dependencies": {
     "@expo/config": "^8.1.1",
     "@expo/metro-config": "^0.10.0",
     "@expo/metro-runtime": "~3.2.3",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "^8.2.0",
+    "@react-native-google-signin/google-signin": "^12.2.1",
     "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "@supabase/supabase-js": "^2.45.2",
     "axios": "^1.7.5",
-    "expo": "~51.0.28",
+    "expo": "^51.0.31",
     "expo-cli": "^6.3.10",
+    "expo-dev-client": "~4.0.25",
     "expo-device": "^6.0.2",
+    "expo-doctor": "^1.10.1",
     "expo-font": "~12.0.9",
     "expo-notifications": "~0.28.16",
     "expo-splash-screen": "~0.27.5",
@@ -36,11 +41,13 @@
     "react-native-svg": "^15.6.0",
     "react-native-web": "~0.19.10",
     "react-native-wheel-pick": "^1.2.2",
-    "react-native-wheel-picker": "^1.2.0",
     "react-navigation": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
+  },
+  "resolutions": {
+    "@expo/cli": "^0.18.29"
   },
   "private": true
 }

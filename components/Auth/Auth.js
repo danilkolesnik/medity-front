@@ -8,6 +8,7 @@ import {
 import Apple from '../../assets/icons/Apple'
 import Google from "../../assets/icons/Google";
 import styles from "../../styles/auth";
+import GoogleButton from "./GoogleButton";
 
 export default function Auth() {
   return (
@@ -75,14 +76,14 @@ export default function Auth() {
                 </Text>
               </View>
             </Pressable>
-
-            <Text style={styles.textSingUp}>Not a member?
+          <GoogleButton/>
+            <Text style={styles.textSingUp}>Not a member?{" "}
               <Text style={{
                 color:"#fff",
                 paddingLeft:"5px",
                 textDecorationLine: 'underline',
               }}>
-              Sign Up
+               Sign Up
               </Text>
             </Text>
         </View>
