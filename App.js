@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { AppNavigator } from "./Navigation";
+import { PaperProvider } from 'react-native-paper';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,5 +19,9 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  return <AppNavigator />;
+  return (
+    <PaperProvider>
+       <AppNavigator />
+    </PaperProvider>
+  )
 }

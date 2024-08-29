@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         borderRadius:12,
         paddingTop:19,
         paddingBottom:19,
-       
+        marginBottom:30
       },
       nextButtonText:{
         color:"#fff",

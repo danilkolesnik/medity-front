@@ -4,18 +4,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from "../../assets/icons/Back";
 import styles from "../../styles/header";
 
-const Header = ({navigation}) =>{
+const Header = () =>{
 
     const route = useRoute()
+
+    const navigation = useNavigation();
 
     return (
         <SafeAreaView
             style={styles.conteiner}
         >
             <Pressable
-                 onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("Home")}
             >
-            <View style={styles.icon}>
+            <View>
                 <Back></Back>  
             </View>    
             </Pressable>

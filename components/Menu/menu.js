@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ImageBackground, View, Text, Pressable } from "react-native";
-import { useRoute } from '@react-navigation/native';
+import { useRoute,useNavigation  } from '@react-navigation/native';
 import styles from "../../styles/menu"; 
 import Chakras from '../../assets/icons/Chakras'
 import Sleep from '../../assets/icons/Sleep' 
@@ -8,12 +8,12 @@ import Home from '../../assets/icons/Home'
 import Meditations from '../../assets/icons/Meditations' 
 import Profile from '../../assets/icons/Profile' 
 
-const Menu = ({navigation}) =>{
+const Menu = () =>{
 
     const route = useRoute();
+    const navigation = useNavigation();
 
     const isActive = (screenName) => route.name === screenName;
-
     return(
         <View style={styles.conteiner}>
             <Pressable 

@@ -19,7 +19,7 @@ const questions = [
         question: 'How often do you practice meditation3?',
         options: ['3-4 times a week', 'I’m practice meditation everyday!', '1-2 times a week', 'Less often'],
     },
-  ];
+];
 
 const Quiz = () =>{
 
@@ -28,7 +28,7 @@ const Quiz = () =>{
 
   const getQuestions = async() =>{
     try {
-        const res = await axios.get(`${SERVER}/question`,null,
+        const res = await axios.get(`${SERVER}/question`,
         { 
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,6 @@ const Quiz = () =>{
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Handle form submission or completion
       console.log('Form submitted:', answers);
     }
   };

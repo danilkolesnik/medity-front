@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { ImageBackground, View, Text, Pressable,ScrollView,Platform,Button  } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Switch from "../../ui/switch";
 import Header from "../Header/Header";
 import TimePicker from "./TimePicker";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from "../../styles/notifications";
+
+import NotificationService from "../../utils/notification-services";
 
 const Notifications = () =>{
 
@@ -14,11 +15,15 @@ const Notifications = () =>{
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const toggleSwitchTwo = () => setIsEnabledTwo(previousState => !previousState);
 
-    const [selectedTime, setSelectedTime] = useState('10:00 PM');
+    const [selectedTime, setSelectedTime] = useState('');
 
     const handleTimeChange = (time) => {
       setSelectedTime(time);
     };
+
+    useEffect(() =>{
+        console.log(selectedTime);
+    },[selectedTime])
 
     return(
         <View
@@ -61,7 +66,7 @@ const Notifications = () =>{
                 </Pressable>
                 
             </View>
-
+            <NotificationService></NotificationService>
             </ImageBackground>
         </View>
     )
