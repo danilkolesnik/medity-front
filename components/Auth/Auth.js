@@ -9,6 +9,7 @@ import Apple from '../../assets/icons/Apple'
 import Google from "../../assets/icons/Google";
 import styles from "../../styles/auth";
 import GoogleButton from "./GoogleButton";
+import { AppleButton } from "./AppleButton";
 
 export default function Auth() {
   return (
@@ -77,6 +78,7 @@ export default function Auth() {
               </View>
             </Pressable>
           <GoogleButton/>
+          <AppleButton/>
             <Text style={styles.textSingUp}>Not a member?{" "}
               <Text style={{
                 color:"#fff",

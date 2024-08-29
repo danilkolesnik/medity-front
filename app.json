@@ -12,8 +12,9 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.meditycompany.medity"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.meditycompany.medity",
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +33,8 @@
         {
           "iosUrlScheme": "com.googleusercontent.apps.209560641110-v08h2fak57ll2mvm2lj6bi1njum2o7pe"
         }
-      ]
+      ],
+      "expo-apple-authentication"
     ],
     "extra": {
       "eas": {
