@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground, View, Text, Pressable,TouchableOpacity,Animated} from "react-native";
+import { useRoute,useNavigation  } from '@react-navigation/native';
 import {SERVER} from '../../constants/async'
 import axios from "axios";
 
@@ -26,6 +27,8 @@ const Quiz = () =>{
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState([]);
 
+  const navigation = useNavigation()
+
   const getQuestions = async() =>{
     try {
         const res = await axios.get(`${SERVER}/question`,
@@ -48,7 +51,10 @@ const Quiz = () =>{
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      console.log('Form submitted:', answers);
+        if(answers.length === 3){
+            navigation.push('Home')
+            return
+        }
     }
   };
 
@@ -63,6 +69,7 @@ const Quiz = () =>{
   useEffect(() =>{
     getQuestions()
   },[])
+
 
     return(
         <SafeAreaView
