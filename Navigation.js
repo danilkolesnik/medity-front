@@ -19,9 +19,10 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         >
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
-          <Stack.Screen name="Home" component={Home} />
+
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Quiz" component={Quiz} />
         </Stack.Navigator>
