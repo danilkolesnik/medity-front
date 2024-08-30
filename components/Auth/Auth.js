@@ -11,7 +11,7 @@ import styles from "../../styles/auth";
 import GoogleButton from "./GoogleButton";
 import { AppleButton } from "./AppleButton";
 
-export default function Auth() {
+export default function Auth({navigation}) {
   return (
     <View
       style={{ flex: 1, width: '100%', height: '100%',justifyContent:"center" }}
@@ -53,7 +53,7 @@ export default function Auth() {
                 </Text>
               </View>
             </Pressable>
-            <Pressable>
+            {/* <Pressable>
               <View
                 style={styles.button()}
               >
@@ -64,8 +64,11 @@ export default function Auth() {
                   Continue with Google
                 </Text>
               </View>
-            </Pressable>
-            <Pressable>
+            </Pressable> */}
+            <GoogleButton/>
+            <Pressable
+               onPress={() => navigation.navigate("EmailAuth")}
+            >
               <View
                 style={styles.button(true)}
               >
@@ -77,7 +80,6 @@ export default function Auth() {
                 </Text>
               </View>
             </Pressable>
-          <GoogleButton/>
           <AppleButton/>
             <Text style={styles.textSingUp}>Not a member?{" "}
               <Text style={{

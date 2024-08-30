@@ -17,7 +17,8 @@ import {
     return (
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
+        style={{width:"100%", padding:36, fontFamily:"Urbanist-Medium"}}
         onPress={async () => {
           try {
             await GoogleSignin.hasPlayServices()

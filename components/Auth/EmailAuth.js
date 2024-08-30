@@ -32,16 +32,16 @@ export default function Auth() {
 
   async function signUpWithEmail() {
     setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email: 'example@email.com',
+      options: {
+        emailRedirectTo: 'https://example.com/welcome'
+      }
+    })
+    console.log(data);
+    
     if (error) Alert.alert(error.message);
-    if (!session) Alert.alert('Please check your inbox for email verification!');
+    // if (!session) Alert.alert('Please check your inbox for email verification!');
     setLoading(false);
   }
 
@@ -56,17 +56,6 @@ export default function Auth() {
           placeholder="email@address.com"
           autoCapitalize='none'
           keyboardType="email-address"
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={true}
-          placeholder="Password"
-          autoCapitalize='none'
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
