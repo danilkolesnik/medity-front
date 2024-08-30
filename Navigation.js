@@ -4,6 +4,7 @@ import EmailAuth from "./components/Auth/EmailAuth";
 import Introduction from "./components/Introduction/Introduction";
 import Home from "./components/Home/Home";
 import Notifications from "./components/Notifications/Notifications";
+import OtpVerification from "./components/Auth/OtpVerification";
 import Quiz from "./components/Quiz/Quiz";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -24,6 +25,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="EmailAuth" component={EmailAuth} />
+          <Stack.Screen name="OtpVerification" component={OtpVerification} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Quiz" component={Quiz} />

@@ -30,18 +30,29 @@ export default function Auth() {
     setLoading(false);
   }
 
-  async function signUpWithEmail() {
+  const signUpWithEmail = async () => {
     setLoading(true);
-    const { data, error } = await supabase.auth.signInWithOtp({
-      email: email,
-      options: {
-        emailRedirectTo: ''
+    try {
+      const { data, error } = await supabase.auth.signInWithOtp({
+        email: email,
+        options: {
+          emailRedirectTo: "",
+        },
+      });
+
+      if (error) {
+        Alert.alert("Ошибка", error.message);
+        return;
       }
-    })
-    if (error) Alert.alert(error.message);
-    // if (!session) Alert.alert('Please check your inbox for email verification!');
-    setLoading(false);
-  }
+
+      navigation.navigate("OtpVerification", { email });
+    } catch (err) {
+      Alert.alert("Error", "Something went wrong. Try again.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -52,7 +63,7 @@ export default function Auth() {
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
-          autoCapitalize='none'
+          autoCapitalize="none"
           keyboardType="email-address"
         />
       </View>
@@ -60,7 +71,7 @@ export default function Auth() {
         <TouchableOpacity
           style={styles.button}
           disabled={loading}
-          onPress={signInWithEmail}
+          onPress={signUpWithEmail}
         >
           {loading ? (
             <ActivityIndicator color="#fff" />
