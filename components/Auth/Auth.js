@@ -10,8 +10,10 @@ import Google from "../../assets/icons/Google";
 import styles from "../../styles/auth";
 import GoogleButton from "./GoogleButton";
 import { AppleButton } from "./AppleButton";
+import { supabase } from '../../utils/supabase';
 
 export default function Auth({navigation}) {
+
   return (
     <View
       style={{ flex: 1, width: '100%', height: '100%',justifyContent:"center" }}

@@ -33,7 +33,7 @@ export default function Auth() {
   async function signUpWithEmail() {
     setLoading(true);
     const { data, error } = await supabase.auth.signInWithOtp({
-      email: 'example@email.com',
+      email: email,
       options: {
         emailRedirectTo: 'https://example.com/welcome'
       }
