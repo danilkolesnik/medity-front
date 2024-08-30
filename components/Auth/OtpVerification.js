@@ -7,7 +7,7 @@ const OtpVerification = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
-  const email = 'fdsfsd';
+  const {email} = route.params;
 
   const handleVerifyOtp = async () => {
     setLoading(true);
