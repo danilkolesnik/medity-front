@@ -35,11 +35,9 @@ export default function Auth() {
     const { data, error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
-        emailRedirectTo: 'https://example.com/welcome'
+        emailRedirectTo: ''
       }
     })
-    console.log(data);
-    
     if (error) Alert.alert(error.message);
     // if (!session) Alert.alert('Please check your inbox for email verification!');
     setLoading(false);
