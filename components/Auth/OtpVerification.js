@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { supabase } from "./supabaseClient";
-
+import { View, TextInput, Button, Alert, StyleSheet,ImageBackground } from "react-native";
+import { useRoute,useNavigation } from '@react-navigation/native';
+import { supabase } from '../../utils/supabase';
 const OtpVerification = () => {
   const [otpCode, setOtpCode] = useState("");
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
-  const { email } = route.params;
+  const email = 'fdsfsd';
 
   const handleVerifyOtp = async () => {
     setLoading(true);
@@ -34,7 +33,11 @@ const OtpVerification = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../../assets/images/ostatochni.jpg")}
+      style={styles.background}
+    >
+        <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Your Code"
@@ -48,6 +51,7 @@ const OtpVerification = () => {
         disabled={loading}
       />
     </View>
+    </ImageBackground>
   );
 };
 
@@ -63,6 +67,18 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
+    color:'#fff'
+  },
+  button: {
+    backgroundColor: 'rgba(255, 255, 255, 0.29)',
+    paddingVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  background:{
+    flex: 1, 
+    width: null, 
+    height: "100%"
   },
 });
 

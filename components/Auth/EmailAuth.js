@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator } from 'react-native';
+import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator,ImageBackground } from 'react-native';
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { supabase } from '../../utils/supabase';
-
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
 // `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
@@ -18,6 +18,8 @@ export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigation = useNavigation();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -55,7 +57,12 @@ export default function Auth() {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+        source={require("../../assets/images/ostatochni.jpg")}
+        style={styles.background}
+      >
+        <View style={styles.container}>
+      
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -94,6 +101,8 @@ export default function Auth() {
         </TouchableOpacity>
       </View>
     </View>
+      </ImageBackground>
+    
   );
 }
 
@@ -110,27 +119,36 @@ const styles = StyleSheet.create({
   mt20: {
     marginTop: 20,
   },
+  background:{
+    flex: 1, 
+    width: null, 
+    height: "100%"
+  },
   input: {
     height: 40,
     borderColor: '#ccc',
     borderWidth: 1,
     paddingHorizontal: 8,
     borderRadius: 4,
+    color:'#fff'
   },
   label: {
     marginBottom: 4,
     fontSize: 16,
     fontWeight: 'bold',
+    color:'#fff'
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: 'rgba(255, 255, 255, 0.29)',
     paddingVertical: 10,
     borderRadius: 5,
     alignItems: 'center',
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize:16,
+    color:"#fff",
+    fontWeight: "700",
+    fontFamily: 'Urbanist-Regular'
+
   },
 });

@@ -20,7 +20,7 @@ const AppNavigator = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName="Auth"
+          initialRouteName="OtpVerification"
         >
           <Stack.Screen name="Introduction" component={Introduction} />
           <Stack.Screen name="Auth" component={Auth} />
