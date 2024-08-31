@@ -31,10 +31,7 @@ const Quiz = () =>{
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-        if(answers.length === 3){
-            navigation.push('Home')
-            return
-        }
+        navigation.push('Home')
     }
   };
 
