@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
+import { View, TextInput, Button, Alert, StyleSheet,ImageBackground,ActivityIndicator,TouchableOpacity,Text } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { supabase } from '../../utils/supabase'
 
@@ -9,7 +9,6 @@ const OtpVerification = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { email } = route.params;
-
   const handleVerifyOtp = async () => {
     setLoading(true);
     try {
@@ -34,35 +33,73 @@ const OtpVerification = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../../assets/images/ostatochni.jpg")}
+      style={styles.background}
+    >
+      <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Your Code"
         value={otpCode}
         onChangeText={setOtpCode}
         keyboardType="numeric"
+        placeholderTextColor="rgba(255, 255, 255, 0.50)"
       />
-      <Button
-        title={loading ? "Verifying..." : "Verify"}
-        onPress={handleVerifyOtp}
-        disabled={loading}
-      />
+
+        <TouchableOpacity
+          style={styles.button}
+          disabled={loading}
+          onPress={handleVerifyOtp}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Verify</Text>
+          )}
+        </TouchableOpacity>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    height:"100%",
     justifyContent: "center",
     alignItems: "center",
   },
+  background: {
+    flex: 1,
+    width: null,
+    height: "100%",
+  },
   input: {
-    width: "100%",
-    padding: 10,
-    borderColor: "gray",
+    height: 48,
     borderWidth: 1,
-    marginBottom: 20,
+    fontSize:16,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    color:"rgba(255, 255, 255, 0.50)",
+    placeholderTextColor:"rgba(255, 255, 255, 0.50)",
+    width:'100%',
+    marginBottom:20
+  },
+
+  button: {
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    paddingVertical: 19,
+    borderRadius: 12,
+    alignItems: 'center',
+    width:'100%'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    
   },
 });
 
