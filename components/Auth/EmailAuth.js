@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator } from 'react-native';
+import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator,ImageBackground } from 'react-native';
 import { supabase } from '../../utils/supabase';
 
 // Tells Supabase Auth to continuously refresh the session automatically if
@@ -55,7 +55,11 @@ export default function Auth() {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../../assets/images/ostatochni.jpg")}
+      style={styles.background}
+    >
+       <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -65,6 +69,7 @@ export default function Auth() {
           placeholder="email@address.com"
           autoCapitalize="none"
           keyboardType="email-address"
+          placeholderTextColor="rgba(255, 255, 255, 0.50)"
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -94,6 +99,8 @@ export default function Auth() {
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
+   
   );
 }
 
@@ -111,26 +118,38 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
+    height: 48,
     borderWidth: 1,
-    paddingHorizontal: 8,
-    borderRadius: 4,
+    fontSize:16,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    color:"rgba(255, 255, 255, 0.50)",
+    placeholderTextColor:"rgba(255, 255, 255, 0.50)"
   },
   label: {
-    marginBottom: 4,
-    fontSize: 16,
+    marginBottom: 12,
+    fontSize: 24,
     fontWeight: 'bold',
+    color:'#fff',
+
+  },
+  background: {
+    flex: 1,
+    width: null,
+    height: "100%",
   },
   button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    borderRadius: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    paddingVertical: 19,
+    borderRadius: 12,
     alignItems: 'center',
+
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    
   },
 });
