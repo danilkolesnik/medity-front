@@ -23,7 +23,7 @@ const OtpVerification = () => {
         return;
       }
       
-      navigation.navigate("Home");
+      navigation.navigate("Quiz");
     } catch (err) {
       Alert.alert("Error", "Something went wrong. Try again.");
       console.error(err);
