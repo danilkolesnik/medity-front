@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   contentCard: {
     display: "flex",
     flexDirection: "row",
-    gap: 8,
+    justifyContent:'space-between'
   },
   cardConteiner: {
     backgroundColor: "rgba(255, 255, 255, 0.15)",

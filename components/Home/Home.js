@@ -24,7 +24,7 @@ const Home = ({navigation}) =>{
         {id:3,title:'Meditation for deep sleep',options:['15 min','Evening','Relax']}
     ]
 
-    const [currentStep, setCurrentStep] = useState(0);
+    const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");
 
@@ -73,15 +73,19 @@ const Home = ({navigation}) =>{
             </View>
 
             <FlatList
-              data={data}
-              renderItem={({ item }) => (
-                <Pressable>
-                    <Card title={item.title} options={item.options} />
-                </Pressable>
-              )}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={styles.list}
-            />
+        data={data}
+        renderItem={({ item, index }) => (
+          <Pressable
+            onPress={() =>{
+              setCurrentStep(index)
+            }}
+          >
+            <Card title={item.title} options={item.options} active={currentStep} index={index} />
+          </Pressable>
+        )}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+      />
             <View style={styles.buttonMore}>
               <Text style={styles.textMore}>Your progress</Text>
               <Pressable>
