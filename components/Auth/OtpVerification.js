@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { supabase } from "./supabaseClient";
+import { supabase } from '../../utils/supabase'
 
 const OtpVerification = () => {
   const [otpCode, setOtpCode] = useState("");
