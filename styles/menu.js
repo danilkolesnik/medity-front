@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
         paddingTop:10,
         paddingLeft:22,
         paddingRight:22,
-        width:"100%"
+        width:"100%",
+        zIndex: 1,
     },
     button:{
         flex:1,

@@ -7,11 +7,13 @@ import {
   Pressable,
   ScrollView,
   FlatList,
+  StatusBar
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressBar, MD3Colors } from 'react-native-paper';
 import Card from "./Card";
 import Menu from '../Menu/menu'
+import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
 import Play from "../../assets/icons/Play";
 
@@ -168,7 +170,7 @@ const Home = ({navigation}) =>{
             </View>
           </ScrollView>
         </ImageBackground>
-
+        <Burger/>
         <Menu />
       </SafeAreaView>
     );
