@@ -3,6 +3,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ImageBackground, View, Text, Pressable,TouchableOpacity,Animated} from "react-native";
 import { useRoute,useNavigation  } from '@react-navigation/native';
 
+import {SERVER} from '../../constants/async'
+import axios from "axios";
+
 import styles from "../../styles/quiz";
 
 const questions = [
@@ -43,6 +46,28 @@ const Quiz = () =>{
 
   const currentQuestion = questions[currentStep];
 
+
+  const getQuestions = async() =>{
+    try {
+        const {data} = await axios.get(`http://10.0.2.2:3000/api/meditation`,
+        { 
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        })
+        console.log(data.docs);
+        
+        return res
+    } catch (error) {
+        console.log(error);      
+    }
+  }
+
+  useEffect(() =>{
+    getQuestions()
+    
+  },[]) 
 
     return(
         <SafeAreaView

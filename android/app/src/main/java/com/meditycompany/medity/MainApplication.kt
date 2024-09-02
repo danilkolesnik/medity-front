@@ -3,6 +3,8 @@ package com.meditycompany.medity
 import android.app.Application
 import android.content.res.Configuration
 
+import com.dylanvann.fastimage.RNTrackPlayerPackage
+
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost

@@ -16,7 +16,8 @@ import Menu from '../Menu/menu'
 import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
 import Play from "../../assets/icons/Play";
-
+import { SERVER } from "../../constants/async";
+import axios from "axios";
 import styles from "../../styles/home";
 const Home = ({navigation}) =>{
 
@@ -26,9 +27,31 @@ const Home = ({navigation}) =>{
         {id:3,title:'Meditation for deep sleep',options:['15 min','Evening','Relax']}
     ]
 
+    const [meditations,setMeditations] = useState([])
+
     const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");
+
+    const getQuestions = async() =>{
+      try {
+          const {data} = await axios.get(`${SERVER}/meditation`,
+          { 
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*',
+              },
+          })
+          return data.docs
+      } catch (error) {
+          console.log(error);      
+      }
+    }
+
+    useEffect(() =>{
+      getQuestions()
+        .then(res => setMeditations(res))
+    },[])
 
     return (
       <SafeAreaView style={styles.conteiner}>
@@ -75,14 +98,14 @@ const Home = ({navigation}) =>{
             </View>
 
             <FlatList
-        data={data}
+        data={meditations}
         renderItem={({ item, index }) => (
           <Pressable
             onPress={() =>{
               setCurrentStep(index)
             }}
           >
-            <Card title={item.title} options={item.options} active={currentStep} index={index} />
+            <Card title={item.title} options={item.categoryId.title} duration={item.duration} audio={item.media} active={currentStep} index={index} />
           </Pressable>
         )}
         keyExtractor={(item) => item.id}
