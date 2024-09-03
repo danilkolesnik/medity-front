@@ -35,14 +35,14 @@ const Home = ({navigation}) =>{
 
     const getQuestions = async() =>{
       try {
-          const {data} = await axios.get(`${SERVER}/meditation`,
+          const {data} = await axios.get(`${SERVER}/api/meditation`,
           { 
               headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
               },
           })
-          return data.docs
+          return data.docs.slice(0,3)
       } catch (error) {
           console.log(error);      
       }
@@ -105,7 +105,7 @@ const Home = ({navigation}) =>{
               setCurrentStep(index)
             }}
           >
-            <Card title={item.title} options={item.categoryId.title} duration={item.duration} audio={item.media} active={currentStep} index={index} />
+            <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} />
           </Pressable>
         )}
         keyExtractor={(item) => item.id}

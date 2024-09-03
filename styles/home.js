@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 16,
     color: "#FFF",
+    fontWeight:'400',
     fontFamily: "Urbanist-Regular",
   },
   itemCard: {

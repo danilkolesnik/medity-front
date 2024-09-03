@@ -6,6 +6,8 @@ import Home from "./components/Home/Home";
 import Notifications from "./components/Notifications/Notifications";
 import OtpVerification from "./components/Auth/OtpVerification";
 import Quiz from "./components/Quiz/Quiz";
+import Sleep from "./components/Sleep/Sleep";
+import Relax from "./components/Relax/Relax";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -21,9 +23,11 @@ const AppNavigator = () => {
             headerShown: false,
           }}  
         >
+          <Stack.Screen name="Relax" component={Relax} />   
+          <Stack.Screen name="Sleep" component={Sleep} />    
           <Stack.Screen name="Home" component={Home} /> 
           <Stack.Screen name="Quiz" component={Quiz} />         
-          <Stack.Screen name="Introduction" component={Introduction} />      
+          <Stack.Screen name="Introduction" component={Introduction} />           
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="EmailAuth" component={EmailAuth} />
           <Stack.Screen name="OtpVerification" component={OtpVerification} />

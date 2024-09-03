@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { AppNavigator } from "./Navigation";
 import { PaperProvider } from 'react-native-paper';
 
-// import TrackPlayer from 'react-native-track-player';
+import TrackPlayer from 'react-native-track-player';
 
 // SplashScreen.preventAutoHideAsync()
 // TrackPlayer.registerPlaybackService(() => playbackService)

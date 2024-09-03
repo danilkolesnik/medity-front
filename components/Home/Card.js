@@ -1,15 +1,19 @@
 import TrackPlayer, { State } from 'react-native-track-player';
-import { useState, useEffect } from "react";
-import { ImageBackground, View, Text, Pressable,ScrollView,FlatList } from "react-native";
+import { useState } from "react";
+import { ImageBackground, View, Text, Pressable } from "react-native";
+import { useRoute,useNavigation  } from '@react-navigation/native';
 // import SoundPlayer from 'react-native-sound-player'
-// import { Audio } from 'expo-av';
-
+import calculateDurationInMinutes from "../../utils/calculateDurationInMinutes";
 import Play from "../../assets/icons/Play";
 import styles from "../../styles/card";
 
 const Card = ({title,options,active,index,duration,audio}) =>{
 
+    const navigation = useNavigation();
+
     const [activePlay, setActivePlay] = useState(false)
+
+    const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
 
     // const PlayAudio = async() =>{
     //     try {
@@ -42,8 +46,15 @@ const Card = ({title,options,active,index,duration,audio}) =>{
                 {/* {options.map((item,i) => (
                     <Text key={i} style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{item}</Text>
                 ))} */}
-                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{duration} min</Text>
-                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{options}</Text>     
+                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{totalMin} min</Text>
+                    <Pressable
+                        onPress={() => navigation.navigate(options.charAt(0).toUpperCase() + options.slice(1))}
+                    >
+                        <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>
+                            {options}
+                        </Text>  
+                    </Pressable>
+                       
                 </View>
                
                 <Pressable 
