@@ -11,6 +11,7 @@ import {
 import SearchIcon from "../../assets/icons/Search";
 import Menu from '../Menu/menu'
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from '@react-navigation/native';
 import Card from "./Card";
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
@@ -23,6 +24,8 @@ const Sleep = () =>{
     const [sleep, setSleep] = useState([])
 
     const [searchText, setSearchText] = useState("");
+
+    const navigation = useNavigation();
 
     const getSleep = async() =>{
         try {
