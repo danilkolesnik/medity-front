@@ -23,9 +23,9 @@ const AppNavigator = () => {
             headerShown: false,
           }}  
         >
-          <Stack.Screen name="Relax" component={Relax} />   
-          <Stack.Screen name="Sleep" component={Sleep} />    
           <Stack.Screen name="Home" component={Home} /> 
+          <Stack.Screen name="Relax" component={Relax} />   
+          <Stack.Screen name="Sleep" component={Sleep} />       
           <Stack.Screen name="Quiz" component={Quiz} />         
           <Stack.Screen name="Introduction" component={Introduction} />           
           <Stack.Screen name="Auth" component={Auth} />

@@ -17,21 +17,18 @@ import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
 import Play from "../../assets/icons/Play";
 import { SERVER } from "../../constants/async";
+import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 import axios from "axios";
 import styles from "../../styles/home";
 const Home = ({navigation}) =>{
-
-    const data = [
-        {id:1,title:'Meditation for deep sleep',options:['15 min','Evening','Relax']},
-        {id:2,title:'Meditation for deep sleep',options:['15 min','Evening','Relax']},
-        {id:3,title:'Meditation for deep sleep',options:['15 min','Evening','Relax']}
-    ]
 
     const [meditations,setMeditations] = useState([])
 
     const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");
+
+    const [playList, setPlayList] = useState([])
 
     const getQuestions = async() =>{
       try {
@@ -50,7 +47,13 @@ const Home = ({navigation}) =>{
 
     useEffect(() =>{
       getQuestions()
-        .then(res => setMeditations(res))
+        .then(res => {
+          setMeditations(res)
+          // res.map(item => {
+          //   QueueInitialTracksService(item.media); 
+          // })
+          
+        })
     },[])
 
     return (
