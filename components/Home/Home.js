@@ -98,14 +98,14 @@ const Home = ({navigation}) =>{
             </View>
 
             <FlatList
-        data={meditations}
+        data={data}
         renderItem={({ item, index }) => (
           <Pressable
             onPress={() =>{
               setCurrentStep(index)
             }}
           >
-            <Card title={item.title} options={item.categoryId.title} duration={item.duration} audio={item.media} active={currentStep} index={index} />
+           <Card title={item.title} options={item.options} active={currentStep} index={index} />
           </Pressable>
         )}
         keyExtractor={(item) => item.id}

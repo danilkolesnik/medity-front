@@ -14,7 +14,7 @@ AppState.addEventListener('change', (state) => {
   }
 });
 
-export default function Auth() {
+export default function Auth({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ export default function Auth() {
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.buttonText}>Sign in</Text>
+            <Text style={styles.buttonText}>Login</Text>
           )}
         </TouchableOpacity>
       </View>

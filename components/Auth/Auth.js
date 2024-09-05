@@ -6,6 +6,7 @@ import {
   ImageBackground
 } from "react-native";
 import Apple from '../../assets/icons/Apple'
+import Email from '../../assets/icons/Email'
 import Google from "../../assets/icons/Google";
 import styles from "../../styles/auth";
 import GoogleButton from "./GoogleButton";
@@ -74,7 +75,7 @@ export default function Auth({navigation}) {
               <View
                 style={styles.button(true)}
               >
-                <Apple/>
+                <Email/>
                 <Text
                   style={styles.buttonText(true)}
                 >
