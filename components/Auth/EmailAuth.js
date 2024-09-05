@@ -85,7 +85,7 @@ export default function Auth({navigation}) {
           )}
         </TouchableOpacity>
       </View>
-      <View style={styles.verticallySpaced}>
+      {/* <View style={styles.verticallySpaced}>
         <TouchableOpacity
           style={styles.button}
           disabled={loading}
@@ -97,7 +97,7 @@ export default function Auth({navigation}) {
             <Text style={styles.buttonText}>Sign up</Text>
           )}
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
     </ImageBackground>
    

@@ -17,8 +17,8 @@ import {
     return (
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Light}
-        style={{width:"100%", padding:36, fontFamily:"Urbanist-Medium"}}
+        color={GoogleSigninButton.Color.White}
+        style={{width:"100%", fontFamily:"Urbanist-Medium", height: 64, borderRadius: 15}}
         onPress={async () => {
           try {
             await GoogleSignin.hasPlayServices()
@@ -33,9 +33,6 @@ import {
               throw new Error('no ID token present!')
             }
           } catch (error) {
-            console.log('====================================');
-            console.log(error);
-            console.log('====================================');
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
               // user cancelled the login flow
             } else if (error.code === statusCodes.IN_PROGRESS) {

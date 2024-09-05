@@ -14,7 +14,8 @@
     "ios": {
       "supportsTablet": false,
       "usesAppleSignIn": true,
-      "bundleIdentifier": "com.meditycompany.medity"
+      "bundleIdentifier": "com.meditycompany.medity",
+        "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
