@@ -15,7 +15,7 @@
       "supportsTablet": false,
       "usesAppleSignIn": true,
       "bundleIdentifier": "com.meditycompany.medity",
-        "buildNumber": "1"
+        "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
