@@ -98,7 +98,7 @@ const Home = ({navigation}) =>{
             </View>
 
             <FlatList
-        data={meditations}
+        data={data}
         renderItem={({ item, index }) => (
           <Pressable
             onPress={() =>{
