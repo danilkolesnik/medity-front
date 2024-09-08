@@ -16,36 +16,49 @@ import Card from "./Card";
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
 import { SERVER } from "../../constants/async";
+import Loader from "../Loader/Loader";
 import axios from "axios";
 import styles from "../../styles/sleep";
 
 const Sleep = () =>{
 
-    const [sleep, setSleep] = useState([])
+    const[loading, setLoading] = useState(false)
 
+    const [sleep, setSleep] = useState([]);
+    const [originalSleep, setOriginalSleep] = useState([]);
     const [searchText, setSearchText] = useState("");
-
+  
     const navigation = useNavigation();
-
-    const getSleep = async() =>{
-        try {
-            const {data} = await axios.get(`${SERVER}/api/meditation`,
-            { 
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
-            })
-            return data.docs.filter(item => item.mainCategory === 'sleep')
-        } catch (error) {
-            console.log(error);      
-        }
-    }
-
-    useEffect(() =>{
-        getSleep()
-            .then(res => setSleep(res))
-    },[])
+  
+    const getSleep = async () => {
+      setLoading(true)
+      try {
+        const { data } = await axios.get(`${SERVER}/api/meditation`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+        setSleep(data.docs.filter(item => item.mainCategory === 'sleep'));
+        setOriginalSleep(data.docs.filter(item => item.mainCategory === 'sleep'));
+      } catch (error) {
+        console.log(error);
+      }finally {
+        setLoading(false);
+      }
+    };
+  
+    const searchItem = (text) => {
+      setSearchText(text);
+      const filtered = originalSleep.filter(item =>
+        item.title.toLowerCase().includes(text.toLowerCase())
+      );
+      setSleep(filtered);
+    };
+  
+    useEffect(() => {
+      getSleep();
+    }, []);
 
     return(
         <SafeAreaView style={styles.conteiner}>
@@ -53,44 +66,51 @@ const Sleep = () =>{
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
             >
-            <ScrollView style={styles.content}>
-                <SafeAreaView style={styles.topContent}>
-                    <Pressable onPress={() => navigation.navigate("Home")}>
-                        <Back></Back>
-                    </Pressable>
-                    <Pressable>
-                        <Setting></Setting>
-                    </Pressable>
-                </SafeAreaView>
-                <View>
-                    <Text style={styles.title}>Sleep</Text>
-                    <Text style={[styles.text, {paddingTop: 4, paddingBottom: 12}]}>{sleep.length} practices</Text>
-                    <Text style={[styles.text, {paddingBottom:45}]}>Meditations for calm sleep</Text>
-                </View>
-                
-                <View style={styles.inputContainer}>
-                    <SearchIcon/>
-                    <TextInput
-                        style={styles.input}
-                        value={searchText}
-                        onChangeText={setSearchText}
-                        placeholder="Search"
-                        placeholderTextColor="#949494"
-                    />
-                </View>
-
-                <FlatList
-                    data={sleep}
-                    renderItem={({ item, index }) => (
-                        <Pressable>
-                            <Card item={item} style={styles.backgroundCard} />
-                        </Pressable>
-                    )}
-                    keyExtractor={(item) => item.id}
-                    contentContainerStyle={styles.list}
-                />
-
-            </ScrollView>
+            {!loading ? 
+                   <ScrollView style={styles.content}>
+                   <SafeAreaView style={styles.topContent}>
+                       <Pressable onPress={() => navigation.navigate("Home")}>
+                           <Back></Back>
+                       </Pressable>
+                       <Pressable>
+                           <Setting></Setting>
+                       </Pressable>
+                   </SafeAreaView>
+                  
+                           <View>
+                       <Text style={styles.title}>Sleep</Text>
+                       <Text style={[styles.text, {paddingTop: 4, paddingBottom: 12}]}>{sleep.length} practices</Text>
+                       <Text style={[styles.text, {paddingBottom:45}]}>Meditations for calm sleep</Text>
+                   </View>
+                   
+                   <View style={styles.inputContainer}>
+                       <SearchIcon/>
+                       <TextInput
+                           style={styles.input}
+                           value={searchText}
+                           onChangeText={searchItem}
+                           placeholder="Search"
+                           placeholderTextColor="#949494"
+                       />
+                   </View>
+   
+                   <FlatList
+                       data={sleep}
+                       renderItem={({ item, index }) => (
+                           <Pressable>
+                               <Card item={item} style={styles.backgroundCard} />
+                           </Pressable>
+                       )}
+                       keyExtractor={(item) => item.id}
+                       contentContainerStyle={styles.list}
+                   />
+   
+                   
+               <View style={styles.bottomPadding} />
+               </ScrollView>
+            :
+                <Loader></Loader>
+            }
             <Menu></Menu>
             </ImageBackground>
             

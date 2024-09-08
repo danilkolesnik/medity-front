@@ -1,51 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import TrackPlayer,{Track,useActiveTrack } from 'react-native-track-player';
+import TrackPlayer,{State,usePlaybackState} from 'react-native-track-player';
 import { View, Text, Pressable } from "react-native";
 import { useNavigation  } from '@react-navigation/native';
 import calculateDurationInMinutes from "../../utils/calculateDurationInMinutes";
 import { SERVER } from "../../constants/async";
 import Play from "../../assets/icons/Play";
+import Pause from '../../assets/icons/Pause';
 import styles from "../../styles/card";
 
 
-const Card = ({title,options,active,index,duration,audio}) =>{
+const Card = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
 
-    const [isPlay, setIsPlay] = useState(true)
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
 
-    const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
+  const playBackState = usePlaybackState();
 
-    const playAudio = async () => {
-        setIsPlay(prevState => !prevState)
-        try {
-          
-          const track = {
-            url: `${SERVER}${audio.url}`,
-            title: title,
-            artist: 'deadmau5',
-            album: 'while(1<2)',
-            genre: 'Progressive House, Electro House',
-            date: '2014-05-20T07:00:00+00:00',
-            artwork: 'http://example.com/cover.png',
-            duration: 200,
-          };
 
-          await TrackPlayer.reset()
-          await TrackPlayer.add([track]);
+  const playAudio = async () => {
+  try {
+    const currentTrack = await TrackPlayer.getActiveTrack();
 
-          if(isPlay){
-            await TrackPlayer.play();
-            console.log('Sound play');
-            return
-          }
-          await TrackPlayer.pause();
-          console.log('Sound paused');
-         
-        } catch (error) {
-          console.log(error);
-        }
+    if (currentTrack?.url !== `${SERVER}${audio.url}`) {
+      
+      await TrackPlayer.reset();
+      const track1 = {
+        url: `${SERVER}${audio.url}`,
+        title: title,
+        artist: 'deadmau5',
+        album: 'while(1<2)',
+        genre: 'Progressive House, Electro House',
+        date: '2014-05-20T07:00:00+00:00',
+        artwork: 'http://example.com/cover.png',
+        duration: 200,
       };
+      await TrackPlayer.add([track1]);
+      await TrackPlayer.play();         
+    } else {
+      if (playBackState.state === State.Playing) {  
+        await TrackPlayer.pause();   
+        setCurrentStep(null)     
+      } else {
+        await TrackPlayer.play();             
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
     return(
         <View style={[styles.cardConteiner, {backgroundColor: active === index ? "#FFFFFF" : 'rgba(255, 255, 255, 0.15)'}]}>
@@ -59,14 +62,18 @@ const Card = ({title,options,active,index,duration,audio}) =>{
                             {options}
                         </Text>  
                     </Pressable>
-                       
+
                 </View>
-               
+         
                 <Pressable 
                     style={styles.icon}
-                    onPress={() => playAudio()}
+                    onPress={() => {
+                      playAudio()
+                      setCurrentStep(index)
+                    }}
                 >
-                    <Play active={active === index}></Play>
+                    {active === index ? <Pause/> : <Play/>}
+                    
                 </Pressable>       
                
         </View>

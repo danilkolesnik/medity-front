@@ -4,6 +4,8 @@
   import { PaperProvider } from 'react-native-paper';
   import TrackPlayer, { Capability,AppKilledPlaybackBehavior,RepeatMode} from 'react-native-track-player';
 
+  import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
   export default function App() {
     const [fontsLoaded] = useFonts({
       "Urbanist-Bold": require("./assets/fonts/Urbanist-Bold.ttf"),
@@ -40,10 +42,7 @@
               Capability.Play,
               Capability.Pause,
               Capability.SkipToNext,
-              Capability.SkipToPrevious,
-              Capability.Stop,
-              Capability.PlayFromId,
-              Capability.PlayFromSearch
+              Capability.SkipToPrevious
             ],
           });
 
@@ -70,8 +69,11 @@
     }
 
     return (
-      <PaperProvider>
-        <AppNavigator />
-      </PaperProvider>
+      <GestureHandlerRootView >
+        <PaperProvider>
+          <AppNavigator />
+        </PaperProvider>
+      </GestureHandlerRootView>
+    
     );
   }

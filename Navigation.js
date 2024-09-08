@@ -8,6 +8,7 @@ import OtpVerification from "./components/Auth/OtpVerification";
 import Quiz from "./components/Quiz/Quiz";
 import Sleep from "./components/Sleep/Sleep";
 import Relax from "./components/Relax/Relax";
+import Player from "./components/Player/Player";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -23,8 +24,10 @@ const AppNavigator = () => {
             headerShown: false,
           }}  
         >
-          <Stack.Screen name="Home" component={Home} /> 
           <Stack.Screen name="Relax" component={Relax} />   
+          <Stack.Screen name="Player" component={Player} /> 
+          <Stack.Screen name="Home" component={Home} /> 
+      
           <Stack.Screen name="Sleep" component={Sleep} />       
           <Stack.Screen name="Quiz" component={Quiz} />         
           <Stack.Screen name="Introduction" component={Introduction} />           

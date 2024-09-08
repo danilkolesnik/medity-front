@@ -7,30 +7,35 @@ import {
   Pressable,
   ScrollView,
   FlatList,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ProgressBar, MD3Colors } from 'react-native-paper';
+import { ProgressBar} from 'react-native-paper';
+import CardSleep from "../Sleep/Card";
 import Card from "./Card";
 import Menu from '../Menu/menu'
 import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
 import Play from "../../assets/icons/Play";
+import Loader from "../Loader/Loader";
 import { SERVER } from "../../constants/async";
-import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 import axios from "axios";
 import styles from "../../styles/home";
+import stylesList from "../../styles/sleep";
 const Home = ({navigation}) =>{
 
+    const[loading, setLoading] = useState(false)
+
     const [meditations,setMeditations] = useState([])
+    const [originalSleep, setOriginalSleep] = useState([]);
 
     const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");
 
-    const [playList, setPlayList] = useState([])
-
     const getQuestions = async() =>{
+      setLoading(true);
       try {
           const {data} = await axios.get(`${SERVER}/api/meditation`,
           { 
@@ -39,21 +44,27 @@ const Home = ({navigation}) =>{
                   'Access-Control-Allow-Origin': '*',
               },
           })
-          return data.docs.slice(0,3)
+          setMeditations(data.docs);
+          setOriginalSleep(data.docs);
+
+          return data.docs
       } catch (error) {
           console.log(error);      
+      }finally {
+        setLoading(false);
       }
     }
 
+    const searchItem = (text) => {
+      setSearchText(text)
+      const filtered = originalSleep.filter(item =>
+        item.title.toLowerCase().includes(text.toLowerCase())
+      );
+      setMeditations(filtered);
+    };
+
     useEffect(() =>{
-      getQuestions()
-        .then(res => {
-          setMeditations(res)
-          // res.map(item => {
-          //   QueueInitialTracksService(item.media); 
-          // })
-          
-        })
+      getQuestions()    
     },[])
 
     return (
@@ -62,141 +73,164 @@ const Home = ({navigation}) =>{
           source={require("../../assets/images/ostatochni.jpg")}
           style={styles.background}
         >
-          <ScrollView contentContainerStyle={styles.content}>
-            <Text style={styles.title}>Welcome!</Text>
-
-            <View style={styles.inputContainer}>
-              <SearchIcon />
-              <TextInput
-                style={styles.input}
-                value={searchText}
-                onChangeText={setSearchText}
-                placeholder="Search"
-                placeholderTextColor="#949494"
-              />
-            </View>
-
-            <View style={styles.contentCard}>
-              <View style={styles.cardConteiner}>
-                <Text style={styles.cardTitle}>Get Back to Sleep</Text>
-                <View style={styles.contentBotton}>
-                  <Text style={styles.contentBottonText}>10 min</Text>
-                  <Play></Play>
+           {!loading ? 
+            <>
+            <ScrollView contentContainerStyle={styles.content}>
+              <Text style={styles.title}>Welcome!</Text>
+  
+              <View style={styles.inputContainer}>
+                <SearchIcon />
+                <TextInput
+                    style={styles.input}
+                    value={searchText}
+                    onChangeText={searchItem}
+                    placeholder="Search"
+                    placeholderTextColor="#949494"
+                />
+              </View>
+            {!searchText ? 
+              (
+                <>
+                <View style={styles.contentCard}>
+                <View style={styles.cardConteiner}>
+                  <Text style={styles.cardTitle}>Get Back to Sleep</Text>
+                  <View style={styles.contentBotton}>
+                    <Text style={styles.contentBottonText}>10 min</Text>
+                    <Play></Play>
+                  </View>
+                </View>
+                <View style={styles.cardConteiner}>
+                  <Text style={styles.cardTitle}>Get Back to Sleep</Text>
+                  <View style={styles.contentBotton}>
+                    <Text style={styles.contentBottonText}>10 min</Text>
+                    <Play></Play>
+                  </View>
                 </View>
               </View>
-              <View style={styles.cardConteiner}>
-                <Text style={styles.cardTitle}>Get Back to Sleep</Text>
-                <View style={styles.contentBotton}>
-                  <Text style={styles.contentBottonText}>10 min</Text>
-                  <Play></Play>
-                </View>
+  
+              <View style={styles.buttonMore}>
+                <Text style={styles.textMore}>New meditations</Text>
+                <Pressable>
+                  <Text style={styles.textButtonMore}>See all</Text>
+                </Pressable>
               </View>
-            </View>
-
-            <View style={styles.buttonMore}>
-              <Text style={styles.textMore}>New meditations</Text>
-              <Pressable>
-                <Text style={styles.textButtonMore}>See all</Text>
-              </Pressable>
-            </View>
-
-            <FlatList
-        data={meditations}
-        renderItem={({ item, index }) => (
-          <Pressable
-            onPress={() =>{
-              setCurrentStep(index)
-            }}
-          >
-            <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} />
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-      />
-            <View style={styles.buttonMore}>
-              <Text style={styles.textMore}>Your progress</Text>
-              <Pressable>
-                <Text style={styles.textButtonMore}>View full</Text>
-              </Pressable>
-            </View>
-
-            <Text style={styles.progressStatusTittle}>Weekly progress</Text>
-            <Text style={styles.progressStatusText}>
-              On average, you practiced mindfulness{"\n"}{" "}
-              <Text style={{ fontWeight: "700" }}>4%</Text> more this week
-              compared to last.
-            </Text>
-
-            <View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingBottom: 12,
-                }}
-              >
-                <Text style={styles.progressTitle}>9</Text>
+  
+              <FlatList
+          data={meditations.slice(0,3)}
+          renderItem={({ item, index }) => (       
+              <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
+          )}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.list}
+        />
+  
+              <View style={styles.buttonMore}>
+                <Text style={styles.textMore}>Your progress</Text>
+                <Pressable>
+                  <Text style={styles.textButtonMore}>View full</Text>
+                </Pressable>
+              </View>
+  
+              <Text style={styles.progressStatusTittle}>Weekly progress</Text>
+              <Text style={styles.progressStatusText}>
+                On average, you practiced mindfulness{"\n"}{" "}
+                <Text style={{ fontWeight: "700" }}>4%</Text> more this week
+                compared to last.
+              </Text>
+  
+              <View>
                 <View
                   style={{
-                    paddingLeft: 6,
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingBottom: 12,
                   }}
                 >
-                  <Text style={styles.progressText}>min/day</Text>
-                  <Text style={[styles.progressText, { fontSize: 10 }]}>
-                    This week
-                  </Text>
+                  <Text style={styles.progressTitle}>9</Text>
+                  <View
+                    style={{
+                      paddingLeft: 6,
+                    }}
+                  >
+                    <Text style={styles.progressText}>min/day</Text>
+                    <Text style={[styles.progressText, { fontSize: 10 }]}>
+                      This week
+                    </Text>
+                  </View>
                 </View>
+                <ProgressBar
+                  progress={0.9}
+                  color="#BBBBBB"
+                  style={{
+                    backgroundColor: "#565656",
+                    height: 8,
+                    borderRadius: 4,
+                  }}
+                />
               </View>
-              <ProgressBar
-                progress={0.9}
-                color="#BBBBBB"
-                style={{
-                  backgroundColor: "#565656",
-                  height: 8,
-                  borderRadius: 4,
-                }}
-              />
-            </View>
-            <View
-              style={{
-                paddingTop: 27,
-              }}
-            >
+  
               <View
                 style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingBottom: 12,
+                  paddingTop: 27,
                 }}
               >
-                <Text style={styles.progressTitle}>7</Text>
                 <View
                   style={{
-                    paddingLeft: 6,
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingBottom: 12,
                   }}
                 >
-                  <Text style={styles.progressText}>min/day</Text>
-                  <Text style={[styles.progressText, { fontSize: 10 }]}>
-                    This week
-                  </Text>
+                  <Text style={styles.progressTitle}>7</Text>
+                  <View
+                    style={{
+                      paddingLeft: 6,
+                    }}
+                  >
+                    <Text style={styles.progressText}>min/day</Text>
+                    <Text style={[styles.progressText, { fontSize: 10 }]}>
+                      This week
+                    </Text>
+                  </View>
                 </View>
+                <ProgressBar
+                  progress={0.9}
+                  color="#BBBBBB"
+                  style={{
+                    backgroundColor: "#565656",
+                    height: 8,
+                    borderRadius: 4,
+                  }}
+                />
               </View>
-              <ProgressBar
-                progress={0.9}
-                color="#BBBBBB"
-                style={{
-                  backgroundColor: "#565656",
-                  height: 8,
-                  borderRadius: 4,
-                }}
-              />
-            </View>
-          </ScrollView>
+                </>
+              )
+            :
+              <>
+                <FlatList
+                      data={meditations}
+                      renderItem={({ item, index }) => (
+                          <Pressable>
+                              <CardSleep item={item} style={stylesList.backgroundCard} />
+                          </Pressable>
+                      )}
+                      keyExtractor={(item) => item.id}
+                      contentContainerStyle={stylesList.list}
+                  />
+              </>
+            }
+            
+  
+            </ScrollView>
+            <Burger/>
+            </>       
+            :
+              <Loader></Loader>
+            }
+          
         </ImageBackground>
-        <Burger/>
         <Menu />
       </SafeAreaView>
     );
