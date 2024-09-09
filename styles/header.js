@@ -13,13 +13,12 @@ const styles = StyleSheet.create({
         paddingTop:12,
         color:'#fff',
         fontSize: 18,
-        fontWeight:"700",
+        fontWeight:"600",
         fontFamily:"Urbanist-Bold",
     },
     icon:{
         position:'absolute',
         left:0
-        
     }
 })
 export default styles

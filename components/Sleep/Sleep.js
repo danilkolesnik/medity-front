@@ -18,6 +18,8 @@ import Setting from "../../assets/icons/Setting";
 import { SERVER } from "../../constants/async";
 import Loader from "../Loader/Loader";
 import axios from "axios";
+
+import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 import styles from "../../styles/sleep";
 
 const Sleep = () =>{
@@ -41,6 +43,8 @@ const Sleep = () =>{
         });
         setSleep(data.docs.filter(item => item.mainCategory === 'sleep'));
         setOriginalSleep(data.docs.filter(item => item.mainCategory === 'sleep'));
+
+        return data.docs
       } catch (error) {
         console.log(error);
       }finally {
@@ -57,7 +61,12 @@ const Sleep = () =>{
     };
   
     useEffect(() => {
-      getSleep();
+      getSleep()
+        .then(res => {
+          res.map(track =>{
+            QueueInitialTracksService(track.title,track.media);      
+          })
+        })
     }, []);
 
     return(

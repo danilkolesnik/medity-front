@@ -18,7 +18,7 @@ import styles from "../../styles/player";
 const Player = () => {
     const [loading, setLoading] = useState(true);
     const route = useRoute();
-    const { title, category } = route.params;
+    const { title, category,currentRoute } = route.params;
 
     const [currentTrackTitle, setCurrentTrackTitle] = useState(title);
     const navigation = useNavigation();
@@ -61,7 +61,7 @@ const Player = () => {
                 blurRadius={2}
             >
                 <SafeAreaView style={styles.topContent}>
-                    <Pressable onPress={() => navigation.navigate("Home")}>
+                    <Pressable onPress={() => navigation.navigate(currentRoute)}>
                         <Back></Back>
                     </Pressable>
                     <Pressable>

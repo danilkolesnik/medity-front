@@ -68,8 +68,6 @@ const Relax = () =>{
     getSleep()
       .then(res => {
         res.map(track =>{
-          console.log(track.media);
-          
           QueueInitialTracksService(track.title,track.media);      
         })
       })
