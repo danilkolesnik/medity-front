@@ -31,7 +31,7 @@ const Card = ({item,style}) =>{
             <ImageBackground
                 style={style}
                 source={{uri:`${SERVER}${image.url}`}}
-                resizeMode="cover"
+              
             >
                 <View style={styles.cardContent}>
                     <Text style={styles.cardTitle}>{title}</Text>

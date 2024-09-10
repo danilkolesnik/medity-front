@@ -115,14 +115,12 @@ const Home = ({navigation}) =>{
                 </Pressable>
               </View>
   
-              <FlatList
-          data={meditations.slice(0,3)}
-          renderItem={({ item, index }) => (       
-              <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
-          )}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.list}
-        />
+                <View style={styles.list}>
+                    {meditations.slice(0,3).map((item, index) =>(
+                      <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
+                    ))}
+                </View>
+
   
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>Your progress</Text>
@@ -209,16 +207,14 @@ const Home = ({navigation}) =>{
               )
             :
               <>
-                <FlatList
-                      data={meditations}
-                      renderItem={({ item, index }) => (
-                          <Pressable>
-                              <CardSleep item={item} style={stylesList.backgroundCard} />
-                          </Pressable>
-                      )}
-                      keyExtractor={(item) => item.id}
-                      contentContainerStyle={stylesList.list}
-                  />
+                 <View style={styles.listSearch}>
+                    {meditations.map((item, index) =>(
+                      <Pressable>
+                        <CardSleep item={item} style={stylesList.backgroundCard} />
+                      </Pressable>
+  
+                    ))}
+                </View>
               </>
             }
             

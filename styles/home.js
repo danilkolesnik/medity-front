@@ -52,6 +52,15 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 13,
   },
+  listSearch:{
+    paddingTop:26,
+    gap:11.5,
+
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'flex-start'
+  },
   contentBottonText: {
     fontSize: 14,
     fontWeight: "400",

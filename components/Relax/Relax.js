@@ -120,26 +120,23 @@ const Relax = () =>{
                          placeholderTextColor="#949494"
                      />
                  </View>
-                 <FlatList
-         data={groupedArray}
-         renderItem={({ item }) => (
-           <View>
-             <Text style={[styles.title, { paddingTop: 24, paddingBottom: 10, fontSize: 18 }]}>
-               {item.category}
-             </Text>
-             <FlatList
-               data={item.data}
-               renderItem={({ item }) => <Card item={item} style={styles.backgroundCardRelax} />}
-               keyExtractor={(item) => item.id}
-               contentContainerStyle={styles.listRelax}
-               horizontal
-               showsHorizontalScrollIndicator={false}
-             />
-           </View>
-         )}
-         keyExtractor={(item) => item.category}
-         contentContainerStyle={styles.container}
-       />
+                 
+
+                 <View >
+                            {groupedArray.map((group, index) => (
+                                <View key={index}>
+                                    <Text style={[styles.title, { paddingTop: 24, paddingBottom: 10, fontSize: 18 }]}>
+                                        {group.category}
+                                    </Text>
+                                    <View  style={styles.listRelax}>
+                                        {group.data.map(item => (
+                                            <Card key={item.id} item={item} style={styles.backgroundCardRelax} />
+                                        ))}
+                                    </View>
+                                </View>
+                            ))}
+                        </View>
+         
                  
                  <View style={styles.bottomPadding} />
              </ScrollView>

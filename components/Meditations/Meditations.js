@@ -4,17 +4,14 @@ import {
     Text, 
     ImageBackground,
     ScrollView,
-    FlatList,
     TextInput,
     Pressable
 } from "react-native"
-
-import { FlashList } from "@shopify/flash-list";
 import SearchIcon from "../../assets/icons/Search";
 import Menu from '../Menu/menu'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
-import Card from "./Card";
+import Card from "../Sleep/Card"
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
 import { SERVER } from "../../constants/async";
@@ -24,7 +21,7 @@ import axios from "axios";
 import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 import styles from "../../styles/sleep";
 
-const Sleep = () =>{
+const Meditations = () =>{
 
     const[loading, setLoading] = useState(false)
 
@@ -44,7 +41,7 @@ const Sleep = () =>{
           },
         });
         setSleep(data.docs);
-        setOriginalSleep(data.docs.filter(item => item.mainCategory === 'sleep'));
+        setOriginalSleep(data.docs);
 
         return data.docs
       } catch (error) {
@@ -89,9 +86,9 @@ const Sleep = () =>{
                    </SafeAreaView>
                   
                            <View>
-                       <Text style={styles.title}>Sleep</Text>
+                       <Text style={styles.title}>Meditations</Text>
                        <Text style={[styles.text, {paddingTop: 4, paddingBottom: 12}]}>{sleep.length} practices</Text>
-                       <Text style={[styles.text, {paddingBottom:45}]}>Meditations for calm sleep</Text>
+                       <Text style={[styles.text, {paddingBottom:45}]}>All Meditations</Text>
                    </View>
                    
                    <View style={styles.inputContainer}>
@@ -125,4 +122,4 @@ const Sleep = () =>{
     )
 }
 
-export default Sleep
+export default Meditations

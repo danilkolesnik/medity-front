@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
         color:"#fff"
     },
       inputContainer: {
-        marginTop: 8,
+        
         backgroundColor: "rgba(255, 255, 255, 0.15)",
         borderRadius: 32,
-        flex: 1,
+        width:"100%",
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 18,
@@ -64,16 +64,14 @@ const styles = StyleSheet.create({
 
       card:{
         height:170,
-        width: '100%',
-        alignContent:"flex-end",
-        borderRadius: 20,
-        overflow: 'hidden',
+        borderRadius: 40,
+       
       },
       cardContent:{
         alignContent:"flex-end",
         backgroundColor:"rgba(15, 23, 42, 0.2)",
         padding:8,
-        paddingBottom:16
+        paddingBottom:16,
       },
       cardTitle:{
         fontSize:15,
@@ -101,9 +99,10 @@ const styles = StyleSheet.create({
         alignContent: 'flex-start'
       },
       listRelax:{
-        flexDirection: 'row',
+        
         gap:11.5,
-        overflow:'scroll'
+       
+        flexDirection:'row'
       },
       bottomPadding: {
         height: 100, 

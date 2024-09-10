@@ -16,7 +16,6 @@ const Card = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
 
   const playBackState = usePlaybackState();
 
-
   const playAudio = async () => {
   try {
     const currentTrack = await TrackPlayer.getActiveTrack();
