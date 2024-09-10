@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignContent: 'flex-start'
       },
-      listRelax:{
+      listRelax:{ 
         
         gap:11.5,
        
