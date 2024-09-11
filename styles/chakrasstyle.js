@@ -59,8 +59,6 @@ const styles = StyleSheet.create({
         borderRadius:40 
     },
     affirmationsContainer: {
-        flex: 1,
-        marginTop: 80,
         marginLeft: 30,
         marginRight: 30,
     },
@@ -69,8 +67,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily:'Urbanist-Regular',
         textAlign: "center",
-        color: "#FFF",
-        opacity: 30,
+        color: "#fff",
     },
     affirmationNavigation:{
         flex: 1,

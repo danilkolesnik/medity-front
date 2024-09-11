@@ -117,7 +117,7 @@ const Home = ({navigation}) =>{
   
                 <View style={styles.list}>
                     {meditations.slice(0,3).map((item, index) =>(
-                      <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
 

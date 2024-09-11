@@ -15,10 +15,8 @@ const ControllPanel = ({ playAudio }) => {
     const handlePlayPause = async () => {
         if (playbackState.state === State.Playing) {  
             TrackPlayer.pause();   
-            setIsPlaying(false)   
           } else {
             TrackPlayer.play();    
-            setIsPlaying(true)           
           }
     };
 
