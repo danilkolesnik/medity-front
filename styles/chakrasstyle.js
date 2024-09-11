@@ -57,8 +57,45 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: 'flex-end',   
         borderRadius:40 
-      },
-
+    },
+    affirmationsContainer: {
+        flex: 1,
+        marginTop: 80,
+        marginLeft: 30,
+        marginRight: 30,
+    },
+    affirmation:{
+        fontWeight:"400",
+        fontSize: 18,
+        fontFamily:'Urbanist-Regular',
+        textAlign: "center",
+        color: "#FFF",
+        opacity: 30,
+    },
+    affirmationNavigation:{
+        flex: 1,
+        flexDirection: "row",
+        margin: "auto",
+        justifyContent: "center",
+        gap: 10,
+        marginTop: 20,
+    },
+    affirmationButtonRotated:{
+        opacity: 0,
+    },
+    bottomNavContainer:{
+        position:"absolute",
+        bottom:36,
+        width:327,
+        left: '50%',
+        transform: [{ translateX: -163.5 }],
+        flex: 1,
+        flexDirection: "row",
+        margin: "auto",
+        justifyContent: "center",
+        gap: 20,
+        marginTop: 20,
+    },
     overlay:{
         ...StyleSheet.absoluteFillObject,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',

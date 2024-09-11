@@ -10,10 +10,12 @@ import Sleep from "./components/Sleep/Sleep";
 import Relax from "./components/Relax/Relax";
 import Player from "./components/Player/Player";
 import Chakras from "./components/Chakras/Chakras";
+import Chakra from "./components/Chakra/Chakra";
 import Meditations from "./components/Meditations/Meditations";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Notes from "./components/Notes/Notes";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +28,13 @@ const AppNavigator = () => {
             headerShown: false,
           }}  
         >
+
           <Stack.Screen name="Home" component={Home} /> 
+          
           <Stack.Screen name="Chakras" component={Chakras} />  
+          <Stack.Screen name="Chakra" component={Chakra} />  
+          <Stack.Screen name="Notes" component={Notes} />  
+
           <Stack.Screen name="Meditations" component={Meditations} />  
          
           <Stack.Screen name="Relax" component={Relax} />   
