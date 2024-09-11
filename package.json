@@ -42,6 +42,7 @@
     "react-native": "0.74.5",
     "react-native-awesome-slider": "^2.5.3",
     "react-native-gesture-handler": "^2.19.0",
+    "react-native-gifted-charts": "^1.4.33",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-modal-datetime-picker": "^18.0.0",
     "react-native-paper": "^5.12.5",

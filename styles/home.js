@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
   },
   progressStatusTittle: {
     fontSize: 18,
-    fontFamily: "Urbanist-Bold",
-    fontWeight: "700",
+    fontFamily: "Urbanist-SemiBold",
+    fontWeight: "600",
     color: "#fff",
   },
   progressStatusText: {
