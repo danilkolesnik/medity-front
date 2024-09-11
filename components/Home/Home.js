@@ -21,6 +21,12 @@ import Play from "../../assets/icons/Play";
 import Loader from "../Loader/Loader";
 import { SERVER } from "../../constants/async";
 import axios from "axios";
+
+import { supabase } from '../../utils/supabase';
+
+import CardTop from "./CardTop";
+
+
 import styles from "../../styles/home";
 import stylesList from "../../styles/sleep";
 const Home = ({navigation}) =>{
@@ -32,6 +38,8 @@ const Home = ({navigation}) =>{
 
     const [currentStep, setCurrentStep] = useState(null);
 
+    const [currentStepTop, setCurrentStepTop] = useState(null);
+
     const [searchText, setSearchText] = useState("");
 
     const getQuestions = async() =>{
@@ -40,7 +48,7 @@ const Home = ({navigation}) =>{
           const {data} = await axios.get(`${SERVER}/api/meditation`,
           { 
               headers: {
-                  'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',   
                   'Access-Control-Allow-Origin': '*',
               },
           })
@@ -63,8 +71,10 @@ const Home = ({navigation}) =>{
       setMeditations(filtered);
     };
 
+
+
     useEffect(() =>{
-      getQuestions()    
+      getQuestions() 
     },[])
 
     return (
@@ -92,32 +102,23 @@ const Home = ({navigation}) =>{
               (
                 <>
                 <View style={styles.contentCard}>
-                <View style={styles.cardConteiner}>
-                  <Text style={styles.cardTitle}>Get Back to Sleep</Text>
-                  <View style={styles.contentBotton}>
-                    <Text style={styles.contentBottonText}>10 min</Text>
-                    <Play></Play>
-                  </View>
-                </View>
-                <View style={styles.cardConteiner}>
-                  <Text style={styles.cardTitle}>Get Back to Sleep</Text>
-                  <View style={styles.contentBotton}>
-                    <Text style={styles.contentBottonText}>10 min</Text>
-                    <Play></Play>
-                  </View>
-                </View>
+                  {meditations.filter(track => track.mainCategory === 'sleep').slice(0,2).map((item, index)  => (
+                      <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStepTop} index={index} setCurrentStep={setCurrentStepTop} />
+                  ))}
+                
+              
               </View>
   
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>New meditations</Text>
-                <Pressable>
+                <Pressable  onPress={() => navigation.navigate("Meditations")}>
                   <Text style={styles.textButtonMore}>See all</Text>
                 </Pressable>
               </View>
   
                 <View style={styles.list}>
-                    {meditations.slice(0,3).map((item, index) =>(
-                      <Card title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
+                    {meditations.filter(track => track.mainCategory === 'relax').slice(0,3).map((item, index) =>(
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
 

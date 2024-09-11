@@ -66,7 +66,7 @@ const Notifications = () =>{
                 </Pressable>
                 
             </View>
-            <NotificationService></NotificationService>
+            {/* <NotificationService></NotificationService> */}
             </ImageBackground>
         </View>
     )

@@ -10,19 +10,23 @@ const Header = ({noReturn}) =>{
 
     const navigation = useNavigation();
 
+
     return (
         <SafeAreaView
         style={styles.conteiner}
     >
-        {!noReturn && 
+    
         <Pressable
-             onPress={() => navigation.navigate("Home")}
+             onPress={() => {
+                navigation.navigate("Home")
+                
+             }}
         >
             <View style={styles.icon}>
                 <Back></Back>  
             </View>    
         </Pressable>
-        }
+        
         
         
         <Text style={styles.text}>{route.name}</Text>
