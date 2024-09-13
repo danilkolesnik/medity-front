@@ -12,14 +12,17 @@ const generateTimeArray = (start, end) => {
 };
 
 const TimePicker = ({ onTimeChange }) => {
-  const [selectedHour, setSelectedHour] = useState('10');
+  const [selectedHour, setSelectedHour] = useState('00');
   const [selectedMinute, setSelectedMinute] = useState('00');
 
   const hours = generateTimeArray(0, 23); // Формат 24 часа
   const minutes = generateTimeArray(0, 59);
 
-  const hourRef = useRef(new Animated.Value(0)).current;
-  const minuteRef = useRef(new Animated.Value(0)).current;
+  const hourRef = useRef();
+  const minuteRef = useRef();
+
+  const animatedHourValue = useRef(new Animated.Value(0)).current;
+  const animatedMinuteValue = useRef(new Animated.Value(0)).current;
 
   const handleScroll = (event, setSelected, itemsArray, type) => {
     const offsetY = event.nativeEvent.contentOffset.y;
@@ -35,21 +38,25 @@ const TimePicker = ({ onTimeChange }) => {
     onTimeChange(selectedTime);
   };
 
-  const scrollToInitialValue = (animatedValue, selectedValue, itemsArray) => {
-    const index = itemsArray.indexOf(selectedValue);
-    if (index !== -1) {
-      animatedValue.setValue(ITEM_HEIGHT * index);
-    }
-  };
-
   useEffect(() => {
-    scrollToInitialValue(hourRef, selectedHour, hours);
-    scrollToInitialValue(minuteRef, selectedMinute, minutes);
+    // Прокрутка к начальному значению для часов и минут
+    const hourIndex = hours.indexOf(selectedHour);
+    const minuteIndex = minutes.indexOf(selectedMinute);
+
+    if (hourRef.current) {
+      hourRef.current.scrollTo({ y: hourIndex * ITEM_HEIGHT, animated: false });
+      animatedHourValue.setValue(hourIndex * ITEM_HEIGHT); // Синхронизация с анимацией
+    }
+    if (minuteRef.current) {
+      minuteRef.current.scrollTo({ y: minuteIndex * ITEM_HEIGHT, animated: false });
+      animatedMinuteValue.setValue(minuteIndex * ITEM_HEIGHT); // Синхронизация с анимацией
+    }
   }, []);
 
-  const renderPicker = (itemsArray, animatedValue, setSelected, type) => {
+  const renderPicker = (itemsArray, animatedValue, setSelected, type, selectedItem) => {
     return (
       <Animated.ScrollView
+        ref={type === 'hour' ? hourRef : minuteRef}
         showsVerticalScrollIndicator={false}
         snapToInterval={ITEM_HEIGHT}
         decelerationRate="fast"
@@ -57,7 +64,7 @@ const TimePicker = ({ onTimeChange }) => {
         onMomentumScrollEnd={(event) => handleScroll(event, setSelected, itemsArray, type)}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: animatedValue } } }],
-          { useNativeDriver: true }
+          { useNativeDriver: false } // Отключаем native driver для анимации цвета
         )}
         scrollEventThrottle={16}
         contentContainerStyle={styles.scrollViewContent}
@@ -82,9 +89,23 @@ const TimePicker = ({ onTimeChange }) => {
             extrapolate: 'clamp',
           });
 
+          const textColor = animatedValue.interpolate({
+            inputRange,
+            outputRange: ['rgba(255, 255, 255, 1)', 'rgba(26, 26, 26, 1)', 'rgba(255, 255, 255, 1)'],
+            extrapolate: 'clamp',
+          });
+
           return (
-            <Animated.View key={`${item}-${index}`} style={[styles.item, { transform: [{ scale }], opacity }]}>
-              <Text style={styles.itemText}>{item}</Text>
+            <Animated.View
+              key={`${item}-${index}`}
+              style={[
+                styles.item,
+                { transform: [{ scale }], opacity },
+              ]}
+            >
+              <Animated.Text style={[styles.itemText, { color: textColor }]}>
+                {item}
+              </Animated.Text>
             </Animated.View>
           );
         })}
@@ -97,26 +118,24 @@ const TimePicker = ({ onTimeChange }) => {
     <View style={styles.container}>
       <View style={styles.background}></View>
       <View style={styles.pickerContainer}>
-        {renderPicker(hours, hourRef, setSelectedHour, 'hour')}
+        {renderPicker(hours, animatedHourValue, setSelectedHour, 'hour', selectedHour)}
       </View>
       <View style={styles.pickerContainer}>
-        {renderPicker(minutes, minuteRef, setSelectedMinute, 'minute')}
+        {renderPicker(minutes, animatedMinuteValue, setSelectedMinute, 'minute', selectedMinute)}
       </View>
       <Text style={styles.separator}>PM</Text>
-      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position:'relative',
+    position: 'relative',
     zIndex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'black',
-
     borderRadius: 10,
   },
   pickerContainer: {
@@ -125,7 +144,7 @@ const styles = StyleSheet.create({
     width: 75,
   },
   scrollViewContent: {
-    paddingVertical: 0, // Чтобы все элементы были в пределах контейнера
+    paddingVertical: 0,
   },
   item: {
     height: ITEM_HEIGHT,
@@ -134,26 +153,22 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 20,
-    color: '#1A1A1A',
-  },
-  selectedItemText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#FFFFFF', // Цвет по умолчанию
   },
   separator: {
     fontSize: 14,
     color: '#1A1A1A',
     paddingHorizontal: 10,
-    fontWeight:"700"
+    fontWeight: '700',
   },
-  background:{
-    position:'absolute',
-    backgroundColor:"#fff",
-    width:211,
-    height:56,
+  background: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    width: 211,
+    height: 56,
     zIndex: 0,
-    borderRadius:15
-  }
+    borderRadius: 15,
+  },
 });
 
 export default TimePicker;

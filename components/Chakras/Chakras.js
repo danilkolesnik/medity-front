@@ -8,6 +8,9 @@ import styles from "../../styles/chakrasstyle";
 import Menu from '../Menu/menu';
 
 const Chakras = () => {
+
+    const currentRoute = "Home"
+
     const mockUp = [1,2,3,4,5,6,7];
 
     const navigation = useNavigation();
@@ -33,7 +36,7 @@ const Chakras = () => {
             >
                 <ScrollView style={styles.conteiner}>
 
-                    <Header noReturn/>
+                    <Header currentRoute={currentRoute}/>
                     <View style={styles.chakrasContainer}>
                         {mockUp.map((item, index) => (
                             

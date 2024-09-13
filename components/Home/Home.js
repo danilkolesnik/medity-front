@@ -6,9 +6,6 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-  FlatList,
-  StatusBar,
-  ActivityIndicator
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressBar} from 'react-native-paper';
@@ -17,18 +14,18 @@ import Card from "./Card";
 import Menu from '../Menu/menu'
 import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
-import Play from "../../assets/icons/Play";
 import Loader from "../Loader/Loader";
 import { SERVER } from "../../constants/async";
 import axios from "axios";
 
-import { supabase } from '../../utils/supabase';
-
 import CardTop from "./CardTop";
-
 
 import styles from "../../styles/home";
 import stylesList from "../../styles/sleep";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { supabase } from "../../utils/supabase";
+
 const Home = ({navigation}) =>{
 
     const[loading, setLoading] = useState(false)
@@ -42,7 +39,7 @@ const Home = ({navigation}) =>{
 
     const [searchText, setSearchText] = useState("");
 
-    const getQuestions = async() =>{
+    const getMeditations = async() =>{
       setLoading(true);
       try {
           const {data} = await axios.get(`${SERVER}/api/meditation`,
@@ -52,6 +49,7 @@ const Home = ({navigation}) =>{
                   'Access-Control-Allow-Origin': '*',
               },
           })
+        
           setMeditations(data.docs);
           setOriginalSleep(data.docs);
 
@@ -71,11 +69,33 @@ const Home = ({navigation}) =>{
       setMeditations(filtered);
     };
 
+    const getUser = async() =>{
+      try {
+        const token = await AsyncStorage.getItem('token')
+        const { data: { user } } = await supabase.auth.getUser(token)
+        console.log(user);
+        
+        return user
+        
+      } catch (error) {
+        
+      }
+    }
 
+    useEffect(() => {
+      setLoading(true);
+      Promise.all([getMeditations(), getUser()])
+        .then(([questions, userData]) =>{
+          setMeditations(questions);
+          setOriginalSleep(questions);
 
-    useEffect(() =>{
-      getQuestions() 
-    },[])
+          if(questions && userData) setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setLoading(false);
+        });
+    }, []);
 
     return (
       <SafeAreaView style={styles.conteiner}>

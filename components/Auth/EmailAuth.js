@@ -16,19 +16,19 @@ AppState.addEventListener('change', (state) => {
 
 export default function Auth({navigation}) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function signInWithEmail() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+  // async function signInWithEmail() {
+  //   setLoading(true);
+  //   const { error } = await supabase.auth.signInWithPassword({
+  //     email: email,
+  //     password: password,
+  //   });
 
-    if (error) Alert.alert(error.message);
-    setLoading(false);
-  }
+  //   if (error) Alert.alert(error.message);
+  //   setLoading(false);
+  // }
 
   const signUpWithEmail = async () => {
     setLoading(true);
@@ -44,7 +44,6 @@ export default function Auth({navigation}) {
         Alert.alert("Ошибка", error.message);
         return;
       }
-
       navigation.navigate("OtpVerification", { email });
     } catch (err) {
       Alert.alert("Error", "Something went wrong. Try again.");

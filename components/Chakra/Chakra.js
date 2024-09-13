@@ -22,6 +22,9 @@ import Card from "../Home/Card";
 import stylesList from "../../styles/home";
 
 const Chakra = () => {
+
+  const currentRoute = "Chakras"
+
   const navigation = useNavigation();
 
   const [activeAffirmation, setActiveAffirmation] = useState(0);
@@ -199,7 +202,7 @@ const Chakra = () => {
         style={styles.background}
         resizeMode="repeat"
       >
-        <Header />
+        <Header currentRoute={currentRoute}/>
         <View>
             <View style={styles.affirmationsContainer}>
               <Text style={styles.affirmation}>{affirmations[activeAffirmation].text}</Text>

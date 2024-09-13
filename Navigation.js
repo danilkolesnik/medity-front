@@ -13,14 +13,17 @@ import Chakras from "./components/Chakras/Chakras";
 import Chakra from "./components/Chakra/Chakra";
 import Meditations from "./components/Meditations/Meditations";
 import Profile from "./components/Profile/Profile";
+import PersonalData from "./components/PersonalData/PersonalData";
+import Notes from "./components/Notes/Notes";
+import Note from "./components/Notes/Note";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Notes from "./components/Notes/Notes";
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
+  
   return (
     <View style={styles.screenWrapper}>
       <NavigationContainer>
@@ -30,12 +33,21 @@ const AppNavigator = () => {
           }}  
         >
           <Stack.Screen name="Home" component={Home} /> 
+          <Stack.Screen name="Notes" component={Notes} />   
+          <Stack.Screen name="Note" component={Note} /> 
+          
+          <Stack.Screen name="Auth" component={Auth} />
+         
+            
+          <Stack.Screen name="PersonalData" component={PersonalData} />
+          
+        
           <Stack.Screen name="Chakras" component={Chakras} />  
           <Stack.Screen name="Profile" component={Profile} /> 
           
           <Stack.Screen name="Chakra" component={Chakra} />  
-          <Stack.Screen name="Notes" component={Notes} />  
-         
+          
+    
 
           <Stack.Screen name="Meditations" component={Meditations} />  
          
@@ -45,7 +57,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Sleep" component={Sleep} />       
           <Stack.Screen name="Quiz" component={Quiz} />         
           <Stack.Screen name="Introduction" component={Introduction} />           
-          <Stack.Screen name="Auth" component={Auth} />
+          
           <Stack.Screen name="EmailAuth" component={EmailAuth} />
           <Stack.Screen name="OtpVerification" component={OtpVerification} />
           <Stack.Screen name="Notifications" component={Notifications} />

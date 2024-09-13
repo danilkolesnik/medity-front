@@ -16,14 +16,57 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import Rigth from "../../assets/icons/Rigth";
 
-import styles from "../../styles/profile";
 
+import { supabase } from "../../utils/supabase";
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import styles from "../../styles/profile";
 import stylesProggersBar from "../../styles/home";
 
+const Profile = ({navigation}) =>{
 
-const Profile = () =>{
+    const currentRoute = "Home"
 
     const [activeTab, setActiveTab] = useState(1)
+    const [userId, setUserId] = useState()
+
+    const getUser = async() =>{
+      try {
+        const token = await AsyncStorage.getItem('token')
+        const { data: { user } } = await supabase.auth.getUser(token)
+
+        if(user){
+          await AsyncStorage.setItem('userId', user.id)
+          return
+        }
+
+      } catch (error) {
+        
+      }
+    }
+
+    const logOut = async() =>{
+      try {
+        await AsyncStorage.removeItem('token')
+        await AsyncStorage.removeItem('userId')
+        navigation.navigate("Introduction")
+      } catch (error) {
+        
+      }
+    }
+
+    const deleteUser = async() =>{
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
+
+    useEffect(() =>{
+      getUser()   
+    },[])
 
     return(
         <SafeAreaView style={styles.conteiner}>
@@ -33,7 +76,7 @@ const Profile = () =>{
             >
 
             <ScrollView>
-                <Header></Header>
+                <Header currentRoute={currentRoute}></Header>
                 <Text style={styles.progressTitle}>Progress</Text>
 
                 <View style={styles.tabContent}>
@@ -71,7 +114,9 @@ const Profile = () =>{
                 <Text style={{ fontWeight: "700" }}>4%</Text> more this week
                 compared to last.
               </Text>
-                <View>
+                <View
+                 
+                >
                 <View
                   style={{
                     flex: 1,
@@ -105,6 +150,7 @@ const Profile = () =>{
               <View
                 style={{
                   paddingTop: 27,
+                  paddingBottom:46
                 }}
               >
                 <View
@@ -144,17 +190,50 @@ const Profile = () =>{
                         paddingHorizontal:24
                     }}
                 >
-                    <View>
-                        <Pressable style={styles.linkButton}>
+                    <View
+                       style={{
+                        borderColor: '#F1F5F9',
+                        borderTopWidth: 1,
+                      }}
+                    >
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => navigation.navigate("Notifications")}
+                        >
                             <Text style={styles.linkText}>Notifications</Text>
                             <Rigth></Rigth>
                         </Pressable>
-                        <Pressable style={styles.linkButton}>
-                            <Text style={styles.linkText}>My favorite</Text>
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => navigation.navigate("Notes")}
+                        >
+                            <Text style={styles.linkText}>Notes</Text>
+                            <Rigth></Rigth>
+                        </Pressable>
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => navigation.navigate("PersonalData")}
+                        >
+                            <Text style={styles.linkText}>Personal data</Text>
+                            <Rigth></Rigth>
+                        </Pressable>
+                    </View>
+
+                    <View
+                      style={{
+                        borderColor: '#F1F5F9',
+                        borderTopWidth: 1,
+                      }}
+                    >
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => logOut()}
+                        >
+                            <Text style={styles.linkText}>Log out</Text>
                             <Rigth></Rigth>
                         </Pressable>
                         <Pressable style={styles.linkButton}>
-                            <Text style={styles.linkText}>Personal data</Text>
+                            <Text style={styles.linkText}>Delete my account</Text>
                             <Rigth></Rigth>
                         </Pressable>
                     </View>

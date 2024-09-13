@@ -3,6 +3,8 @@ import { View, TextInput, Button, Alert, StyleSheet,ImageBackground,ActivityIndi
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { supabase } from '../../utils/supabase'
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 const OtpVerification = () => {
   const [otpCode, setOtpCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,15 +17,16 @@ const OtpVerification = () => {
       const { data, error } = await supabase.auth.verifyOtp({
         email,
         token: otpCode,
-        type: "signup",
+        type: "email",
       });
 
       if (error) {
         Alert.alert("Ошибка", error.message);
         return;
       }
-      
+      await AsyncStorage.setItem('token', data.session.access_token)     
       navigation.navigate("Quiz");
+
     } catch (err) {
       Alert.alert("Error", "Something went wrong. Try again.");
       console.error(err);

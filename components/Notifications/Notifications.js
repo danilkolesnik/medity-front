@@ -6,12 +6,16 @@ import Header from "../Header/Header";
 import TimePicker from "./TimePicker";
 import styles from "../../styles/notifications";
 
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import NotificationService from "../../utils/notification-services";
 
 const Notifications = () =>{
 
-    const [isEnabled, setIsEnabled] = useState(true);
-    const [isEnabledTwo, setIsEnabledTwo] = useState(true);
+    const currentRoute = "Profile"
+
+    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabledTwo, setIsEnabledTwo] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const toggleSwitchTwo = () => setIsEnabledTwo(previousState => !previousState);
 
@@ -20,10 +24,6 @@ const Notifications = () =>{
     const handleTimeChange = (time) => {
       setSelectedTime(time);
     };
-
-    useEffect(() =>{
-        console.log(selectedTime);
-    },[selectedTime])
 
     return(
         <View
@@ -34,9 +34,9 @@ const Notifications = () =>{
                 style={styles.background}
             >
             <View style={styles.conteiner}>
-                <Header/>
+                <Header currentRoute={currentRoute}/>
 
-                <View style={styles.textConteiner}>
+                <View style={[styles.textConteiner,{paddingTop:36}]}>
                     <View style={styles.titleConteiner}>
                         <Text style={styles.title}>Meditation reminders</Text>
                         <Text style={styles.text}>Daily scheduled reminder</Text>
@@ -49,9 +49,10 @@ const Notifications = () =>{
                 
                 <SafeAreaView>
                     <TimePicker onTimeChange={handleTimeChange} />
+
                 </SafeAreaView>
 
-                <View style={styles.textConteiner}>
+                <View style={[styles.textConteiner, {borderColor: '#F1F5F9',borderTopWidth: 1}]}>
                     <View style={styles.titleConteiner}>
                         <Text style={styles.title}>Everyday notifications</Text>
                         <Text style={styles.text}>Get notification everyday.</Text>

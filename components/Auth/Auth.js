@@ -14,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import GoogleButton from "./GoogleButton";
 
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 export default function Auth() {
 
   GoogleSignin.configure({
@@ -28,7 +30,6 @@ export default function Auth() {
 
 
   const navigation = useNavigation()
-
 
   return (
     <View
@@ -66,13 +67,14 @@ export default function Auth() {
                     if (credential.identityToken) {
                       const {
                         error,
-                        data: { user },
+                        data,
                       } = await supabase.auth.signInWithIdToken({
                         provider: "apple",
                         token: credential.identityToken,
                       });
-                      console.log(JSON.stringify({ error, user }, null, 2));
+                      console.log(JSON.stringify({ error, data }, null, 2));
                       if (!error) {
+                        await AsyncStorage.setItem('token', data.session.access_token) 
                         navigation.navigate("Quiz");
                       }
                     } else {
@@ -107,10 +109,12 @@ export default function Auth() {
                           provider: "google",
                           token: userInfo.idToken,
                         });
+                        
                         console.log('====================================');
                         console.log(data, error);
-                        console.log('====================================');
+                        console.log('====================================');                     
                       if(!error){
+                        await AsyncStorage.setItem('token', data.session.access_token) 
                         navigation.navigate("Quiz");
                       }
 

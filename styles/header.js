@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         fontWeight:"600",
         fontFamily:"Urbanist-Bold",
         paddingTop:15,
-        left:50
+        left:40
     },
     icon:{
        

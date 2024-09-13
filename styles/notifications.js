@@ -17,9 +17,10 @@ const  styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center",
-        paddingTop:36,
-        paddingLeft:24,
-        paddingRight:24
+        paddingTop:16,
+      
+        marginLeft:24,
+        marginRight:24
     },
     titleConteiner:{
         display:"flex"
