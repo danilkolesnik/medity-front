@@ -16,7 +16,8 @@ import Profile from "./components/Profile/Profile";
 import PersonalData from "./components/PersonalData/PersonalData";
 import Notes from "./components/Notes/Notes";
 import Note from "./components/Notes/Note";
-import { StyleSheet, View } from "react-native";
+import Goals from "./components/Goals/Goals";
+import { StyleSheet, View,StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -26,6 +27,7 @@ const AppNavigator = () => {
   
   return (
     <View style={styles.screenWrapper}>
+      
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -33,6 +35,8 @@ const AppNavigator = () => {
           }}  
         >
           <Stack.Screen name="Home" component={Home} /> 
+          <Stack.Screen name="Goals" component={Goals} /> 
+          
           <Stack.Screen name="Notes" component={Notes} />   
           <Stack.Screen name="Note" component={Note} /> 
           
@@ -63,6 +67,8 @@ const AppNavigator = () => {
           <Stack.Screen name="Notifications" component={Notifications} />
         </Stack.Navigator>
       </NavigationContainer>
+
+      <StatusBar barStyle="light-content" />
     </View>
   );
 }

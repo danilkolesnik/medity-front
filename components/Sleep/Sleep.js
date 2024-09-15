@@ -4,12 +4,10 @@ import {
     Text, 
     ImageBackground,
     ScrollView,
-    FlatList,
     TextInput,
     Pressable
 } from "react-native"
 
-import { FlashList } from "@shopify/flash-list";
 import SearchIcon from "../../assets/icons/Search";
 import Menu from '../Menu/menu'
 import { SafeAreaView } from "react-native-safe-area-context";

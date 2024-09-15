@@ -4,6 +4,7 @@ import { SERVER } from "../../constants/async";
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Back from "../../assets/icons/Back";
+import Delete from "../../assets/icons/Delete"
 import Accept from "../../assets/icons/Accept"; 
 import axios from "axios";
 
@@ -31,7 +32,17 @@ const Note = () =>{
         } catch (error) {
           console.error('Error adding note:', error);
         }
-      };
+    };
+
+    const deleteNote = async () =>{
+        try {
+            await axios.delete(`${SERVER}/api/note/${id}`);
+
+            navigation.navigate("Notes")
+        } catch (error) {
+            
+        }
+    }
 
     
     return(
@@ -47,13 +58,29 @@ const Note = () =>{
              style={styles.background}
              resizeMode="repeat"
            >
-            <SafeAreaView style={styles.topContent}>
+            <SafeAreaView style={[styles.topContent, {paddingTop:20}]}>
                        <Pressable onPress={() => navigation.navigate("Notes")}>
                            <Back></Back>
                        </Pressable>
-                       <Pressable onPress={() => updateNote()}>
+                       <View
+                        style={{
+                            flexDirection:"row",
+                            alignItems:"center"
+                        }}
+                       >
+                       <Pressable onPress={() => deleteNote()}>
+                            <Delete></Delete>
+                       </Pressable>
+                        <Pressable 
+                            style={{
+                                paddingLeft:40
+                            }}
+                            onPress={() => updateNote()}
+                        >
                             <Accept></Accept>
                        </Pressable>
+                       </View>
+                       
             </SafeAreaView>
             <View
                 style={{

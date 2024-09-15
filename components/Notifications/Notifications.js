@@ -6,9 +6,9 @@ import Header from "../Header/Header";
 import TimePicker from "./TimePicker";
 import styles from "../../styles/notifications";
 
-import DateTimePicker from '@react-native-community/datetimepicker';
+import NotificationService, { registerForPushNotificationsAsync, scheduleDailyNotification, sendPushNotification } from '../../utils/notification-services';
 
-import NotificationService from "../../utils/notification-services";
+
 
 const Notifications = () =>{
 
@@ -23,6 +23,15 @@ const Notifications = () =>{
 
     const handleTimeChange = (time) => {
       setSelectedTime(time);
+    };
+
+    const handleScheduleNotification = async () => {
+        await scheduleDailyNotification();
+      };
+    
+    const handleSendNotification = async () => {
+        const token = await registerForPushNotificationsAsync();
+        await sendPushNotification(token);
     };
 
     return(
@@ -65,9 +74,8 @@ const Notifications = () =>{
                 <Pressable style={styles.button}>
                     <Text style={styles.buttonText}>Save</Text>
                 </Pressable>
-                
+                <NotificationService />
             </View>
-            {/* <NotificationService></NotificationService> */}
             </ImageBackground>
         </View>
     )

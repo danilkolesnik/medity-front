@@ -20,19 +20,21 @@ const styles = StyleSheet.create({
      
     },
     backgroundCard:{
-        flex: 1,
-        width: 175,
-        height: "100%",
-        justifyContent: 'flex-end',   
-        borderRadius:40 
-    },
-    backgroundCardRelax:{
       flex: 1,
       width: 140,
       height: "100%",
-      justifyContent: 'flex-end',   
-      borderRadius:40 
-    },
+      justifyContent: 'flex-end',
+      borderRadius: 12,
+      overflow: 'hidden', // Добавлено для корректного отображения borderRadius
+  },
+  backgroundCardRelax:{
+    flex: 1,
+    width: 140,
+    height: "100%",
+    justifyContent: 'flex-end',
+    borderRadius: 12,
+    overflow: 'hidden', // Добавлено для корректного отображения borderRadius
+},
     title: {
         fontSize: 40,
         fontWeight: "600",
@@ -95,6 +97,7 @@ const styles = StyleSheet.create({
    
         flex: 1,
         flexDirection: 'row',
+        justifyContent:'center',
         flexWrap: 'wrap',
         alignContent: 'flex-start'
       },
@@ -108,6 +111,7 @@ const styles = StyleSheet.create({
         height: 100, 
       },
       topContent:{
+        paddingTop:20,
         width:'100%',
         justifyContent:'space-between',
         flexDirection:'row'

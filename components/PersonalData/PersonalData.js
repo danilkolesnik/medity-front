@@ -45,6 +45,7 @@ const PersonalData = () =>{
             .eq('id', userId)
             .single()
           
+
           setFullName(data.full_name || '')
           setEmail(data.email || '')
           setGender(data.gender || '')
@@ -62,14 +63,13 @@ const PersonalData = () =>{
         try {   
             const userId = await AsyncStorage.getItem('userId')
 
-            await supabase
+            const {data, error} = await supabase
                 .from('profiles')
                 .update({ full_name: fullName, birthday:birthday, email:email, gender:gender})
-                .eq('id', userId)
+                .eq('id', userId) 
 
             await supabase.auth.updateUser({email: email});
-            
-            
+                   
         } catch (error) {
             
         } 
@@ -77,7 +77,6 @@ const PersonalData = () =>{
 
     useEffect(() =>{
         getUser()
-
     },[])
 
     return(

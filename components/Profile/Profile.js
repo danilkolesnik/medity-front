@@ -6,16 +6,17 @@ import {
     ScrollView,
     FlatList,
     TextInput,
-    Pressable
+    Pressable,
+    Modal
 } from "react-native"
 import Header from "../Header/Header";
 import Charts from "./Charts";
+import Menu from "../Menu/menu";
+import ModalProfile from "./Modal";
 import { ProgressBar} from 'react-native-paper';
-
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Rigth from "../../assets/icons/Rigth";
-
 
 import { supabase } from "../../utils/supabase";
 
@@ -30,6 +31,8 @@ const Profile = ({navigation}) =>{
 
     const [activeTab, setActiveTab] = useState(1)
     const [userId, setUserId] = useState()
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const getUser = async() =>{
       try {
@@ -58,7 +61,14 @@ const Profile = ({navigation}) =>{
 
     const deleteUser = async() =>{
       try {
-        
+        const userId = await AsyncStorage.setItem('userId', user.id)
+
+        await supabase
+          .from('profiles')
+          .delete()
+          .eq('id', userId)
+
+        await supabase.auth.admin.deleteUser(userId)
       } catch (error) {
         
       }
@@ -72,7 +82,7 @@ const Profile = ({navigation}) =>{
         <SafeAreaView style={styles.conteiner}>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
-                style={styles.background}
+                style={[styles.background]}
             >
 
             <ScrollView>
@@ -185,6 +195,29 @@ const Profile = ({navigation}) =>{
               </View>
                 </View>
 
+                <View style={styles.goalContent}>
+                  <View>
+                    <Text style={styles.goalText}>Goal streak</Text>
+                    <Text style={[styles.progressTitle,
+                    { 
+                      paddingLeft:0,
+                      paddingTop:0
+                    }]}>3 days in a row</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection:'row',
+                      gap:3
+                    }}
+                  >
+                    <View style={styles.line}></View>
+                    <View style={styles.line}></View>
+                    <View style={styles.line}></View>
+                    <View style={styles.line}></View>
+                    <View style={styles.line}></View>
+                  </View>
+                </View>
+
                 <View
                     style={{
                         paddingHorizontal:24
@@ -223,6 +256,7 @@ const Profile = ({navigation}) =>{
                       style={{
                         borderColor: '#F1F5F9',
                         borderTopWidth: 1,
+                        paddingBottom:80
                       }}
                     >
                         <Pressable 
@@ -232,13 +266,18 @@ const Profile = ({navigation}) =>{
                             <Text style={styles.linkText}>Log out</Text>
                             <Rigth></Rigth>
                         </Pressable>
-                        <Pressable style={styles.linkButton}>
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => setModalVisible(true)}
+                        >
                             <Text style={styles.linkText}>Delete my account</Text>
                             <Rigth></Rigth>
                         </Pressable>
                     </View>
                 </View>
             </ScrollView>
+            <ModalProfile active={modalVisible} setModalVisible={setModalVisible}></ModalProfile>
+            <Menu></Menu>
             </ImageBackground>
         </SafeAreaView>
     )

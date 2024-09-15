@@ -34,7 +34,7 @@ const BirthdayCard = ({birthdayDate}) => {
         <TextInput
           style={styles.input}
           placeholder="13.09.2024"
-          placeholderTextColor="#fff"
+          placeholderTextColor="#949494"
           keyboardType="numeric"
           value={birthday}
           onChangeText={handleDateInput} // Handle input with formatting

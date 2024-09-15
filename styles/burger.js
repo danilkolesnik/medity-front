@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     conteiner:{
         position:'absolute',
         right:24,
-        top:0,
+        top:20,
         zIndex:1
     },
     conteinerActive:{
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         width:'100%',
         height:"100%",
         backgroundColor:"#565656",
+        paddingTop:24,
         paddingLeft:26,
         paddingRight:26
     },

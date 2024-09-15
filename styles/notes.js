@@ -9,10 +9,9 @@ const styles = StyleSheet.create({
         position:'relative',
     },
     notesContainer: {
-        flex: 1,
-        justifyContent: 'center', 
-        alignItems: 'center',     
-        height: "100%",
+        
+        flex:1,
+        
     },
     noteCaption:{
         fontWeight:"400",

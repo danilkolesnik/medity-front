@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useCallback } from "react";
 import { ImageBackground, View, Text, Pressable, ScrollView, TextInput, StyleSheet } from "react-native";
-import { useNavigation,useRoute } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../Header/Header";
+import Loader from "../Loader/Loader";
 import styles from "../../styles/notes";
 import { SERVER } from "../../constants/async";
 import axios from "axios";
@@ -18,20 +19,6 @@ const Notes = () => {
 
   const navigation = useNavigation();
 
-  const createNote = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('userId');
-      const note = {
-        userId: userId,
-        title: '',
-        content: ''
-      };
-
-      setNotes([...notes, note]);
-    } catch (error) {
-      console.error('Error creating note:', error);
-    }
-  };
 
   const addNote = async () => {
     try {
@@ -53,8 +40,6 @@ const Notes = () => {
     setLoading(true);
     try {
       const userId = await AsyncStorage.getItem('userId');
-      console.log(userId);
-      
       const { data } = await axios.get(`${SERVER}/api/note?where[userId][equals]=${userId}`);
       setNotes(data.docs);
     } catch (error) {
@@ -64,9 +49,11 @@ const Notes = () => {
     }
   };
 
-  useEffect(() => {
-    getNotes();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+        getNotes();
+    }, [])
+);
 
   return (
     <SafeAreaView
@@ -82,8 +69,15 @@ const Notes = () => {
         style={styles.background}
         resizeMode="repeat"
       >
-       
-        <ScrollView>
+       {!loading ? 
+        <>
+          <ScrollView
+          style={{
+            position:"relative",
+            height:'100%',
+            width: '100%',
+          }}
+        >
         <Header currentRoute={currentRoute} />
         {notes.length === 0 ? (
           <View style={styles.notesContainer}>
@@ -100,7 +94,7 @@ const Notes = () => {
           >
             {notes.map((note, index) => (
               <View style={styles.noteContent} key={index }>
-                <Text style={styles.noteTitle}>{note.content}</Text>
+                <Text style={styles.noteTitle}>{note.title}</Text>
                 <Pressable
                   style={styles.buttonEdit}
                   onPress={() =>  navigation.navigate("Note", { title:note.title,content: note.content, userId:note.userId,id:note.id })}
@@ -119,6 +113,10 @@ const Notes = () => {
             <Add />
           </Pressable>
         </View>
+        </>
+        : <Loader></Loader>
+      }
+        
       </ImageBackground>
     </SafeAreaView>
   );

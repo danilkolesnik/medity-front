@@ -18,6 +18,31 @@ const styles = StyleSheet.create({
         paddingLeft:24,
         paddingTop:37
     },
+    goalContent:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        backgroundColor:'#F1F5F930',
+        marginRight:24,
+        marginLeft:24,
+        marginBottom:41,
+        padding:12,
+        borderRadius:6,
+
+    },
+    goalText:{
+        fontSize:14,
+        fontWeight:'400',
+        color:"#fff",
+        fontFamily:'Urbanist-Regular'
+    },
+    line:{
+        backgroundColor:"#7E7E7E",
+        width:3,
+        height:10,
+        borderRadius:2.17
+
+    },
     tabContent:{
         flexDirection:"row",
         justifyContent:"center",
@@ -28,9 +53,6 @@ const styles = StyleSheet.create({
         marginRight:24,
         borderRadius:12,
         marginTop:17
-    },
-    tabButton:{
-
     },
     tabText:{
         color:"#fff",

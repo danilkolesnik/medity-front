@@ -40,7 +40,7 @@ const Chakras = () => {
                     <View style={styles.chakrasContainer}>
                         {mockUp.map((item, index) => (
                             
-                                <Pressable style={styles.chakraWrapper} onPress={() => handleItemClick(index)}>
+                                <Pressable style={styles.chakraWrapper} key={index} onPress={() => handleItemClick(index)}>
                                     <ImageBackground
                                         source={require("../../assets/images/chakras.jpg")}
                                         style={styles.backgroundCardRelax}

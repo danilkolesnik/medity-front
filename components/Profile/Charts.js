@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { View } from "react-native";
 
-import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-gifted-charts";
+import { BarChart } from "react-native-gifted-charts";
 
 import styles from "../../styles/profile";
 

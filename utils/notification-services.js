@@ -4,7 +4,6 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
-
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -62,11 +61,26 @@ export async function registerForPushNotificationsAsync() {
   }
 }
 
- export default function NotificationService() {
+export async function scheduleDailyNotification(hour,minute,repeat) {
+  const trigger = {
+    hour: hour, 
+    minute: minute,
+    repeats: repeat,
+  };
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Daily Notification",
+      body: 'This is a daily notification!',
+      data: { data: 'goes here' },
+    },
+    trigger,
+  });
+}
+
+export default function NotificationService() {
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(
-    undefined
-  );
+  const [notification, setNotification] = useState(undefined);
   const notificationListener = useRef();
   const responseListener = useRef();
 
@@ -90,8 +104,14 @@ export async function registerForPushNotificationsAsync() {
         Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-}
 
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Your expo push token: {expoPushToken}</Text>
+      <Button title="Schedule Daily Notification" onPress={scheduleDailyNotification} />
+    </View>
+  );
+}
 
 export async function sendPushNotification(expoPushToken) {
   const message = {
