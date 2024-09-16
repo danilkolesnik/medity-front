@@ -221,9 +221,7 @@ const Chakra = () => {
 
             <View style={[stylesList.buttonMore,{paddingHorizontal:24,marginTop:30}]}>
                 <Text style={stylesList.textMore}>New meditations</Text>
-                <Pressable onPress={() => navigation.navigate("Meditations")} >
-                  <Text style={stylesList.textButtonMore}>See all</Text>
-                </Pressable>
+                
               </View>
 
 
