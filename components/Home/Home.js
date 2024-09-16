@@ -143,7 +143,7 @@ const Home = ({navigation}) =>{
   
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>Your progress</Text>
-                <Pressable>
+                <Pressable onPress={() => navigation.navigate("Profile")}>
                   <Text style={styles.textButtonMore}>View full</Text>
                 </Pressable>
               </View>

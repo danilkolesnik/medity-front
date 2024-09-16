@@ -283,7 +283,7 @@ const Profile = ({navigation}) =>{
                     </View>
                 </View>
             </ScrollView>
-            <ModalProfile active={modalVisible} setModalVisible={setModalVisible}></ModalProfile>
+            <ModalProfile active={modalVisible} setModalVisible={setModalVisible} deleteUser={deleteUser}></ModalProfile>
             <Menu></Menu>
             </ImageBackground>
         </SafeAreaView>

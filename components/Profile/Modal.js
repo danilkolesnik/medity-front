@@ -1,6 +1,6 @@
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 
-const ModalProfile = ({active, setModalVisible}) => {
+const ModalProfile = ({active, setModalVisible,deleteUser}) => {
     return (
         <Modal
             animationType="fade"
@@ -28,7 +28,7 @@ const ModalProfile = ({active, setModalVisible}) => {
                         </Pressable>
                         <Pressable
                             style={[styles.button]}
-                            onPress={() => setModalVisible(!active)}>
+                            onPress={() => deleteUser()}>
                                 <Text style={styles.textStyle}>Delete</Text>
                         </Pressable>
                     </View>
