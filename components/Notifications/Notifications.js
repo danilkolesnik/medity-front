@@ -8,8 +8,6 @@ import styles from "../../styles/notifications";
 
 import NotificationService, { registerForPushNotificationsAsync, scheduleDailyNotification, sendPushNotification } from '../../utils/notification-services';
 
-
-
 const Notifications = () =>{
 
     const currentRoute = "Profile"
@@ -24,15 +22,21 @@ const Notifications = () =>{
     const handleTimeChange = (time) => {
       setSelectedTime(time);
     };
-
-    const handleScheduleNotification = async () => {
-        await scheduleDailyNotification();
-      };
     
     const handleSendNotification = async () => {
         const token = await registerForPushNotificationsAsync();
         await sendPushNotification(token);
     };
+
+
+    const saveNotifications = async() =>{
+        const time = selectedTime.split(':')
+        if(isEnabled || isEnabledTwo){
+            await scheduleDailyNotification(parseInt(time[0], 10),parseInt(time[1], 10), true);
+            return
+        }
+        await scheduleDailyNotification(parseInt(time[0], 10),parseInt(time[1], 10), false);
+    }
 
     return(
         <View
@@ -71,7 +75,10 @@ const Notifications = () =>{
                         active={isEnabledTwo}
                     />
                 </View>
-                <Pressable style={styles.button}>
+                <Pressable 
+                    style={styles.button}
+                    onPress={() => saveNotifications()}
+                >
                     <Text style={styles.buttonText}>Save</Text>
                 </Pressable>
                 <NotificationService />

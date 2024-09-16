@@ -72,6 +72,19 @@ const styles = StyleSheet.create({
         borderRadius:12,
         marginTop:24   
     },
+    chartsButtons:{
+        flexDirection:"row",
+        alignItems:'center',
+        justifyContent:'center',
+        paddingBottom:24
+    },
+    chartsText:{
+        color:"#fff",
+        fontSize:14,
+        fontWeight:"600",
+        paddingHorizontal:47,
+        fontFamily:"Urbanist-Bold",
+    },
     linkText:{
         color:"#fff",
         fontWeight:"600",

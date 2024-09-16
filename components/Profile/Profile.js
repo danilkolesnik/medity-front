@@ -29,7 +29,7 @@ const Profile = ({navigation}) =>{
 
     const currentRoute = "Home"
 
-    const [activeTab, setActiveTab] = useState(1)
+    const [activeTab, setActiveTab] = useState(2)
     const [userId, setUserId] = useState()
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -248,6 +248,13 @@ const Profile = ({navigation}) =>{
                           onPress={() => navigation.navigate("PersonalData")}
                         >
                             <Text style={styles.linkText}>Personal data</Text>
+                            <Rigth></Rigth>
+                        </Pressable>
+                        <Pressable 
+                          style={styles.linkButton}
+                          onPress={() => navigation.navigate("Terms of use")}
+                        >
+                            <Text style={styles.linkText}>Terms of use</Text>
                             <Rigth></Rigth>
                         </Pressable>
                     </View>

@@ -45,6 +45,8 @@ const PersonalData = () =>{
             .eq('id', userId)
             .single()
           
+        console.log(data);
+        
 
           setFullName(data.full_name || '')
           setEmail(data.email || '')
@@ -65,10 +67,13 @@ const PersonalData = () =>{
 
             const {data, error} = await supabase
                 .from('profiles')
-                .update({ full_name: fullName, birthday:birthday, email:email, gender:gender})
+                .update({ full_name: fullName, birthday:birthday, email:email})
                 .eq('id', userId) 
 
-            await supabase.auth.updateUser({email: email});
+            console.log(data);
+            
+
+            // await supabase.auth.updateUser({email: email});
                    
         } catch (error) {
             
@@ -122,18 +127,31 @@ const PersonalData = () =>{
                             }}
                         >
                             <Pressable 
-                                style={styles.buttonGender}
+                                style={[
+                                    styles.buttonGender,
+                                    gender === 'Male' ? { backgroundColor: '#1A1A1A' } : null
+                                  ]}
                                 onPress={() => setGender('Male')}
                             >
-                                <Male></Male>
-                                <Text style={styles.genderText}>Male</Text>
+                                <Male active={gender}></Male>
+                                <Text style={[
+                                    styles.genderText,
+                                    gender === 'Male' ? { color: '#808080' } : null
+                                ]}>Male</Text>
                             </Pressable>
                             <Pressable 
-                                style={styles.buttonGender}
+                                style={[
+                                    styles.buttonGender,
+                                    gender === 'Female' ? { backgroundColor: '#1A1A1A' } : null
+                                ]}
                                 onPress={() => setGender('Female')}
                             >
-                                <Female></Female>
-                                <Text style={styles.genderText}>Female</Text>
+                                <Female active={gender}></Female>
+                                <Text style={[
+                                    styles.genderText,
+                                    gender === 'Female' ? { color: '#808080' } : null
+
+                                ]}>Female</Text>
                             </Pressable>
                         </View>
                         

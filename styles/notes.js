@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         width:'100%',
         position:'absolute',
         right:0,
-        bottom:21
+        bottom:21,
     }
 })
 

@@ -45,6 +45,7 @@ export async function registerForPushNotificationsAsync() {
     if (!projectId) {
       handleRegistrationError('Project ID not found');
     }
+  
     try {
       const pushTokenString = (
         await Notifications.getExpoPushTokenAsync({
@@ -104,20 +105,13 @@ export default function NotificationService() {
         Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Your expo push token: {expoPushToken}</Text>
-      <Button title="Schedule Daily Notification" onPress={scheduleDailyNotification} />
-    </View>
-  );
 }
 
 export async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Original Title',
+    title: 'Test',
     body: 'And here is the body!',
     data: { someData: 'goes here' },
   };
