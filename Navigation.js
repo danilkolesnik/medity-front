@@ -52,7 +52,6 @@ const AppNavigator = () => {
           
           <Stack.Screen name="Chakra" component={Chakra} />  
           
-    
 
           <Stack.Screen name="Meditations" component={Meditations} />  
          
