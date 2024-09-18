@@ -20,6 +20,7 @@ const Note = () =>{
     const[titleNote, setTitleNote] = useState(title)
     const[contentNote, setContentNote] = useState(content)
 
+
     const updateNote = async () => {
         try {
             await axios.patch(`${SERVER}/api/note/${id}`, 
@@ -28,6 +29,8 @@ const Note = () =>{
                     content:contentNote
                 }
             );
+
+            navigation.navigate("Notes")
          
         } catch (error) {
           console.error('Error adding note:', error);

@@ -23,13 +23,16 @@ const Notes = () => {
   const addNote = async () => {
     try {
         const userId = await AsyncStorage.getItem('userId');
-        await axios.post(`${SERVER}/api/note`, {
-            userId:userId,
-            title:"",
-            content:""
+        const {data} = await axios.post(`${SERVER}/api/note`, {
+          userId:userId,
+          title:"",
+          content:""
         });
 
-        navigation.navigate("Note", { title:"",content: "", userId:userId })
+        console.log(data.doc.id);
+        
+
+        navigation.navigate("Note", { title:"",content: "", userId:userId,id:data.doc.id })
      
     } catch (error) {
       console.error('Error adding note:', error);

@@ -105,7 +105,7 @@ const Home = ({navigation}) =>{
         }
   
         await AsyncStorage.setItem('userId', user.id)
-        
+
         return user;
       } catch (error) {
         console.error('Error getting user:', error.message);

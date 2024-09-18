@@ -70,7 +70,7 @@ const PersonalData = () =>{
                 .update({ full_name: fullName, birthday:birthday, email:email, gender:gender})
                 .eq('id', userId) 
 
-            // await supabase.auth.updateUser({email: email});
+            await supabase.auth.updateUser({email: email});
                    
         } catch (error) {
             
