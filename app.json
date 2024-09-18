@@ -30,6 +30,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
       "expo-font",
       "expo-notifications",
       [
@@ -38,7 +39,15 @@
           "iosUrlScheme": "com.googleusercontent.apps.209560641110-v08h2fak57ll2mvm2lj6bi1njum2o7pe"
         }
       ],
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
