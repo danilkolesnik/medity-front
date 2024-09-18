@@ -23,14 +23,11 @@ const Notes = () => {
   const addNote = async () => {
     try {
         const userId = await AsyncStorage.getItem('userId');
-        const {data} = await axios.post(`${SERVER}/api/note`, {
+        const { data } = await axios.post(`${SERVER}/api/note`, {
           userId:userId,
           title:"",
           content:""
         });
-
-        console.log(data.doc.id);
-        
 
         navigation.navigate("Note", { title:"",content: "", userId:userId,id:data.doc.id })
      

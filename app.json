@@ -15,7 +15,8 @@
       "supportsTablet": false,
       "usesAppleSignIn": true,
       "bundleIdentifier": "com.meditycompany.medity",
-        "buildNumber": "2"
+        "buildNumber": "2",
+        "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "googleServicesFile":"./google-services.json",
@@ -29,6 +30,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
       "expo-font",
       "expo-notifications",
       [
@@ -37,7 +39,15 @@
           "iosUrlScheme": "com.googleusercontent.apps.209560641110-v08h2fak57ll2mvm2lj6bi1njum2o7pe"
         }
       ],
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
