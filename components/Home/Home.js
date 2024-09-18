@@ -6,6 +6,7 @@ import {
   TextInput,
   Pressable,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressBar} from 'react-native-paper';
@@ -86,6 +87,7 @@ const Home = ({navigation}) =>{
   
         return getUser();
       } catch (error) {
+        navigation.navigate("Auth")
         console.error('Error refreshing token:', error.message);
         Alert.alert('Error', 'Failed to refresh token. Please log in again.');
       }
@@ -130,6 +132,7 @@ const Home = ({navigation}) =>{
     }, []);
 
     return (
+      <>
       <SafeAreaView style={styles.conteiner}>
         <ImageBackground
           source={require("../../assets/images/ostatochni.jpg")}
@@ -280,6 +283,7 @@ const Home = ({navigation}) =>{
         </ImageBackground>
         <Menu />
       </SafeAreaView>
+      </>
     );
 }
 
