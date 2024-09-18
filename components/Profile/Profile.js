@@ -79,7 +79,7 @@ const Profile = ({navigation}) =>{
     },[])
 
     return(
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={[styles.background]}
@@ -286,7 +286,7 @@ const Profile = ({navigation}) =>{
             <ModalProfile active={modalVisible} setModalVisible={setModalVisible} deleteUser={deleteUser}></ModalProfile>
             <Menu></Menu>
             </ImageBackground>
-        </SafeAreaView>
+        </>
     )
 }
 

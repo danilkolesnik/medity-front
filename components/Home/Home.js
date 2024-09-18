@@ -133,7 +133,6 @@ const Home = ({navigation}) =>{
 
     return (
       <>
-      <SafeAreaView style={styles.conteiner}>
         <ImageBackground
           source={require("../../assets/images/ostatochni.jpg")}
           style={styles.background}
@@ -282,7 +281,6 @@ const Home = ({navigation}) =>{
           
         </ImageBackground>
         <Menu />
-      </SafeAreaView>
       </>
     );
 }

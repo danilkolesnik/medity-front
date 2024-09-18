@@ -69,7 +69,7 @@ const Meditations = () =>{
     }, []);
 
     return(
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
@@ -118,7 +118,7 @@ const Meditations = () =>{
             <Menu></Menu>
             </ImageBackground>
             
-        </SafeAreaView>
+        </>
     )
 }
 

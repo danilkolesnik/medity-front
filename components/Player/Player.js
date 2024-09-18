@@ -54,7 +54,7 @@ const Player = () => {
     });
 
     return (
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/face-background.jpg")}
                 style={styles.background}
@@ -84,7 +84,7 @@ const Player = () => {
                     <ControllPanel />
                 </View>
             </ImageBackground>
-        </SafeAreaView>
+        </>
     );
 };
 

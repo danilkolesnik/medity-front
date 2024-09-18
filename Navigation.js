@@ -18,61 +18,58 @@ import Notes from "./components/Notes/Notes";
 import Note from "./components/Notes/Note";
 import Goals from "./components/Goals/Goals";
 import TermsUse from "./components/TermsUse/TermsUse";
-import { StyleSheet, View,StatusBar } from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CustomStatusBar from "./components/CustomStatusBar/CustomStatusBar";
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  
   return (
-    <View style={styles.screenWrapper}>
-      
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}  
-        >
-          <Stack.Screen name="Home" component={Home} /> 
-          <Stack.Screen name="Auth" component={Auth} />
-   
-          <Stack.Screen name="Goals" component={Goals} />
+    <CustomStatusBar>
+      <View style={styles.screenWrapper}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Auth" component={Auth} />
 
-          <Stack.Screen name="Terms of use" component={TermsUse} />   
-          
-          <Stack.Screen name="Notes" component={Notes} />   
-          <Stack.Screen name="Note" component={Note} /> 
-          
-         
-          <Stack.Screen name="PersonalData" component={PersonalData} />
-          
-          <Stack.Screen name="Chakras" component={Chakras} />  
-          <Stack.Screen name="Profile" component={Profile} /> 
-          
-          <Stack.Screen name="Chakra" component={Chakra} />  
-          
+            <Stack.Screen name="Goals" component={Goals} />
 
-          <Stack.Screen name="Meditations" component={Meditations} />  
-         
-          <Stack.Screen name="Relax" component={Relax} />   
-          <Stack.Screen name="Player" component={Player} /> 
-      
-          <Stack.Screen name="Sleep" component={Sleep} />       
-          <Stack.Screen name="Quiz" component={Quiz} />         
-          <Stack.Screen name="Introduction" component={Introduction} />           
-          
-          <Stack.Screen name="EmailAuth" component={EmailAuth} />
-          <Stack.Screen name="OtpVerification" component={OtpVerification} />
-          <Stack.Screen name="Notifications" component={Notifications} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen name="Terms of use" component={TermsUse} />
 
-      <StatusBar barStyle="light-content" />
-    </View>
+            <Stack.Screen name="Notes" component={Notes} />
+            <Stack.Screen name="Note" component={Note} />
+
+            <Stack.Screen name="PersonalData" component={PersonalData} />
+
+            <Stack.Screen name="Chakras" component={Chakras} />
+            <Stack.Screen name="Profile" component={Profile} />
+
+            <Stack.Screen name="Chakra" component={Chakra} />
+
+            <Stack.Screen name="Meditations" component={Meditations} />
+
+            <Stack.Screen name="Relax" component={Relax} />
+            <Stack.Screen name="Player" component={Player} />
+
+            <Stack.Screen name="Sleep" component={Sleep} />
+            <Stack.Screen name="Quiz" component={Quiz} />
+            <Stack.Screen name="Introduction" component={Introduction} />
+
+            <Stack.Screen name="EmailAuth" component={EmailAuth} />
+            <Stack.Screen name="OtpVerification" component={OtpVerification} />
+            <Stack.Screen name="Notifications" component={Notifications} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </CustomStatusBar>
   );
-}
+};
 
 const styles = StyleSheet.create({
   screenWrapper: {

@@ -89,7 +89,7 @@ const Relax = () =>{
   }));
 
     return(
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
@@ -148,7 +148,7 @@ const Relax = () =>{
             </ImageBackground>
             
             <Menu></Menu>
-        </SafeAreaView>
+        </>
     )
 }
 

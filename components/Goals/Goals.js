@@ -152,7 +152,7 @@ const Goals = () =>{
     }, [activeMindEdit]);
 
     return(
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={[styles.background]}
@@ -300,7 +300,7 @@ const Goals = () =>{
             }
            
             </ImageBackground>
-        </SafeAreaView>
+        </>
     )
 }
 

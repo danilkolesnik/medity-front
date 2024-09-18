@@ -20,7 +20,7 @@ const TermsUse = () =>{
     const currentRoute = 'Profile'
 
     return(
-        <SafeAreaView style={styles.conteiner}>
+        <>
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={[styles.background]}
@@ -53,7 +53,7 @@ const TermsUse = () =>{
                     </View>
                 </View>
             </ImageBackground>
-        </SafeAreaView>
+        </>
     )
 }
 
