@@ -36,6 +36,8 @@ const AppNavigator = () => {
           }}  
         >
           <Stack.Screen name="Home" component={Home} /> 
+          <Stack.Screen name="Auth" component={Auth} />
+   
           <Stack.Screen name="Goals" component={Goals} />
 
           <Stack.Screen name="Terms of use" component={TermsUse} />   
@@ -43,7 +45,6 @@ const AppNavigator = () => {
           <Stack.Screen name="Notes" component={Notes} />   
           <Stack.Screen name="Note" component={Note} /> 
           
-          <Stack.Screen name="Auth" component={Auth} />
          
           <Stack.Screen name="PersonalData" component={PersonalData} />
           

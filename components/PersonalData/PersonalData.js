@@ -67,11 +67,8 @@ const PersonalData = () =>{
 
             const {data, error} = await supabase
                 .from('profiles')
-                .update({ full_name: fullName, birthday:birthday, email:email})
+                .update({ full_name: fullName, birthday:birthday, email:email, gender:gender})
                 .eq('id', userId) 
-
-            console.log(data);
-            
 
             // await supabase.auth.updateUser({email: email});
                    
@@ -115,7 +112,7 @@ const PersonalData = () =>{
                     </View>
                     <View style={{paddingTop:12}}>
                         <Text style={styles.label}>Birthday</Text>
-                        <BirthdayCard birthdayDate={birthday}></BirthdayCard>
+                        <BirthdayCard birthdayDate={birthday} setBirthday={setBirthday}></BirthdayCard>
                     </View>
 
                     <View style={{paddingTop:12,paddingRight:18}}>

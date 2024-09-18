@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-const BirthdayCard = ({birthdayDate}) => {
-    const [birthday, setBirthday] = useState(birthdayDate);
-
+const BirthdayCard = ({birthdayDate,setBirthday}) => {
+  
     const handleDateInput = (input) => {
         // Remove any non-digit characters
         let cleanedInput = input.replace(/[^\d]/g, '');
@@ -36,7 +35,7 @@ const BirthdayCard = ({birthdayDate}) => {
           placeholder="13.09.2024"
           placeholderTextColor="#949494"
           keyboardType="numeric"
-          value={birthday}
+          value={birthdayDate}
           onChangeText={handleDateInput} // Handle input with formatting
           maxLength={10} // Max length for dd.mm.yyyy format
         />

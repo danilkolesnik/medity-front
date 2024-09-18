@@ -35,8 +35,6 @@ const Home = ({navigation}) =>{
 
     const [currentStep, setCurrentStep] = useState(null);
 
-    const [currentStepTop, setCurrentStepTop] = useState(null);
-
     const [searchText, setSearchText] = useState("");
 
     const getMeditations = async() =>{
@@ -69,18 +67,52 @@ const Home = ({navigation}) =>{
       setMeditations(filtered);
     };
 
-    const getUser = async() =>{
+
+    
+    const refreshTokenAndGetUser = async () => {
       try {
-        const token = await AsyncStorage.getItem('token')
-        const { data: { user } } = await supabase.auth.getUser(token)
-        console.log(user);
+        const refreshToken = await AsyncStorage.getItem('refresh_token');
+        if (!refreshToken) {
+          throw new Error('Refresh token not found');
+        }
+  
+        const { data: { session }, error } = await supabase.auth.refreshSession({ refresh_token: refreshToken });
+        if (error) {
+          throw error;
+        }
         
-        return user
-        
+        await AsyncStorage.setItem('access_token', session.access_token);
+        await AsyncStorage.setItem('refresh_token', session.refresh_token);
+  
+        return getUser();
       } catch (error) {
-        
+        console.error('Error refreshing token:', error.message);
+        Alert.alert('Error', 'Failed to refresh token. Please log in again.');
       }
-    }
+    };
+
+
+    const getUser = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+          throw new Error('Access token not found');
+        }
+  
+        const { data: { user }, error } = await supabase.auth.getUser(token);
+        if (error) {
+          throw error;
+        }
+  
+        await AsyncStorage.setItem('userId', user.id)
+        
+        return user;
+      } catch (error) {
+        console.error('Error getting user:', error.message);
+       
+        await refreshTokenAndGetUser();
+      }
+    };
 
     useEffect(() => {
       setLoading(true);

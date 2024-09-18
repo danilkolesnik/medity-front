@@ -25,7 +25,9 @@ const Notifications = () =>{
     
     const handleSendNotification = async () => {
         const token = await registerForPushNotificationsAsync();
-        await sendPushNotification(token);
+        console.log(token);
+        
+        // await sendPushNotification(token);
     };
 
 
