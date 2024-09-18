@@ -15,7 +15,8 @@
       "supportsTablet": false,
       "usesAppleSignIn": true,
       "bundleIdentifier": "com.meditycompany.medity",
-        "buildNumber": "2"
+        "buildNumber": "2",
+        "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "googleServicesFile":"./google-services.json",
