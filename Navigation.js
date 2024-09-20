@@ -17,8 +17,10 @@ import PersonalData from "./components/PersonalData/PersonalData";
 import Notes from "./components/Notes/Notes";
 import Note from "./components/Notes/Note";
 import Goals from "./components/Goals/Goals";
+import GoalsText from "./components/Goals/GoalsText";
 import TermsUse from "./components/TermsUse/TermsUse";
-import { StyleSheet, View, StatusBar } from "react-native";
+import Settings from "./components/Settings/Settings";
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomStatusBar from "./components/CustomStatusBar/CustomStatusBar";
@@ -35,17 +37,20 @@ const AppNavigator = () => {
               headerShown: false,
             }}
           >
+          
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Auth" component={Auth} />
 
             <Stack.Screen name="Goals" component={Goals} />
+            <Stack.Screen name="GoalsText" component={GoalsText} />
 
             <Stack.Screen name="Terms of use" component={TermsUse} />
+            <Stack.Screen name="Settings" component={Settings} />
 
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="Note" component={Note} />
 
-            <Stack.Screen name="PersonalData" component={PersonalData} />
+            <Stack.Screen name="Personal Data" component={PersonalData} />
 
             <Stack.Screen name="Chakras" component={Chakras} />
             <Stack.Screen name="Profile" component={Profile} />

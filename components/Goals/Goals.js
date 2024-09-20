@@ -6,16 +6,17 @@ import {
     ScrollView,
     TextInput,
     Pressable,
-    Image
+    Image,
+    Keyboard 
 } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from '@react-navigation/native';
 import { useFocusEffect } from '@react-navigation/native';
 import Welness from "../../assets/icons/Welness";
 import WelnessSleep from "../../assets/icons/WelnessSleep";
 import Edit from "../../assets/icons/Edit";
 import Header from "../Header/Header";
 import Switch from "../../ui/switch";
-import Loader from "../Loader/Loader";
+import Loader from "../Loader/Loader";  
 
 import { supabase } from "../../utils/supabase";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -24,6 +25,8 @@ import styles from "../../styles/goals";
 const Goals = () =>{
 
     const currentRoute = 'Home'
+    
+    const navigation = useNavigation()
 
     const[loading, setLoading] = useState(false)
 
@@ -131,26 +134,28 @@ const Goals = () =>{
         saveGoals()
     },[activeSleep,activeStress,activeMind,sleepText,mindText])
 
+    useEffect(() => {
+        if (activeMindEdit) {
+          textInputTwoRef.current.focus();
+        } else if (activeSleepEdit) {
+          textInputRef.current.focus();
+        }
+      }, [activeMindEdit, activeSleepEdit]);
+    
+      const handleMindEditPress = () => {
+        setActiveMindEdit(true);
+        setActiveSleepEdit(false);
+      };
+    
+      const handleSleepEditPress = () => {
+        setActiveSleepEdit(true);
+        setActiveMindEdit(false);
+      };
     useFocusEffect(
         useCallback(() => {
             getGoals();
         }, [])
     );
-
-    useEffect(() => {
-        if (activeSleepEdit && textInputRef.current) {
-          textInputRef.current.focus();
-          return
-        }
-      }, [activeSleepEdit]);
-
-    useEffect(() => {
-        if (activeMindEdit && textInputTwoRef.current) {
-            textInputTwoRef.current.focus();
-            return
-        }
-    }, [activeMindEdit]);
-
     return(
         <>
             <ImageBackground
@@ -158,49 +163,50 @@ const Goals = () =>{
                 style={[styles.background]}
             >
             {!loading ? 
-                 <ScrollView style={styles.content}>
-                 <Header currentRoute={currentRoute}></Header>
-                 <View style={[styles.topContent, {paddingTop:54}]}>
-                     <View style={styles.topContent}>                     
-                         <Welness/>
-                         <Text style={styles.goalsTitle}>Mindfulness</Text>
-                     </View>
-                     <View style={styles.topContent}>                                           
-                         <Text style={[styles.goalsTitle, {paddingRight:16}]}></Text>
-
-                         <TextInput
-                            onChangeText={setMindText}
-                            value={mindText}
-                            style={[styles.goalsTitle, { paddingRight: 16 }]}
-                            editable={activeMindEdit}
-                            ref={textInputTwoRef}
-                        />
-                         <Pressable onPress={() => setActiveMindEdit(previousState => !previousState)}>
-                            <Edit/>
-                         </Pressable>
-                     </View>
-                 </View>
-                 <View style={[styles.topContent,{paddingTop:8, paddingBottom:28,borderColor: '#F1F5F9',borderBottomWidth: 1}]}>
-                     <View style={styles.topContent}>                     
-                         <WelnessSleep/>
-                         <Text style={styles.goalsTitle}>Sleep</Text>
-                     </View>
-                     <View style={styles.topContent}>                                           
-                    
-                         <TextInput
-                            onChangeText={setSleepText}
-                            value={sleepText}
-                            style={[styles.goalsTitle, { paddingRight: 16 }]}
-                            editable={activeSleepEdit}
-                            ref={textInputRef}
-                        />
-                         <Pressable onPress={() => setActiveSleepEdit(previousState => !previousState)}>
-                            <Edit/>
-                         </Pressable>
-                     </View>
-                 </View>
- 
-                 <Text style={styles.title}>Active program</Text>
+                <ScrollView style={styles.content}>
+                <Header currentRoute={currentRoute}></Header>
+                 
+                <View style={[styles.topContent, { paddingTop: 54 }]}>
+                <View style={styles.topContent}>
+                    <Welness />
+                    <Text style={styles.goalsTitle}>Mindfulness</Text>
+                </View>
+                <View style={styles.topContent}>
+                <Text style={[styles.goalsTitle, { paddingRight: 16 }]}></Text>
+                <TextInput
+                    onChangeText={setMindText}
+                    value={mindText}
+                    style={[styles.goalsTitle, { paddingRight: 16 }]}
+          
+                    ref={textInputTwoRef}
+         
+                    inputMode='text'
+                />
+                <Pressable onPress={() => handleMindEditPress()}>
+                    <Edit />
+                </Pressable>
+            </View>
+            </View>
+            <View style={[styles.topContent, { paddingTop: 8, paddingBottom: 28, borderColor: '#F1F5F9', borderBottomWidth: 1 }]}>
+            <View style={styles.topContent}>
+                <WelnessSleep />
+                <Text style={styles.goalsTitle}>Sleep</Text>
+            </View>
+            <View style={styles.topContent}>
+                <TextInput
+                    onChangeText={setSleepText}
+                    value={sleepText}
+                    style={[styles.goalsTitle, { paddingRight: 16 }]}
+         
+                    ref={textInputRef}
+                    inputMode='text'
+                />
+                <Pressable onPress={() => handleSleepEditPress()}>
+                <Edit />
+                </Pressable>
+            </View>
+            </View>
+            <Text style={styles.title}>Active program</Text>
  
                  <View>
                      <View

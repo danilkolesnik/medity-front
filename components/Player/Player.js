@@ -47,6 +47,17 @@ const Player = () => {
         playTrack();
     }, []);
    
+    const resetPlayer = async() =>{
+        await TrackPlayer.pause();
+        await TrackPlayer.reset()
+        navigation.navigate(currentRoute)
+    }
+
+    const resetSettings = async() =>{
+        await TrackPlayer.pause();
+        await TrackPlayer.reset()
+        navigation.navigate("Settings")
+    }
 
     useTrackPlayerEvents(['playback-track-changed'], async event => {
         const track = await TrackPlayer.getTrack(event.nextTrack);       
@@ -56,15 +67,17 @@ const Player = () => {
     return (
         <>
             <ImageBackground
-                source={require("../../assets/images/face-background.jpg")}
+                source={require("../../assets/images/glass.jpg")}
                 style={styles.background}
-                blurRadius={2}
+                resizeMode="stretch"
             >
                 <SafeAreaView style={styles.topContent}>
-                    <Pressable onPress={() => navigation.navigate(currentRoute)}>
+                    <Pressable onPress={() => resetPlayer()}>
                         <Back></Back>
                     </Pressable>
-                    <Pressable>
+                    <Pressable onPress={() => {
+                        resetSettings()
+                    }}>
                         <Setting></Setting>
                     </Pressable>
                 </SafeAreaView>
@@ -72,17 +85,20 @@ const Player = () => {
                 <View style={styles.image}>
                     <Image source={require("../../assets/images/album-image.png")}></Image>
                 </View>
-
-                <View style={styles.textContent}>
-                    <Text style={styles.trackTitle}>
-                        {category.title}
-                    </Text>
-                    <Text style={styles.trackText}>
-                        {currentTrackTitle}
-                    </Text>
-                    <PlayerProgressBar style={{ paddingBottom: 40 }} />
-                    <ControllPanel />
-                </View>
+               <View style={styles.textContent}>
+                    <Text style={styles.trackTitle}>                
+                       {category.title}
+                   </Text>
+        
+                    
+                           
+                   <Text style={styles.trackText}>
+                       {currentTrackTitle}
+                   </Text>
+                   <PlayerProgressBar style={{ paddingBottom: 40 }} />
+                   <ControllPanel />
+               </View>            
+                
             </ImageBackground>
         </>
     );

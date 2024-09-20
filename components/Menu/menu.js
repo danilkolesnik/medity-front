@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { ImageBackground, View, Text, Pressable } from "react-native";
+import {  View, Text, Pressable } from "react-native";
 import { useRoute,useNavigation  } from '@react-navigation/native';
-import styles from "../../styles/menu"; 
+import { BlurView } from 'expo-blur';
 import Chakras from '../../assets/icons/Chakras'
 import Sleep from '../../assets/icons/Sleep' 
 import Home from '../../assets/icons/Home' 
 import Meditations from '../../assets/icons/Meditations' 
 import Profile from '../../assets/icons/Profile' 
 
+import styles from "../../styles/menu"; 
 const Menu = () =>{
 
     const route = useRoute();
@@ -15,11 +15,12 @@ const Menu = () =>{
 
     const isActive = (screenName) => route.name === screenName;
     return(
-        <View style={styles.conteiner}>
+        <BlurView style={styles.conteiner} intensity={50} tint="light">
             <Pressable 
                 style={styles.button}
                 onPress={() => navigation.navigate("Chakras")}
             >
+
                 <Chakras/>
                 <Text style={isActive("Chakras") ? styles.text(true) : styles.text()}>Chakras</Text>
             </Pressable>
@@ -51,7 +52,7 @@ const Menu = () =>{
                 <Profile/>
                 <Text style={isActive("Profile") ? styles.text(true) : styles.text()}>Profile</Text>
             </Pressable>
-        </View>
+        </BlurView>
     )
 }
 

@@ -10,24 +10,25 @@ const styles = StyleSheet.create({
     background:{
         flex: 1, 
         width: null, 
-        height: "100%",
-        paddingLeft:24, 
-        paddingRight:24
+        height: "69%",
     },
 
     content:{
-        backgroundColor:"#000",
+        backgroundColor:"#050505",
         flexDirection:'row',
         alignItems:"center",
         justifyContent:"space-between",
+        paddingLeft:24, 
+        paddingRight:24
     },
     trackTitle:{
+        position:'relative',
         color:"#fff",
         fontSize:24,
         textAlign:"center",
         fontWeight:"600",
         fontFamily:"Urbanist-SemiBold",
-        backgroundColor:"#000"
+        backgroundColor:"#050505",
     },
     leftGradient: {
         position: 'absolute',
@@ -46,10 +47,12 @@ const styles = StyleSheet.create({
         fontWeight:"400",
         color:"rgba(255,255,255,0.5)",
         textAlign:"center",
+        backgroundColor:"#050505",
         paddingTop:12,
         paddingBottom:24,
         fontWeight:"400",
         fontFamily:'Urbanist-Regular'
+
       },
      textContent:{ 
         position: 'relative',
@@ -58,10 +61,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         
     },
+
+        backgroundGradient: {
+            width:'100%',
+            height:40,
+            paddingTop:10,
+        },
     topContent:{
         width:'100%',
         justifyContent:'space-between',
         flexDirection:'row',
+        paddingLeft:24,
+        paddingRight:24,
+        paddingTop:24
     },
     image: {
         flex: 1,

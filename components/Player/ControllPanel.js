@@ -35,7 +35,6 @@ const ControllPanel = ({ playAudio }) => {
             <Pressable onPress={handleSkipToPrevious}>
                 <Skip></Skip>
             </Pressable>
-
             <View style={styles.content}>
                 <Pressable onPress={() => TrackPlayer.seekTo(30 - position)}>
                     <Previews></Previews>

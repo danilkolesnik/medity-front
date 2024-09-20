@@ -4,17 +4,13 @@ import {
     Text, 
     ImageBackground,
     ScrollView,
-    FlatList,
-    TextInput,
     Pressable,
-    Modal
 } from "react-native"
 import Header from "../Header/Header";
 import Charts from "./Charts";
 import Menu from "../Menu/menu";
 import ModalProfile from "./Modal";
 import { ProgressBar} from 'react-native-paper';
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import Rigth from "../../assets/icons/Rigth";
 
@@ -245,7 +241,7 @@ const Profile = ({navigation}) =>{
                         </Pressable>
                         <Pressable 
                           style={styles.linkButton}
-                          onPress={() => navigation.navigate("PersonalData")}
+                          onPress={() => navigation.navigate("Personal Data")}
                         >
                             <Text style={styles.linkText}>Personal data</Text>
                             <Rigth></Rigth>

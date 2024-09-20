@@ -11,11 +11,12 @@ const generateTimeArray = (start, end) => {
   return timeArray;
 };
 
-const TimePicker = ({ onTimeChange }) => {
-  const [selectedHour, setSelectedHour] = useState('00');
-  const [selectedMinute, setSelectedMinute] = useState('00');
+const TimePicker = ({ onTimeChange, hour,minute}) => {
 
-  const hours = generateTimeArray(0, 23); // Формат 24 часа
+  const [selectedHour, setSelectedHour] = useState(hour);
+  const [selectedMinute, setSelectedMinute] = useState(minute);
+
+  const hours = generateTimeArray(0, 23);
   const minutes = generateTimeArray(0, 59);
 
   const hourRef = useRef();

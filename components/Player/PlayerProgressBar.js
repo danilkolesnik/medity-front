@@ -21,7 +21,11 @@ export const PlayerProgressBar = ({ style }) => {
 	}
 
 	return (
-		<View style={style}>
+		<View style={[style, {
+			paddingLeft:24, 
+        	paddingRight:24,
+			backgroundColor:"#050505"
+		}]}>
 
             <View style={styles.timeRow}>
 				<Text style={[styles.timeText,{color:'#fff'}]}>

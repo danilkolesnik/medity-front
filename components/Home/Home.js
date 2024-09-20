@@ -6,9 +6,7 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-  StatusBar,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressBar} from 'react-native-paper';
 import CardSleep from "../Sleep/Card";
 import Card from "./Card";

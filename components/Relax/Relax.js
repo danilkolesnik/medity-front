@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffectm,useCallback } from "react";
 import { 
     View,
     Text, 
@@ -9,7 +9,7 @@ import {
     Pressable
 } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from "@react-navigation/native";
 import { SERVER } from "../../constants/async";
 import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 
@@ -23,7 +23,6 @@ import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
 
 import styles from "../../styles/sleep"; 
-import TrackPlayer from "react-native-track-player";
 
 
 const Relax = () =>{
@@ -64,16 +63,6 @@ const Relax = () =>{
     setSleep(filtered);
   };
 
-  useEffect(() => {
-    getSleep()
-      .then(res => {
-        res.map(track =>{
-          QueueInitialTracksService(track.title,track.media);      
-        })
-      })
-    
-  }, []);
-
   const groupedData = sleep.reduce((acc, item) => {
     const category = item.category.title;
     if (!acc[category]) {
@@ -88,6 +77,17 @@ const Relax = () =>{
     data: groupedData[category],
   }));
 
+  useFocusEffect(
+    useCallback(() => {
+      getSleep()
+        .then(res => {
+          res.map(track =>{
+            QueueInitialTracksService(track.title,track.media);      
+          })
+        })
+    }, [])
+  );
+
     return(
         <>
             <ImageBackground
@@ -100,7 +100,7 @@ const Relax = () =>{
                      <Pressable onPress={() => navigation.navigate("Home")}>
                          <Back></Back>
                      </Pressable>
-                     <Pressable>
+                     <Pressable onPress={() => navigation.navigate("Settings")}>
                          <Setting></Setting>
                      </Pressable>
                  </SafeAreaView>

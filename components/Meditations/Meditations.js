@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { 
     View,
     Text, 
@@ -10,7 +10,7 @@ import {
 import SearchIcon from "../../assets/icons/Search";
 import Menu from '../Menu/menu'
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import Card from "../Sleep/Card"
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
@@ -59,14 +59,16 @@ const Meditations = () =>{
       setSleep(filtered);
     };
   
-    useEffect(() => {
-      getSleep()
-        .then(res => {
-          res.map(track =>{
-            QueueInitialTracksService(track.title,track.media);      
+    useFocusEffect(
+      useCallback(() => {
+        getSleep()
+          .then(res => {
+            res.map(track =>{
+              QueueInitialTracksService(track.title,track.media);      
+            })
           })
-        })
-    }, []);
+      }, [])
+    );
 
     return(
         <>
@@ -80,7 +82,7 @@ const Meditations = () =>{
                        <Pressable onPress={() => navigation.navigate("Home")}>
                            <Back></Back>
                        </Pressable>
-                       <Pressable>
+                       <Pressable onPress={() => navigation.navigate("Settings")}>
                            <Setting></Setting>
                        </Pressable>
                    </SafeAreaView>
