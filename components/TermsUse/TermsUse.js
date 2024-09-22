@@ -10,8 +10,6 @@ import {
 } from "react-native"
 import Header from "../Header/Header";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import styles from "../../styles/termsUse";
 
 

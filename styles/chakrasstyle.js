@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     chakrasContainer: {
         margin: 20,
-        marginTop: 40,
+        marginTop: 0,
         paddingBottom: 70,
         width:'100%',
         gap:16
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     affirmationsContainer: {
         marginLeft: 30,
         marginRight: 30,
-        paddingTop:20
+        paddingTop:120
     },
     affirmation:{
         fontWeight:"400",

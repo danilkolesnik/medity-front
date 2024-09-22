@@ -7,7 +7,7 @@ const Edit = ({ width = 19, height = 21 }) => {
     <View>
        <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={14}
+    width={24}
     height={15}
     fill="none"
   >

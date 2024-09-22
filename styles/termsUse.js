@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     content: {
         paddingLeft: 24,
         paddingRight: 24,
-        paddingTop:42,
         height:'100%',
         width:'100%',
         gap:27

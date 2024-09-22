@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         fontWeight:"600",
         fontFamily:"Urbanist-Bold",
         paddingLeft:24,
-        paddingTop:37
+        paddingTop:0
     },
     goalContent:{
         flexDirection:'row',

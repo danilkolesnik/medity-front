@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     content: {
         paddingLeft: 24,
         paddingRight: 24,
-
         height:'100%',
         width:'100%',
     },
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         color: "#fff",
         fontFamily: "Urbanist-Bold",
-        paddingTop: 76,
       },
     text:{
         fontSize:14,
@@ -111,7 +109,6 @@ const styles = StyleSheet.create({
         height: 100, 
       },
       topContent:{
-        paddingTop:20,
         width:'100%',
         justifyContent:'space-between',
         flexDirection:'row'
