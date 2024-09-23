@@ -1,7 +1,10 @@
+import { useState,useEffect } from "react";
 import { ImageBackground, View, Text, Pressable, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
+import { SERVER } from "../../constants/async";
 import { useNavigation  } from '@react-navigation/native';
+import Loader from "../Loader/Loader";
+
+import axios from "axios";
 
 import Header from "../Header/Header";
 import styles from "../../styles/chakrasstyle";
@@ -9,16 +12,30 @@ import Menu from '../Menu/menu';
 
 const Chakras = () => {
 
+    const [loading, setLoading] = useState(false)
+
     const currentRoute = "Home"
 
-    const mockUp = [1,2,3,4,5,6,7];
+    const [chakras,setChakras] = useState([])
 
     const navigation = useNavigation();
 
-    const handleItemClick = (index) => {
-        //todo: redux store data
-        navigation.navigate("Chakra")
+    const getChakras = async () => {
+        setLoading(true)
+        try {
+          const { data } = await axios.get(`${SERVER}/api/chakra`);
+          setChakras(data.docs)
+          return data.docs
+        } catch (error) {
+          console.log(error);
+        }finally{
+            setLoading(false)
+        }
     };
+
+    useEffect(() =>{
+        getChakras()
+    },[])
 
     return(
         <>
@@ -27,34 +44,37 @@ const Chakras = () => {
                 style={styles.background}
                 resizeMode="repeat"     
             >
+                {!loading ?
                 <ScrollView style={styles.conteiner}>
 
                     <Header currentRoute={currentRoute}/>
-                    <View style={styles.chakrasContainer}>
-                        {mockUp.map((item, index) => (
-                            
-                                <Pressable style={styles.chakraWrapper} key={index} onPress={() => handleItemClick(index)}>
-                                    <ImageBackground
-                                        source={require("../../assets/images/chakras.jpg")}
-                                        style={styles.backgroundCardRelax}
-                                    >
-                                   
-                                    <View style={styles.infoBar}>
-                                        <Text style={styles.infoBarText}>Muladhara</Text>
-                                        <View style={styles.infoMarksWrapper}>
-                                            <Text style={styles.infoMark}>7 meditations</Text>
-                                            <Text style={styles.infoMark}>•</Text>
-                                            <Text style={styles.infoMark}>69 affirmations</Text>
-                                        </View>
-                                    </View> 
-                                    </ImageBackground>
-                                
-                                </Pressable>
-                            
-                        ))}
-                    </View>  
-                    
+                   
+                     <View style={styles.chakrasContainer}>
+                     {chakras.map((item, index) =>(
+                         <Pressable style={styles.chakraWrapper} key={index} onPress={() => {
+                             navigation.navigate("Chakra",{item})
+                         }}>
+                          <ImageBackground
+                              source={{uri:`${SERVER}${item.image.url}`}}
+                              style={styles.backgroundCardRelax}
+                          >
+                         
+                          <View style={styles.infoBar}>
+                              <Text style={styles.infoBarText}>{item.title}</Text>
+                              <View style={styles.infoMarksWrapper}>
+                                  <Text style={styles.infoMark}>{item.meditations.length} meditations</Text>
+                                  <Text style={styles.infoMark}>•</Text>
+                                  <Text style={styles.infoMark}>{item.affirmations.length} affirmations</Text>
+                              </View>
+                          </View> 
+                          </ImageBackground>
+                      
+                      </Pressable>
+                     ))}
+                 </View>                  
                 </ScrollView>
+                 : <Loader></Loader>
+                }
                 <Menu/>  
             </ImageBackground>
         </>

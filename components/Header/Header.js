@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from "../../assets/icons/Back";
 import styles from "../../styles/header";
 
-const Header = ({currentRoute}) =>{
+const Header = ({currentRoute,currentTitle}) =>{
 
     const route = useRoute()
 
@@ -28,7 +28,9 @@ const Header = ({currentRoute}) =>{
         
         
         
-        <Text style={styles.text}>{route.name}</Text>
+        <Text style={styles.text}>
+            {currentTitle ? currentTitle : route.name}         
+        </Text>
     </SafeAreaView>
     )
 } 

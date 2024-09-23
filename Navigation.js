@@ -38,7 +38,6 @@ const AppNavigator = () => {
               headerShown: false,
             }}
           >
-          
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Auth" component={Auth} />
 
@@ -51,11 +50,10 @@ const AppNavigator = () => {
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="Note" component={Note} />
 
-            <Stack.Screen name="Personal Data" component={PersonalData} />
-
-            <Stack.Screen name="Chakras" component={Chakras} />
+            <Stack.Screen name="Personal Data" component={PersonalData} />     
             <Stack.Screen name="Profile" component={Profile} />
 
+            <Stack.Screen name="Chakras" component={Chakras} />
             <Stack.Screen name="Chakra" component={Chakra} />
 
             <Stack.Screen name="Meditations" component={Meditations} />

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     affirmationsContainer: {
         marginLeft: 30,
         marginRight: 30,
-        paddingTop:120
+        paddingTop:27
     },
     affirmation:{
         fontWeight:"400",
