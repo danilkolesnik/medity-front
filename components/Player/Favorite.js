@@ -17,11 +17,12 @@ import Setting from "../../assets/icons/Setting";
 import { SERVER } from "../../constants/async";
 import Loader from "../Loader/Loader";
 import axios from "axios";
-
+import { supabase } from "../../utils/supabase";
 import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../../styles/sleep";
 
-const Meditations = () =>{
+const Favorite = () =>{
 
     const[loading, setLoading] = useState(false)
 
@@ -34,16 +35,28 @@ const Meditations = () =>{
     const getSleep = async () => {
       setLoading(true)
       try {
-        const { data } = await axios.get(`${SERVER}/api/meditation`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        });
-        setSleep(data.docs);
-        setOriginalSleep(data.docs);
+        const userId = await AsyncStorage.getItem('userId');
+      
+        const { data: existingFavorite, error: selectError } = await supabase
+          .from('favorite')
+          .select('*')
+          .eq('userId', userId);
+      
+        if (selectError) {
+          throw new Error('Error selecting favorite: ' + selectError.message);
+        }
 
-        return data.docs
+        const meditationIds = existingFavorite.map(item => item.meditationId);
+
+      
+        const { data } = await axios.get(`${SERVER}/api/meditation`);
+
+        const filteredDocs = data.docs.filter(doc => meditationIds.includes(doc.id));
+      
+        setSleep(filteredDocs);
+        setOriginalSleep(filteredDocs);
+      
+        return filteredDocs;
       } catch (error) {
         console.log(error);
       }finally {
@@ -88,9 +101,9 @@ const Meditations = () =>{
                    </SafeAreaView>
                   
                            <View>
-                       <Text style={styles.title}>Meditations</Text>
+                       <Text style={styles.title}>My favorite meditations</Text>
                        <Text style={[styles.text, {paddingTop: 4, paddingBottom: 12}]}>{sleep.length} practices</Text>
-                       <Text style={[styles.text, {paddingBottom:45}]}>All Meditations</Text>
+                       <Text style={[styles.text, {paddingBottom:45}]}>All favorite meditations</Text>
                    </View>
                    
                    <View style={styles.inputContainer}>
@@ -124,4 +137,4 @@ const Meditations = () =>{
     )
 }
 
-export default Meditations
+export default Favorite

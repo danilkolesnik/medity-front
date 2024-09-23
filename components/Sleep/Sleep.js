@@ -66,7 +66,7 @@ const Sleep = () => {
       getSleep()
         .then(res => {
           res.map(track =>{
-            QueueInitialTracksService(track.title,track.media);      
+            QueueInitialTracksService(track.title,track.media,track.id);      
           })
         })
     }, [])

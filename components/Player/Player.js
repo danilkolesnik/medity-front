@@ -10,13 +10,18 @@ import ControllPanel from "./ControllPanel";
 import MovingText from "./MovingText";
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
+import Favorite from '../../assets/icons/Favorite';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER } from "../../constants/async";
 import Loader from '../Loader/Loader';
+import { supabase } from "../../utils/supabase";
 import styles from "../../styles/player";
 
 
 const Player = () => {
     const [loading, setLoading] = useState(true);
+    const [curretFavorite, setCurrentFavorite] = useState(false)
+
     const route = useRoute();
     const { title, category,currentRoute } = route.params;
 
@@ -43,10 +48,33 @@ const Player = () => {
         }
     };
 
-    useEffect(() => {
-        playTrack();
-    }, []);
-   
+    const getFavorite = async() =>{
+        try {
+            const userId = await AsyncStorage.getItem('userId');
+            const queue = await TrackPlayer.getQueue();
+            const track = queue.find(t => t.title === title);
+
+            if (!userId) {
+                throw new Error('User ID not found');
+            }
+
+            const { data: existingGoals, error: selectError } = await supabase
+              .from('favorite')
+              .select('*')
+              .eq('meditationId', track.id);
+
+          
+            if(existingGoals.length != 0){
+                setCurrentFavorite(true)
+                return
+            }        
+            setCurrentFavorite(false)
+
+        } catch (error) {
+            
+        }
+    }
+
     const resetPlayer = async() =>{
         await TrackPlayer.pause();
         await TrackPlayer.reset()
@@ -58,6 +86,66 @@ const Player = () => {
         await TrackPlayer.reset()
         navigation.navigate("Settings")
     }
+
+    const addFavorite = async() =>{
+        try {
+            const userId = await AsyncStorage.getItem('userId');
+
+            const queue = await TrackPlayer.getQueue();
+            const track = queue.find(t => t.title === title);
+            
+            if (!userId) {
+              throw new Error('User ID not found');
+            }
+  
+            const { data: existingGoals, error: selectError } = await supabase
+              .from('favorite')
+              .select('*')
+              .eq('meditationId', track.id);
+        
+            if (selectError) {
+              throw selectError;
+            }
+        
+            if (existingGoals.length > 0) {
+  
+              const { data, error } = await supabase
+                .from('favorite')
+                .delete()
+                .eq('meditationId', track.id)
+
+            setCurrentFavorite(false)
+        
+              if (error) {
+                throw error;
+              }
+        
+            } else {
+             
+              const { data, error } = await supabase
+                .from('favorite')
+                .insert([{
+                  userId,
+                  meditationId:track.id
+                }]);
+
+             setCurrentFavorite(true)
+              
+        
+              if (error) {
+                throw error;
+              }
+            }
+          } catch (error) {
+            console.error('Error saving goals:', error.message);
+            Alert.alert('Error', 'Failed to save goals. Please try again.');
+          }
+    }
+
+    useEffect(() => {
+        getFavorite()
+        playTrack();
+    }, []);
 
     useTrackPlayerEvents(['playback-track-changed'], async event => {
         const track = await TrackPlayer.getTrack(event.nextTrack);       
@@ -75,11 +163,23 @@ const Player = () => {
                     <Pressable onPress={() => resetPlayer()}>
                         <Back></Back>
                     </Pressable>
-                    <Pressable onPress={() => {
-                        resetSettings()
-                    }}>
-                        <Setting></Setting>
-                    </Pressable>
+                    <View>
+                        
+                        <Pressable onPress={() => {
+                            resetSettings()
+                        }}>
+                            <Setting></Setting>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => addFavorite()}
+                            style={{
+                                marginTop:11
+                            }}
+                        >
+                            <Favorite active={curretFavorite}></Favorite>
+                        </Pressable>
+                    </View>
+                    
                 </SafeAreaView>
 
                 <View style={styles.image}>

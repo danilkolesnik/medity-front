@@ -35,7 +35,13 @@ const Burger = () =>{
 
                 </View>
 
-                <Pressable style={styles.button}>
+                <Pressable 
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("My favorite meditations")
+                        setActive(false)
+                    }}
+                >
                     <Text style={styles.buttonText}>My favorite meditations</Text>
                     <Rigth></Rigth>
                 </Pressable>

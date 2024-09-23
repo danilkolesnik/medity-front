@@ -36,6 +36,7 @@ const Goals = () =>{
 
     const[sleepText, setSleepText] = useState('')
     const[mindText, setMindText] = useState('')
+    const [activeInput, setActiveInput] = useState(null); 
 
     const textInputRef = useRef(null);
     const textInputTwoRef = useRef(null);
@@ -135,21 +136,19 @@ const Goals = () =>{
     },[activeSleep,activeStress,activeMind,sleepText,mindText])
 
     useEffect(() => {
-        if (activeMindEdit) {
-          textInputTwoRef.current.focus();
-        } else if (activeSleepEdit) {
-          textInputRef.current.focus();
+        if (activeInput === 'mind') {
+          textInputTwoRef.current?.focus();
+        } else if (activeInput === 'sleep') {
+          textInputRef.current?.focus();
         }
-      }, [activeMindEdit, activeSleepEdit]);
+      }, [activeInput]);
     
       const handleMindEditPress = () => {
-        setActiveMindEdit(true);
-        setActiveSleepEdit(false);
+        setActiveInput('mind'); 
       };
     
       const handleSleepEditPress = () => {
-        setActiveSleepEdit(true);
-        setActiveMindEdit(false);
+        setActiveInput('sleep'); 
       };
     useFocusEffect(
         useCallback(() => {
@@ -179,6 +178,7 @@ const Goals = () =>{
                     style={[styles.goalsTitle, { paddingRight: 16 }]}
           
                     ref={textInputTwoRef}
+                    onFocus={() => setActiveInput('mind')}
          
                     inputMode='text'
                 />
@@ -197,7 +197,7 @@ const Goals = () =>{
                     onChangeText={setSleepText}
                     value={sleepText}
                     style={[styles.goalsTitle, { paddingRight: 16 }]}
-         
+                    onFocus={() => setActiveInput('sleep')}
                     ref={textInputRef}
                     inputMode='text'
                 />

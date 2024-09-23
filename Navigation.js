@@ -20,6 +20,7 @@ import Goals from "./components/Goals/Goals";
 import GoalsText from "./components/Goals/GoalsText";
 import TermsUse from "./components/TermsUse/TermsUse";
 import Settings from "./components/Settings/Settings";
+import Favorite from "./components/Player/Favorite";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -61,6 +62,7 @@ const AppNavigator = () => {
 
             <Stack.Screen name="Relax" component={Relax} />
             <Stack.Screen name="Player" component={Player} />
+            <Stack.Screen name="My favorite meditations" component={Favorite} />
 
             <Stack.Screen name="Sleep" component={Sleep} />
             <Stack.Screen name="Quiz" component={Quiz} />
