@@ -23,7 +23,7 @@ const TermsUse = () =>{
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={[styles.background]}
             >   
-                <Header currentRoute={currentRoute}></Header>
+                <Header currentRoute={currentRoute} currentBack={true}></Header>
                 <View style={styles.content}>
                     <View>
                         <Text style={styles.title}>1. Acceptance of Terms</Text>

@@ -47,7 +47,7 @@ const Chakras = () => {
                 {!loading ?
                 <ScrollView style={styles.conteiner}>
 
-                    <Header currentRoute={currentRoute}/>
+                    <Header currentRoute={currentRoute} currentBack={false}/>
                    
                      <View style={styles.chakrasContainer}>
                      {chakras.map((item, index) =>(

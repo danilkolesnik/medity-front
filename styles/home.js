@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#fff",
     fontFamily: "Urbanist-Regular",
-    paddingTop: 76,
+    paddingTop: 65,
+    paddingBottom:20
   },
 
   contentCard: {

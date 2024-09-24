@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Back from "../../assets/icons/Back";
 import styles from "../../styles/header";
 
-const Header = ({currentRoute,currentTitle}) =>{
+const Header = ({currentRoute,currentTitle,currentBack}) =>{
 
     const route = useRoute()
 
@@ -14,20 +14,18 @@ const Header = ({currentRoute,currentTitle}) =>{
         <SafeAreaView
             style={styles.conteiner}
         >
-    
+        {currentBack &&
         <Pressable
-             onPress={() => {
-                navigation.navigate(currentRoute)
-                
-             }}
-        >
-            <View style={styles.icon}>
-                <Back></Back>  
-            </View>    
-        </Pressable>
-        
-        
-        
+              onPress={() => {
+                 navigation.navigate(currentRoute)
+                 
+              }}
+         >
+             <View style={styles.icon}>
+                 <Back></Back>  
+             </View>    
+         </Pressable>
+        }    
         <Text style={styles.text}>
             {currentTitle ? currentTitle : route.name}         
         </Text>

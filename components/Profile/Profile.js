@@ -83,7 +83,7 @@ const Profile = ({navigation}) =>{
             >
 
             <ScrollView>
-                <Header currentRoute={currentRoute}></Header>
+                <Header currentRoute={currentRoute} currentBack={true}></Header>
                 <Text style={styles.progressTitle}>Progress</Text>
 
                 <View style={styles.tabContent}>

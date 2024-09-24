@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import TrackPlayer,{State,usePlaybackState} from 'react-native-track-player';
 import { View, Text, Pressable } from "react-native";
 import { useNavigation  } from '@react-navigation/native';
@@ -12,7 +13,7 @@ const Card = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
 
   const navigation = useNavigation();
 
-  // const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
+  const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
 
   const playBackState = usePlaybackState();
 
@@ -46,14 +47,25 @@ const Card = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
   } catch (error) {
     console.log(error);
   }
-};
+  };
 
+  useEffect(() => {
+    
+    const unsubscribeBlur = navigation.addListener('blur', async () => {
+      await TrackPlayer.reset();
+      setCurrentStep(null)
+    });
+  
+    return () => {
+      unsubscribeBlur(); 
+    };
+  }, [navigation]);
 
     return(
         <View style={[styles.cardConteiner, {backgroundColor: active === index ? "#FFFFFF" : 'rgba(255, 255, 255, 0.15)'}]}>
                 <Text style={[styles.cardTitle, {color: active === index ? "#000" : '#fff'}]}>{title}</Text> 
                 <View style={styles.cardContent}>
-                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}> min</Text>
+                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{totalMin} min</Text>
                     <Pressable
                         onPress={() => navigation.navigate(options.charAt(0).toUpperCase() + options.slice(1))}
                     >

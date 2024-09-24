@@ -87,7 +87,7 @@ const PersonalData = () =>{
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
             >
-            <Header currentRoute={currentRoute}></Header>
+            <Header currentRoute={currentRoute} currentBack={true}></Header>
             {!loading ? 
                  <View style={styles.content}>
                     <View style={styles.inputContent}>

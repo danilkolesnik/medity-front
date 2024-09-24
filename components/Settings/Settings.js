@@ -38,7 +38,7 @@ const Settings = () =>{
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
             >
-            <Header currentRoute={currentRoute}></Header>
+            <Header currentRoute={currentRoute} currentBack={true}></Header>
 
             <View>
 

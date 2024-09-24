@@ -163,7 +163,7 @@ const Goals = () =>{
             >
             {!loading ? 
                 <ScrollView style={styles.content}>
-                <Header currentRoute={currentRoute}></Header>
+                <Header currentRoute={currentRoute} currentBack={true}></Header>
                  
                 <View style={[styles.topContent, { paddingTop: 54 }]}>
                 <View style={styles.topContent}>

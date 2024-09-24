@@ -56,8 +56,6 @@ const Quiz = () =>{
                 'Access-Control-Allow-Origin': '*',
             },
         })
-        console.log(data.docs);
-        
         return res
     } catch (error) {
         console.log(error);      

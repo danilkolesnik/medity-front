@@ -16,7 +16,6 @@ import SearchIcon from "../../assets/icons/Search";
 import Loader from "../Loader/Loader";
 import { SERVER } from "../../constants/async";
 import axios from "axios";
-
 import CardTop from "./CardTop";
 
 import styles from "../../styles/home";
@@ -66,8 +65,6 @@ const Home = ({navigation}) =>{
       setMeditations(filtered);
     };
 
-
-    
     const refreshTokenAndGetUser = async () => {
       try {
         const refreshToken = await AsyncStorage.getItem('refresh_token');
@@ -90,7 +87,6 @@ const Home = ({navigation}) =>{
         Alert.alert('Error', 'Failed to refresh token. Please log in again.');
       }
     };
-
 
     const getUser = async () => {
       try {

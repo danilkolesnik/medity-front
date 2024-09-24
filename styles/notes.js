@@ -8,12 +8,16 @@ const styles = StyleSheet.create({
         resizeMode: 'repeat',
         position:'relative',
     },
-    notesContainer: {
-        
-        flex:1,
-        
+    notesContainer: {  
+        position:'absolute',
+        top: '50%',    
+        left: '30%', 
+        transform: [{ translateX: 0 }, { translateY: -50 }],
+    
     },
     noteCaption:{
+        flex:1,
+        height:'100%',
         fontWeight:"400",
         fontSize: 18,
         fontFamily:'Urbanist-Regular',
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
     buttonEdit:{
         width:'100%',
         position:'absolute',
-        right:0,
+        left:20,
         bottom:21,
     }
 })

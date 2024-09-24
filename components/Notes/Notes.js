@@ -1,5 +1,5 @@
 import { useState, useEffect,useCallback } from "react";
-import { ImageBackground, View, Text, Pressable, ScrollView, TextInput, StyleSheet } from "react-native";
+import { ImageBackground, View, Text, Pressable, ScrollView, TextInput, StyleSheet,Modal } from "react-native";
 import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../Header/Header";
@@ -64,6 +64,7 @@ const Notes = () => {
       >
        {!loading ? 
         <>
+         <Header currentRoute={currentRoute} currentBack={true}/>
           <ScrollView
           style={{
             position:"relative",
@@ -71,12 +72,7 @@ const Notes = () => {
             width: '100%',
           }}
         >
-        <Header currentRoute={currentRoute} />
-        {notes.length === 0 ? (
-          <View style={styles.notesContainer}>
-            <Text style={styles.noteCaption}>Create your first note!</Text>
-          </View>
-        ) : (
+        {notes.length != 0 &&  (
           <View
             style={{
               gap:20,
@@ -87,7 +83,8 @@ const Notes = () => {
           >
             {notes.map((note, index) => (
               <View style={styles.noteContent} key={index }>
-                <Text style={styles.noteTitle}>{note.title}</Text>
+                <Text style={[styles.noteTitle,{fontSize:18,paddingBottom:5, fontWeight:'600',fontFamily:"Urbanist-Bold"}]}>{note.title}</Text>
+                <Text style={styles.noteTitle}>{note.content}</Text>
                 <Pressable
                   style={styles.buttonEdit}
                   onPress={() =>  navigation.navigate("Note", { title:note.title,content: note.content, userId:note.userId,id:note.id })}
@@ -100,7 +97,9 @@ const Notes = () => {
         )}
         </ScrollView>
         
-
+        {notes.length === 0 && <View style={styles.notesContainer}>
+            <Text style={styles.noteCaption}>Create your first note!</Text>
+          </View>}
         <View style={styles.bottomNavContainer}>
           <Pressable onPress={() => addNote()}>
             <Add />
@@ -114,5 +113,66 @@ const Notes = () => {
     </>
   );
 };
+
+const stylesModal = StyleSheet.create({
+  centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+
+  },
+  modalOverlay: {
+      position: 'absolute',    
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+     
+      backgroundColor: '#2D2D2D',
+      
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+          width: 0,
+          height: 2,
+      },
+      width:300,   
+      borderRadius:20,
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      
+  },
+  button: {
+      width:'100%',
+      backgroundColor: '#282828',
+      paddingVertical:12,
+      borderRadius:12
+  },
+  buttonOpen: {
+
+  },
+  buttonClose: {
+
+  },
+  textStyle: {
+      color: 'white',
+      fontWeight:"600",
+      fontSize: 16,
+      fontFamily:"Urbanist-Bold",
+      textAlign: 'center',
+
+  },
+  modalText: {
+      fontFamily:"Urbanist-Bold",
+      fontSize: 16,
+      fontWeight:'600',
+      textAlign: 'center',
+      color: 'white',
+      paddingVertical:24
+  },
+});
 
 export default Notes;

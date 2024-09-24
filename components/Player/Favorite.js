@@ -90,7 +90,7 @@ const Favorite = () =>{
             >
             {!loading ? 
                    <ScrollView style={styles.content}>
-                   <SafeAreaView style={styles.topContent}>
+                   <SafeAreaView style={[styles.topContent,{justifyContent:'space-between'}]}>
                        <Pressable onPress={() => navigation.navigate("Home")}>
                            <Back></Back>
                        </Pressable>

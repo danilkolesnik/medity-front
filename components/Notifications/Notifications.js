@@ -101,9 +101,10 @@ const Notifications = () =>{
             >
             {!loading ? 
                  <View style={styles.conteiner}>
-                 <Header currentRoute={currentRoute}/>
+                 <Header currentRoute={currentRoute} currentBack={true}/>
  
-                 <View style={[styles.textConteiner,{paddingTop:36}]}>
+                <View>
+                <View style={[styles.textConteiner,{paddingTop:36}]}>
                      <View style={styles.titleConteiner}>
                          <Text style={styles.title}>Meditation reminders</Text>
                          <Text style={styles.text}>Daily scheduled reminder</Text>
@@ -118,17 +119,9 @@ const Notifications = () =>{
                      <TimePicker onTimeChange={handleTimeChange} hour={hour} minute={minute}/>
  
                  </SafeAreaView>
+                </View>
+                 
  
-                 <View style={[styles.textConteiner, {borderColor: '#F1F5F9',borderTopWidth: 1}]}>
-                     <View style={styles.titleConteiner}>
-                         <Text style={styles.title}>Everyday notifications</Text>
-                         <Text style={styles.text}>Get notification everyday.</Text>
-                     </View>
-                     <Switch
-                         toggleSwitch={toggleSwitchTwo}
-                         active={isEnabledTwo}
-                     />
-                 </View>
                  <Pressable 
                      style={styles.button}
                      onPress={() => saveNotifications()}
@@ -240,5 +233,3 @@ const stylesModal = StyleSheet.create({
 
 
 export default Notifications
-
-
