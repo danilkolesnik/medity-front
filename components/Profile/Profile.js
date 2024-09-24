@@ -49,6 +49,7 @@ const Profile = ({navigation}) =>{
       try {
         await AsyncStorage.removeItem('token')
         await AsyncStorage.removeItem('userId')
+        await supabase.auth.signOut()
         navigation.navigate("Introduction")
       } catch (error) {
         

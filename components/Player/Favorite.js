@@ -36,18 +36,17 @@ const Favorite = () =>{
       setLoading(true)
       try {
         const userId = await AsyncStorage.getItem('userId');
-      
+
         const { data: existingFavorite, error: selectError } = await supabase
           .from('favorite')
           .select('*')
-          .eq('userId', userId);
+          .eq('user_id', userId);
       
         if (selectError) {
           throw new Error('Error selecting favorite: ' + selectError.message);
         }
 
-        const meditationIds = existingFavorite.map(item => item.meditationId);
-
+        const meditationIds = existingFavorite.map(item => item.meditation_id);
       
         const { data } = await axios.get(`${SERVER}/api/meditation`);
 

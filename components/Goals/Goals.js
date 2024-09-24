@@ -54,9 +54,9 @@ const Goals = () =>{
             const userId = await AsyncStorage.getItem('userId')
 
             const { data, error } = await supabase
-                .from('Goals')
+                .from('goals')
                 .select('*')
-                .eq('userId', userId)
+                .eq('user_id', userId)
                 .single()
 
             setActiveSleep(data.better_sleep || false)
@@ -81,9 +81,9 @@ const Goals = () =>{
           }
 
           const { data: existingGoals, error: selectError } = await supabase
-            .from('Goals')
+            .from('goals')
             .select('*')
-            .eq('userId', userId);
+            .eq('user_id', userId);
       
           if (selectError) {
             throw selectError;
@@ -92,7 +92,7 @@ const Goals = () =>{
           if (existingGoals.length > 0) {
 
             const { data, error } = await supabase
-              .from('Goals')
+              .from('goals')
               .update({
                 better_sleep: activeSleep,
                 reduce_stress: activeStress,
@@ -100,7 +100,7 @@ const Goals = () =>{
                 sleep: sleepText,
                 mindfulness: mindText
               })
-              .eq('userId', userId);
+              .eq('user_id', userId);
 
       
             if (error) {
@@ -110,9 +110,9 @@ const Goals = () =>{
           } else {
            
             const { data, error } = await supabase
-              .from('Goals')
+              .from('goals')
               .insert([{
-                userId,
+                user_id:userId,
                 better_sleep: activeSleep,
                 reduce_stress: activeStress,
                 declutter_mind: activeMind,

@@ -61,7 +61,7 @@ const Player = () => {
             const { data: existingGoals, error: selectError } = await supabase
               .from('favorite')
               .select('*')
-              .eq('meditationId', track.id);
+              .eq('meditation_id', track.id);
 
           
             if(existingGoals.length != 0){
@@ -101,7 +101,7 @@ const Player = () => {
             const { data: existingGoals, error: selectError } = await supabase
               .from('favorite')
               .select('*')
-              .eq('meditationId', track.id);
+              .eq('meditation_id', track.id);
         
             if (selectError) {
               throw selectError;
@@ -112,7 +112,7 @@ const Player = () => {
               const { data, error } = await supabase
                 .from('favorite')
                 .delete()
-                .eq('meditationId', track.id)
+                .eq('meditation_id', track.id)
 
             setCurrentFavorite(false)
         
@@ -125,8 +125,8 @@ const Player = () => {
               const { data, error } = await supabase
                 .from('favorite')
                 .insert([{
-                  userId,
-                  meditationId:track.id
+                  user_id:userId,
+                  meditation_id:track.id
                 }]);
 
              setCurrentFavorite(true)

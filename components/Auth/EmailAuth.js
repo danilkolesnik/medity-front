@@ -32,6 +32,7 @@ export default function Auth({navigation}) {
 
   const signUpWithEmail = async () => {
     setLoading(true);
+
     try {
       const { data, error } = await supabase.auth.signInWithOtp({
         email: email,
@@ -39,7 +40,8 @@ export default function Auth({navigation}) {
           emailRedirectTo: "",
         },
       });
-
+      console.log(error);
+      
       if (error) {
         Alert.alert("Ошибка", error.message);
         return;

@@ -1,1 +1,1 @@
-export const SERVER = "https://medity.slan.studio";
+export const SERVER = "http://10.0.2.2:3000";
