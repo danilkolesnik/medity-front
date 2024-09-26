@@ -78,7 +78,7 @@ const Notifications = () =>{
         await AsyncStorage.setItem('meditation', isEnabled.toString());
         await AsyncStorage.setItem('everyday', isEnabledTwo.toString());
 
-        if(isEnabled || isEnabledTwo){
+        if(isEnabled){
             await scheduleDailyNotification(parseInt(time[0], 10),parseInt(time[1], 10), true);
             setModalVisible(true)
             return

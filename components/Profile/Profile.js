@@ -15,9 +15,9 @@ import { ProgressBar} from 'react-native-paper';
 import Rigth from "../../assets/icons/Rigth";
 import Loader from "../Loader/Loader";
 
-import { supabase } from "../../utils/supabase";
-import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
 
+import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
+import { supabase } from "../../utils/supabase";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import styles from "../../styles/profile";

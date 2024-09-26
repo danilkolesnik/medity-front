@@ -4,7 +4,9 @@ import {
     ImageBackground,
     TextInput,
     Text,
-    Pressable
+    Pressable,
+    Modal,
+    StyleSheet
 } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute } from '@react-navigation/native';
@@ -30,6 +32,8 @@ const PersonalData = () =>{
     const[email, setEmail] = useState('')
     const[birthday, setBirthday] = useState('')
     const[gender, setGender] = useState('')
+
+    const [active,setModalVisible] = useState(false)
 
     const getUser = async() =>{
         setLoading(true)
@@ -71,6 +75,8 @@ const PersonalData = () =>{
                 .eq('id', userId) 
 
             await supabase.auth.updateUser({email: email});
+
+            setModalVisible(true)
                    
         } catch (error) {
             
@@ -164,10 +170,101 @@ const PersonalData = () =>{
                 
             : <Loader></Loader>
             }
-           
+             <Modal
+                animationType="fade"
+                transparent={true}
+                visible={active}
+                onRequestClose={() => {
+                
+                setModalVisible(!active);
+            }}>
+            <View style={stylesModal.centeredView}>
+                <View style={stylesModal.modalOverlay} />
+                <View style={stylesModal.modalView}>
+                    <Text style={stylesModal.modalText}>Data updated successfully!</Text>
+                    <View
+                        style={{
+                            flexDirection:"row",
+                            justifyContent:'space-between',
+                            width:'100%'
+                        }}
+                    >
+                        
+                        <Pressable
+                            style={[stylesModal.button]}
+                            onPress={() => setModalVisible(false)}
+                           >
+                                <Text style={stylesModal.textStyle}>Close</Text>
+                        </Pressable>
+                    </View>
+                   
+                </View>
+            </View>
+        </Modal>
             </ImageBackground>
         </>
     )
 }
+
+const stylesModal = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    modalOverlay: {
+        position: 'absolute',    
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalView: {
+       
+        backgroundColor: '#2D2D2D',
+        
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        width:300,   
+        borderRadius:20,
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        
+    },
+    button: {
+        width:'100%',
+        backgroundColor: '#282828',
+        paddingVertical:12,
+        borderRadius:12
+    },
+    buttonOpen: {
+
+    },
+    buttonClose: {
+
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight:"600",
+        fontSize: 16,
+        fontFamily:"Urbanist-Bold",
+        textAlign: 'center',
+
+    },
+    modalText: {
+        fontFamily:"Urbanist-Bold",
+        fontSize: 16,
+        fontWeight:'600',
+        textAlign: 'center',
+        color: 'white',
+        paddingVertical:24
+    },
+});
 
 export default PersonalData
