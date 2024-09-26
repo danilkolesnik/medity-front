@@ -20,6 +20,7 @@ import CardTop from "./CardTop";
 
 import styles from "../../styles/home";
 import stylesList from "../../styles/sleep";
+import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { supabase } from "../../utils/supabase";

@@ -1,21 +1,48 @@
-import TrackPlayer,{State,usePlaybackState} from 'react-native-track-player';
+import TrackPlayer,{State,usePlaybackState,useProgress,useTrackPlayerEvents} from 'react-native-track-player';
 import { View, Text, Pressable } from "react-native";
 import { useNavigation  } from '@react-navigation/native';
 import calculateDurationInMinutes from "../../utils/calculateDurationInMinutes";
 import { SERVER } from "../../constants/async";
+import { supabase } from "../../utils/supabase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Play from "../../assets/icons/Play";
 import Pause from '../../assets/icons/Pause';
 import styles from "../../styles/home";
 
 
-
-const CardTop = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
+const CardTop = ({title,active,index,audio,setCurrentStep}) =>{
 
   const navigation = useNavigation();
 
   const totalMin = Math.ceil(calculateDurationInMinutes(audio.filesize))
 
   const playBackState = usePlaybackState();
+
+  const { duration, position } = useProgress();
+
+  const sendListeningDataToServer = async (userId, trackId, seconds) => {
+    try {
+      const { data, error } = await supabase
+        .from('listening_stats') 
+        .insert([
+          {
+            user_id: userId,
+            audio_id: trackId,
+            second:seconds,
+            date: new Date().toISOString(),
+          },
+        ]);
+  
+      if (error) {
+        console.error('Ошибка при отправке данных на сервер:', error);
+      } else {
+        console.log('Данные отправлены успешно:', data);
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
+  };
+
 
   const playAudio = async () => {
   try {
@@ -38,7 +65,16 @@ const CardTop = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
       await TrackPlayer.play();         
     } else {
       if (playBackState.state === State.Playing) {  
-        await TrackPlayer.pause();   
+        await TrackPlayer.pause();  
+
+        const userId = await AsyncStorage.getItem('userId')
+        const queue = await TrackPlayer.getQueue();
+        const trackId = queue.findIndex(t => t.title === title);
+
+        const secondsListened = Math.floor(position);
+
+        sendListeningDataToServer(userId,trackId,secondsListened) 
+
         setCurrentStep(null)     
       } else {
         await TrackPlayer.play();             
@@ -52,24 +88,6 @@ const CardTop = ({title,options,active,index,duration,audio,setCurrentStep}) =>{
 
     return(
         <>
-             {/* <View style={[styles.cardConteiner, {backgroundColor: active === index ? "#FFFFFF" : 'rgba(255, 255, 255, 0.15)'}]}>
-                <Text style={[styles.cardTitle, {color: active === index ? "#000" : '#fff'}]}>{title}</Text> 
-                <View style={styles.cardContent}>
-                    <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{totalMin} min</Text>
-                    <Pressable
-                        onPress={() => navigation.navigate(options.charAt(0).toUpperCase() + options.slice(1))}
-                    >
-                        <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>
-                            {options}
-                        </Text>  
-                    </Pressable>
-
-                </View>
-             
-               
-        </View> */}
-        
-
         <View style={[styles.cardConteiner, {backgroundColor: active === index ? "#FFFFFF" : 'rgba(255, 255, 255, 0.15)'}]}>
                 <Text style={[styles.cardTitle, {color: active === index ? "#000" : '#fff'}]}>{title}</Text> 
                   <View style={styles.contentBotton}>

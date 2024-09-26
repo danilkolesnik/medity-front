@@ -13,8 +13,10 @@ import ModalProfile from "./Modal";
 import { ProgressBar} from 'react-native-paper';
 
 import Rigth from "../../assets/icons/Rigth";
+import Loader from "../Loader/Loader";
 
 import { supabase } from "../../utils/supabase";
+import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -23,12 +25,18 @@ import stylesProggersBar from "../../styles/home";
 
 const Profile = ({navigation}) =>{
 
+    const [loading,setLoading] = useState(false)
+
     const currentRoute = "Home"
 
-    const [activeTab, setActiveTab] = useState(2)
+    const [activeTab, setActiveTab] = useState('week')
     const [userId, setUserId] = useState()
 
+    const [stats9Days, setStats9Days] = useState(null);
+    const [stats7Days, setStats7Days] = useState(null);
+
     const [modalVisible, setModalVisible] = useState(false);
+    
 
     const getUser = async() =>{
       try {
@@ -37,8 +45,9 @@ const Profile = ({navigation}) =>{
 
         if(user){
           await AsyncStorage.setItem('userId', user.id)
-          return
+          return user
         }
+        return user
 
       } catch (error) {
         
@@ -71,9 +80,29 @@ const Profile = ({navigation}) =>{
       }
     }
 
+
+    const fetchStats = async () => {
+      const currentDate = new Date();
+      const stats9Dayss = await aggregateListeningProgress('9days', currentDate);
+      const stats7Dayss = await aggregateListeningProgress('7days', currentDate);
+      setStats9Days(stats9Dayss);
+      setStats7Days(stats7Dayss);
+
+      return true
+    };
+
     useEffect(() =>{
-      getUser()   
+      setLoading(true);
+      Promise.all([fetchStats(), getUser()])
+        .then(([questions, userData]) =>{  
+           if(questions && userData) setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setLoading(false);
+        });
     },[])
+
 
     return(
         <>
@@ -81,33 +110,33 @@ const Profile = ({navigation}) =>{
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={[styles.background]}
             >
-
-            <ScrollView>
+              {!loading ?
+                <ScrollView>
                 <Header currentRoute={currentRoute} currentBack={true}></Header>
                 <Text style={styles.progressTitle}>Progress</Text>
 
                 <View style={styles.tabContent}>
-                    <Pressable onPress={() => setActiveTab(1)}>
-                        <Text style={[styles.tabText, activeTab === 1 ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
+                    <Pressable onPress={() => setActiveTab("day")}>
+                        <Text style={[styles.tabText, activeTab === "day" ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
                             Day
                         </Text>
                     </Pressable>
                   
-                    <Pressable onPress={() => setActiveTab(2)}>
-                        <Text style={[styles.tabText, activeTab === 2 ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
+                    <Pressable onPress={() => setActiveTab('week')}>
+                        <Text style={[styles.tabText, activeTab === 'week' ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
                             Week
                         </Text>
                     </Pressable>
                    
-                    <Pressable onPress={() => setActiveTab(3)}>
-                        <Text style={[styles.tabText, activeTab === 3 ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
+                    <Pressable onPress={() => setActiveTab('month')}>
+                        <Text style={[styles.tabText, activeTab === 'month' ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
                             Month
                         </Text>
                     </Pressable>
                     
                 </View>
 
-                <Charts activeData={activeTab}></Charts>
+                <Charts activeData={activeTab} />
 
                 <View
                     style={{
@@ -145,7 +174,7 @@ const Profile = ({navigation}) =>{
                   </View>
                 </View>
                 <ProgressBar
-                  progress={0.9}
+                  progress={0.1}
                   color="#BBBBBB"
                   style={{
                     backgroundColor: "#565656",
@@ -180,8 +209,8 @@ const Profile = ({navigation}) =>{
                     </Text>
                   </View>
                 </View>
-                <ProgressBar
-                  progress={0.9}
+                <ProgressBar     
+                   progress={0.2}
                   color="#BBBBBB"
                   style={{
                     backgroundColor: "#565656",
@@ -280,6 +309,9 @@ const Profile = ({navigation}) =>{
                     </View>
                 </View>
             </ScrollView>
+              : <Loader></Loader>  
+            }
+          
             <ModalProfile active={modalVisible} setModalVisible={setModalVisible} deleteUser={deleteUser}></ModalProfile>
             <Menu></Menu>
             </ImageBackground>

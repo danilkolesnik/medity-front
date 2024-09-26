@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
         marginRight:24,
         paddingVertical:24,
         borderRadius:12,
-        marginTop:24   
+        marginTop:24,
+        overflow:'hidden' ,
     },
     chartsButtons:{
         flexDirection:"row",

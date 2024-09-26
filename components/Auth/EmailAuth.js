@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator,ImageBackground } from 'react-native';
+import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, ActivityIndicator,ImageBackground, Pressable } from 'react-native';
 import { supabase } from '../../utils/supabase';
+import Back from '../../assets/icons/Back';
 
-// Tells Supabase Auth to continuously refresh the session automatically if
-// the app is in the foreground. When this is added, you will continue to receive
-// `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
-// if the user's session is terminated. This should only be registered once.
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
     supabase.auth.startAutoRefresh();
@@ -16,19 +13,7 @@ AppState.addEventListener('change', (state) => {
 
 export default function Auth({navigation}) {
   const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // async function signInWithEmail() {
-  //   setLoading(true);
-  //   const { error } = await supabase.auth.signInWithPassword({
-  //     email: email,
-  //     password: password,
-  //   });
-
-  //   if (error) Alert.alert(error.message);
-  //   setLoading(false);
-  // }
 
   const signUpWithEmail = async () => {
     setLoading(true);
@@ -61,6 +46,9 @@ export default function Auth({navigation}) {
       style={styles.background}
     >
        <View style={styles.container}>
+        <Pressable onPress={() => navigation.navigate("Auth")}>
+          <Back></Back>
+        </Pressable>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -86,19 +74,6 @@ export default function Auth({navigation}) {
           )}
         </TouchableOpacity>
       </View>
-      {/* <View style={styles.verticallySpaced}>
-        <TouchableOpacity
-          style={styles.button}
-          disabled={loading}
-          onPress={signUpWithEmail}
-        >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.buttonText}>Sign up</Text>
-          )}
-        </TouchableOpacity>
-      </View> */}
     </View>
     </ImageBackground>
    
@@ -107,7 +82,7 @@ export default function Auth({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 0,
     padding: 12,
   },
   verticallySpaced: {
