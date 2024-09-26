@@ -80,7 +80,6 @@ const Profile = ({navigation}) =>{
       }
     }
 
-
     const fetchStats = async () => {
       const currentDate = new Date();
       const stats9Dayss = await aggregateListeningProgress('9days', currentDate);
