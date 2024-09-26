@@ -71,7 +71,7 @@ const PersonalData = () =>{
 
             const {data, error} = await supabase
                 .from('profiles')
-                .update({ full_name: fullName, birthday:birthday, email:email, gender:gender})
+                .update({ full_name: fullName, birthday, email, gender})
                 .eq('id', userId) 
 
             await supabase.auth.updateUser({email: email});

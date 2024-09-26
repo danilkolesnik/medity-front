@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import styles from "../../styles/profile";
 import stylesProggersBar from "../../styles/home";
+import { floorToOneDecimals } from "../../utils/math";
 
 const Profile = ({navigation}) =>{
 
@@ -84,8 +85,9 @@ const Profile = ({navigation}) =>{
       const currentDate = new Date();
       const stats9Dayss = await aggregateListeningProgress('9days', currentDate);
       const stats7Dayss = await aggregateListeningProgress('7days', currentDate);
-      setStats9Days(stats9Dayss);
-      setStats7Days(stats7Dayss);
+
+      setStats9Days(floorToOneDecimals(stats9Dayss.averageSecondsPerDay));
+      setStats7Days(floorToOneDecimals(stats7Dayss.averageSecondsPerDay));
 
       return true
     };
@@ -160,7 +162,7 @@ const Profile = ({navigation}) =>{
                     paddingBottom: 12,
                   }}
                 >
-                  <Text style={[stylesProggersBar.progressTitle]}>9</Text>
+                  <Text style={[stylesProggersBar.progressTitle]}>{stats9Days}</Text>
                   <View
                     style={{
                       paddingLeft: 6,
@@ -173,7 +175,7 @@ const Profile = ({navigation}) =>{
                   </View>
                 </View>
                 <ProgressBar
-                  progress={0.1}
+                  progress={stats9Days}
                   color="#BBBBBB"
                   style={{
                     backgroundColor: "#565656",
@@ -196,7 +198,7 @@ const Profile = ({navigation}) =>{
                     paddingBottom: 12,
                   }}
                 >
-                  <Text style={stylesProggersBar.progressTitle}>7</Text>
+                  <Text style={stylesProggersBar.progressTitle}>{stats7Days}</Text>
                   <View
                     style={{
                       paddingLeft: 6,
@@ -209,7 +211,7 @@ const Profile = ({navigation}) =>{
                   </View>
                 </View>
                 <ProgressBar     
-                   progress={0.2}
+                   progress={stats7Days}
                   color="#BBBBBB"
                   style={{
                     backgroundColor: "#565656",
