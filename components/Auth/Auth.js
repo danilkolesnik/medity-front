@@ -150,18 +150,6 @@ export default function Auth() {
                   </Text>
                 </View>
               </Pressable>
-              <Text style={styles.textSingUp}>
-                Not a member?{" "}
-                <Text
-                  style={{
-                    color: "#fff",
-                    paddingLeft: "5px",
-                    textDecorationLine: "underline",
-                  }}
-                >
-                  Sign Up
-                </Text>
-              </Text>
             </View>
           </View>
         </View>

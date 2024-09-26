@@ -79,12 +79,7 @@ const Sleep = () => {
       >
         {!loading ? (
           <ScrollView style={styles.content}>
-            <SafeAreaView style={styles.topContent}>
-            
-              <Pressable onPress={() => navigation.navigate("Settings")}>
-                <Setting></Setting>
-              </Pressable>
-            </SafeAreaView>
+            <SafeAreaView style={styles.topContent}></SafeAreaView>
 
             <View>
               <Text style={styles.title}>Sleep</Text>
