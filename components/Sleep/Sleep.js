@@ -44,7 +44,8 @@ const Sleep = () => {
       setOriginalSleep(
         data.docs.filter((item) => item.mainCategory === "sleep")
       );
-
+      console.log(data.docs);
+      
       return data.docs;
     } catch (error) {
       console.log(error);

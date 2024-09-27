@@ -44,21 +44,10 @@ export const PlayerProgressBar = ({ style }) => {
 				containerStyle={utilsStyles.slider}
 				thumbWidth={0}
 				renderBubble={() => null}
+				disabled={true}
 				theme={{
 					minimumTrackTintColor: colors.minimumTrackTintColor,
 					maximumTrackTintColor: colors.maximumTrackTintColor,
-				}}
-				onSlidingStart={() => (isSliding.value = true)}
-				onValueChange={async (value) => {
-					await TrackPlayer.seekTo(value * duration)
-				}}
-				onSlidingComplete={async (value) => {
-					// if the user is not sliding, we should not update the position
-					if (!isSliding.value) return
-
-					isSliding.value = false
-
-					await TrackPlayer.seekTo(value * duration)
 				}}
 			/>
 

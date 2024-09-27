@@ -14,8 +14,10 @@ import styles from "../../styles/sleep";
 
 const Card = ({item,style}) =>{
 
-    const {title,image,media,category} = item
+    const {title,image,media,category,type} = item
 
+    console.log(item);
+    
     // const totalMin = Math.ceil(calculateDurationInMinutes(media.filesize))
 
     const navigation = useNavigation()
@@ -42,7 +44,7 @@ const Card = ({item,style}) =>{
                         </View>
                         <View style={{flexDirection:'row',alignItems:"center"}}>
                             <Clock></Clock>
-                            <Text style={styles.cardText}> min</Text>
+                            <Text style={[styles.cardText,{paddingLeft:3}]}>{type} min</Text>
                         </View>
                        
                     </View>

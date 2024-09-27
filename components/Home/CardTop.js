@@ -10,7 +10,7 @@ import Pause from '../../assets/icons/Pause';
 import styles from "../../styles/home";
 
 
-const CardTop = ({title,active,index,audio,setCurrentStep}) =>{
+const CardTop = ({title,active,index,audio,setCurrentStep,type}) =>{
 
   const navigation = useNavigation();
 
@@ -91,7 +91,7 @@ const CardTop = ({title,active,index,audio,setCurrentStep}) =>{
         <View style={[styles.cardConteiner, {backgroundColor: active === index ? "#FFFFFF" : 'rgba(255, 255, 255, 0.15)'}]}>
                 <Text style={[styles.cardTitle, {color: active === index ? "#000" : '#fff'}]}>{title}</Text> 
                   <View style={styles.contentBotton}>
-                  <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{totalMin} min</Text>
+                  <Text style={[styles.cardText, {color: active === index ? "#000" : '#fff', borderColor: active === index ? "rgba(59, 70, 239, 0.15)" : 'rgba(255, 255, 255, 0.15)'}]}>{type} min</Text>
                     <Pressable 
                     style={styles.icon}
                     onPress={() => {

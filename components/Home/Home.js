@@ -152,7 +152,7 @@ const Home = ({navigation}) =>{
                 <>
                 <View style={styles.contentCard}>
                   {meditations.filter(track => track.mainCategory === 'sleep').slice(0,2).map((item, index)  => (
-                      <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
+                      <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                   ))}
               </View>
   
@@ -165,7 +165,7 @@ const Home = ({navigation}) =>{
   
                 <View style={styles.list}>
                     {meditations.filter(track => track.mainCategory === 'relax').slice(0,3).map((item, index) =>(
-                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
 

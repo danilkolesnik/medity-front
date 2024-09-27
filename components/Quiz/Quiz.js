@@ -1,40 +1,25 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ImageBackground, View, Text, Pressable,TouchableOpacity,Animated} from "react-native";
-import { useRoute,useNavigation  } from '@react-navigation/native';
-
-import {SERVER} from '../../constants/async'
+import { ImageBackground, View, Text, Pressable, TouchableOpacity } from "react-native";
+import { useRoute, useNavigation } from '@react-navigation/native';
+import Loader from "../Loader/Loader";
+import { SERVER } from '../../constants/async';
 import axios from "axios";
-
 import styles from "../../styles/quiz";
 
-const questions = [
-    {
-      question: 'How often do you practice meditation?',
-      options: ['3-4 times a week', 'I’m practice meditation everyday!', '1-2 times a week', 'Less often'],
-    },
-    {
-        question: 'How often do you practice meditation2?',
-        options: ['3-4 times a week', 'I’m practice meditation everyday!', '1-2 times a week', 'Less often'],
-    },
-    {
-        question: 'How often do you practice meditation3?',
-        options: ['3-4 times a week', 'I’m practice meditation everyday!', '1-2 times a week', 'Less often'],
-    },
-];
-
-const Quiz = () =>{
-
+const Quiz = () => {
+  const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const handleNextStep = () => {
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-        navigation.push('Home')
+      navigation.push('Home');
     }
   };
 
@@ -46,78 +31,77 @@ const Quiz = () =>{
 
   const currentQuestion = questions[currentStep];
 
-
-  const getQuestions = async() =>{
+  const getQuestions = async () => {
+    setLoading(true);
     try {
-        const {data} = await axios.get(`http://10.0.2.2:3000/api/meditation`,
-        { 
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-        })
-        return res
+      const { data } = await axios.get(`${SERVER}/api/question`);
+      setQuestions(data.docs);
     } catch (error) {
-        console.log(error);      
+      console.error("Error fetching questions:", error);
+      // Optionally, you can set an error state here to display an error message to the user
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  useEffect(() =>{
-    getQuestions()
-    
-  },[]) 
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
-    return(
-        <>
-            <ImageBackground
-                source={require("../../assets/images/ostatochni.jpg")}
-                style={styles.background}
-            >
-
+  return (
+    <>
+      <ImageBackground
+        source={require("../../assets/images/ostatochni.jpg")}
+        style={styles.background}
+      >
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
             <Text style={styles.title}>Let us hear{"\n"}about you!</Text>
-
-            <View style={styles.containerSlider}>
-            <Text style={styles.question}>{currentQuestion.question}</Text>
-            {currentQuestion.options.map((option, index) => (
-                <TouchableOpacity
+            {questions.length > 0 && currentQuestion ? (
+              <View style={styles.containerSlider}>
+                <Text style={styles.question}>{currentQuestion.question}</Text>
+                {currentQuestion.options.map((option, index) => (
+                  <TouchableOpacity
                     key={index}
                     style={[
-                        styles.optionButton,
-                        answers[currentStep] === option && styles.activeOptionButton,
+                      styles.optionButton,
+                      answers[currentStep] === option.option && styles.activeOptionButton,
                     ]}
-                    onPress={() => handleOptionSelect(option)}
-                >
-                <Text style={[
-                    styles.optionText,
-                    answers[currentStep] === option && styles.activeOptionText,
-                ]}>{option}</Text>
-                </TouchableOpacity>
-            ))}
-
-            </View>
-
-            <View style={styles.buttons}>
-            <View style={styles.stepIndicator}>
-                {questions.map((_, index) => (
-                    <View
-                        key={index}
-                        style={[
-                        styles.stepDot,
-                            index === currentStep ? styles.activeStepDot : styles.inactiveStepDot,
-                        ]}
-                    />
+                    onPress={() => handleOptionSelect(option.option)}
+                  >
+                    <Text style={[
+                      styles.optionText,
+                      answers[currentStep] === option.option && styles.activeOptionText,
+                    ]}>{option.option}</Text>
+                  </TouchableOpacity>
                 ))}
+              </View>
+            ) : (
+              <Text style={styles.errorText}>No questions available.</Text>
+            )}
+            <View style={styles.buttons}>
+              <View style={styles.stepIndicator}>
+                {questions.map((_, index) => (
+                  <View
+                    key={index}
+                    style={[
+                      styles.stepDot,
+                      index === currentStep ? styles.activeStepDot : styles.inactiveStepDot,
+                    ]}
+                  />
+                ))}
+              </View>
+              <Pressable onPress={handleNextStep} style={styles.nextButton}>
+                <Text style={styles.nextButtonText}>Next Step</Text>
+              </Pressable>
             </View>
+          </>
+        )}
+      </ImageBackground>
+    </>
+  );
+};
 
-                <Pressable onPress={handleNextStep} style={styles.nextButton} >
-                    <Text style={styles.nextButtonText}>Next Step</Text>
-                </Pressable>
-            </View>
-           
-            </ImageBackground>
-  
-        </>
-    )
-}
-
-export default Quiz
+export default Quiz;

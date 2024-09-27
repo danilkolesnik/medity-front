@@ -100,9 +100,6 @@ const styles = StyleSheet.create({
         alignContent: 'flex-start'
       },
       listRelax:{ 
-        
-        gap:11.5,
-       
         flexDirection:'row'
       },
       bottomPadding: {

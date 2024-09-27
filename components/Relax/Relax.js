@@ -43,7 +43,7 @@ const Relax = () =>{
           'Access-Control-Allow-Origin': '*',
         },
       });
-      const filteredData = data.docs.filter(item => item.mainCategory === 'relax');
+      const filteredData = data.docs;
       setSleep(filteredData);
       setOriginalSleep(filteredData);
 
@@ -126,11 +126,14 @@ const Relax = () =>{
                                     <Text style={[styles.title, { paddingTop: 24, paddingBottom: 10, fontSize: 18 }]}>
                                         {group.category}
                                     </Text>
-                                    <View  style={styles.listRelax}>
-                                        {group.data.map(item => (
-                                            <Card key={item.id} item={item} style={styles.backgroundCardRelax} />
-                                        ))}
-                                    </View>
+                                    <ScrollView horizontal style={[styles.listRelax, { overflow: 'scroll' }]}>
+                    {group.data.map(item => (
+                      <View key={item.id} style={{paddingRight:11.5}}>
+                          <Card key={item.id} item={item} style={styles.backgroundCardRelax} />
+                      </View>
+                        
+                    ))}
+                </ScrollView>
                                 </View>
                             ))}
                         </View>
