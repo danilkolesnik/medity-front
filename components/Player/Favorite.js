@@ -48,9 +48,12 @@ const Favorite = () =>{
 
         const meditationIds = existingFavorite.map(item => item.meditation_id);
       
-        const { data } = await axios.get(`${SERVER}/api/meditation`);
+        const { data } = await axios.get(`${SERVER}/api/home-meditation`);
+        const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
+        
+        const meditations = [...data.docs, ...dataSleep.docs]
 
-        const filteredDocs = data.docs.filter(doc => meditationIds.includes(doc.id));
+        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
       
         setSleep(filteredDocs);
         setOriginalSleep(filteredDocs);

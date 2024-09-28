@@ -32,6 +32,8 @@ const Home = ({navigation}) =>{
     const [meditations,setMeditations] = useState([])
     const [originalSleep, setOriginalSleep] = useState([]);
 
+    const [sleep, setSleep] = useState([])
+
     const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");
@@ -39,13 +41,7 @@ const Home = ({navigation}) =>{
     const getMeditations = async() =>{
       setLoading(true);
       try {
-          const {data} = await axios.get(`${SERVER}/api/meditation`,
-          { 
-              headers: {
-                  'Content-Type': 'application/json',   
-                  'Access-Control-Allow-Origin': '*',
-              },
-          })
+          const {data} = await axios.get(`${SERVER}/api/home-meditation`)
         
           setMeditations(data.docs);
           setOriginalSleep(data.docs);
@@ -116,7 +112,8 @@ const Home = ({navigation}) =>{
       Promise.all([getMeditations(), getUser()])
         .then(([questions, userData]) =>{
           setMeditations(questions);
-          setOriginalSleep(questions);
+          setOriginalSleep(questions)
+
 
           if(questions && userData) setLoading(false);
         })
@@ -151,7 +148,7 @@ const Home = ({navigation}) =>{
               (
                 <>
                 <View style={styles.contentCard}>
-                  {meditations.filter(track => track.mainCategory === 'sleep').slice(0,2).map((item, index)  => (
+                  {meditations.slice(0,2).map((item, index)  => (
                       <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                   ))}
               </View>
@@ -164,7 +161,7 @@ const Home = ({navigation}) =>{
               </View>
   
                 <View style={styles.list}>
-                    {meditations.filter(track => track.mainCategory === 'relax').slice(0,3).map((item, index) =>(
+                    {meditations.slice(2).map((item, index) =>(
                       <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>

@@ -19,7 +19,6 @@ import Loader from "../Loader/Loader";
 import axios from "axios";
 
 import SearchIcon from "../../assets/icons/Search";
-import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
 
 import styles from "../../styles/sleep"; 
@@ -37,13 +36,8 @@ const Relax = () =>{
   const getSleep = async () => {
     setLoading(true)
     try {
-      const { data } = await axios.get(`${SERVER}/api/meditation`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-      const filteredData = data.docs.filter(item => item.mainCategory === 'relax');
+      const { data } = await axios.get(`${SERVER}/api/home-meditation`);
+      const filteredData = data.docs
       setSleep(filteredData);
       setOriginalSleep(filteredData);
 

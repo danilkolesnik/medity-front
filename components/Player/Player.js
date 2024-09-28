@@ -29,29 +29,6 @@ const Player = () => {
     const navigation = useNavigation();
     const [error, setError] = useState(null);
 
-    const sendListeningDataToServer = async (userId, trackId, seconds) => {
-        try {
-          const { data, error } = await supabase
-            .from('listening_stats') 
-            .insert([
-              {
-                user_id: userId,
-                audio_id: trackId,
-                seconds,
-                date: new Date().toISOString(),
-              },
-            ]);
-      
-          if (error) {
-            console.error('Ошибка при отправке данных на сервер:', error);
-          } else {
-            console.log('Данные отправлены успешно:', data);
-          }
-        } catch (error) {
-          console.error('Ошибка:', error);
-        }
-      };
-
     const playTrack = async () => {
         try {
             const queue = await TrackPlayer.getQueue();
@@ -209,9 +186,10 @@ const Player = () => {
                     <Image source={require("../../assets/images/album-image.png")}></Image>
                 </View>
                <View style={styles.textContent}>
-                    <Text style={styles.trackTitle}>                
-                       {category.title}
-                   </Text>
+                   
+               <Text style={styles.trackTitle}>
+                {category ? category.title : 'Sleep'}
+              </Text>
         
                     
                            

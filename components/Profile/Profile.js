@@ -162,7 +162,7 @@ const Profile = ({navigation}) =>{
                     paddingBottom: 12,
                   }}
                 >
-                  <Text style={[stylesProggersBar.progressTitle]}>{stats9Days}</Text>
+                  <Text style={[stylesProggersBar.progressTitle]}>9</Text>
                   <View
                     style={{
                       paddingLeft: 6,
@@ -198,7 +198,7 @@ const Profile = ({navigation}) =>{
                     paddingBottom: 12,
                   }}
                 >
-                  <Text style={stylesProggersBar.progressTitle}>{stats7Days}</Text>
+                  <Text style={stylesProggersBar.progressTitle}>7</Text>
                   <View
                     style={{
                       paddingLeft: 6,

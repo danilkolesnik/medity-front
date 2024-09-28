@@ -34,18 +34,14 @@ const Sleep = () => {
   const getSleep = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${SERVER}/api/meditation`, {
+      const { data } = await axios.get(`${SERVER}/api/sleep`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
       });
       setSleep(data.docs);
-      setOriginalSleep(
-        data.docs.filter((item) => item.mainCategory === "sleep")
-      );
-      console.log(data.docs);
-      
+      setOriginalSleep(data.docs);
       return data.docs;
     } catch (error) {
       console.log(error);

@@ -9,17 +9,11 @@ import Mic from "../../assets/icons/Mic";
 import { SERVER } from "../../constants/async";
 
 import { useNavigation,useRoute } from '@react-navigation/native';
-import calculateDurationInMinutes from "../../utils/calculateDurationInMinutes";
 import styles from "../../styles/sleep";
 
 const Card = ({item,style}) =>{
 
     const {title,image,media,category,type} = item
-
-    console.log(item);
-    
-    // const totalMin = Math.ceil(calculateDurationInMinutes(media.filesize))
-
     const navigation = useNavigation()
     const route = useRoute()
 
