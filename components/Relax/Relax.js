@@ -43,7 +43,7 @@ const Relax = () =>{
           'Access-Control-Allow-Origin': '*',
         },
       });
-      const filteredData = data.docs;
+      const filteredData = data.docs.filter(item => item.mainCategory === 'relax');
       setSleep(filteredData);
       setOriginalSleep(filteredData);
 
