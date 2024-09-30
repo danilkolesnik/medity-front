@@ -131,7 +131,7 @@ const Profile = ({navigation}) =>{
             >
               {!loading ?
                 <ScrollView>
-                <Header currentRoute={currentRoute} currentBack={true}></Header>
+                {/* <Header currentRoute={currentRoute} currentBack={false}></Header> */}
                 <Text style={styles.progressTitle}>Progress</Text>
 
                 <View style={styles.tabContent}>

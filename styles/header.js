@@ -4,8 +4,8 @@ const styles = StyleSheet.create({
     conteiner:{
         textAlign:'center',
         width:"100%",  
-        paddingLeft:23,
-        paddingRight:23,
+        paddingLeft:65,
+        paddingRight:"10px",
         paddingTop: -40,
         zIndex: 1
     },

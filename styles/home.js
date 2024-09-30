@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#fff",
     fontFamily: "Urbanist-Regular",
-    paddingTop: 75,
+    paddingTop: 0,
     paddingBottom:20
   },
 
