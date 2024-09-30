@@ -31,7 +31,7 @@ const Profile = ({navigation}) =>{
     const currentRoute = "Home"
 
     const [activeTab, setActiveTab] = useState('week')
-    const [userId, setUserId] = useState()
+    const [goals, setGoals] = useState(null)
 
     const [stats9Days, setStats9Days] = useState(null);
     const [stats7Days, setStats7Days] = useState(null);
@@ -54,6 +54,24 @@ const Profile = ({navigation}) =>{
         
       }
     }
+
+    const getGoals = async () => {
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+  
+        const { data, error } = await supabase
+          .from('goals')
+          .select('*')
+          .eq('user_id', userId)
+          .single();
+  
+        setGoals(data);
+
+        return true
+      } catch (error) {
+        console.error('Error in getGoals:', error);
+      }
+    };
 
     const logOut = async() =>{
       try {
@@ -94,9 +112,9 @@ const Profile = ({navigation}) =>{
 
     useEffect(() =>{
       setLoading(true);
-      Promise.all([fetchStats(), getUser()])
-        .then(([questions, userData]) =>{  
-           if(questions && userData) setLoading(false);
+      Promise.all([fetchStats(), getUser(),getGoals()])
+        .then(([questions, userData, goalsData]) =>{  
+           if(questions && userData && goalsData) setLoading(false);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -237,11 +255,11 @@ const Profile = ({navigation}) =>{
                       gap:3
                     }}
                   >
-                    <View style={styles.line}></View>
-                    <View style={styles.line}></View>
-                    <View style={styles.line}></View>
-                    <View style={styles.line}></View>
-                    <View style={styles.line}></View>
+                    <View style={[styles.line, goals?.better_sleep ? styles.activeLine : null]}></View>
+                    <View style={[styles.line, goals?.declutter_mind ? styles.activeLine : null]}></View>
+                    <View style={[styles.line, goals?.mindfulness ? styles.activeLine : null]}></View>
+                    <View style={[styles.line, goals?.reduce_stress ? styles.activeLine : null]}></View>
+                    <View style={[styles.line, goals?.sleep ? styles.activeLine : null]}></View>
                   </View>
                 </View>
 

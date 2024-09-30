@@ -63,7 +63,12 @@ const styles = StyleSheet.create({
         paddingHorizontal:35,
         borderRadius:8
     },
-
+    activeLine:{
+        backgroundColor:"#FFF",
+        width:3,
+        height:10,
+        borderRadius:2.17
+    },
     chartsContent:{
         backgroundColor:"#F1F5F930",
         marginLeft:24,

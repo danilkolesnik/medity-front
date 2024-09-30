@@ -57,7 +57,7 @@ const Chakra = () => {
         style={styles.background}
         resizeMode="repeat"
       >
-        <Header currentRoute={currentRoute} currentTitle={item.title}/>
+        <Header currentRoute={currentRoute} currentTitle={item.title} currentBack={true}/>
         <View>
             <View style={styles.affirmationsContainer}>
               <Text style={styles.affirmation}>{item.affirmations[activeAffirmation].affirmation}</Text>

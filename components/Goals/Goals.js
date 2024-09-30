@@ -100,9 +100,7 @@ const Goals = () =>{
                 sleep: sleepText,
                 mindfulness: mindText
               })
-              .eq('user_id', userId);
-
-      
+              .eq('user_id', userId);   
             if (error) {
               throw error;
             }
@@ -119,7 +117,6 @@ const Goals = () =>{
                 sleep: sleepText,
                 mindfulness: mindText
               }]);
-            
       
             if (error) {
               throw error;
