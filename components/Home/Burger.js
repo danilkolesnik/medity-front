@@ -55,7 +55,13 @@ const Burger = () =>{
                     <Text style={styles.buttonText}>My goals</Text>
                     <Rigth></Rigth>
                 </Pressable>
-                <Pressable style={styles.button}>
+                <Pressable 
+                    style={styles.button}
+                    onPress={() =>{
+                        navigation.navigate("New meditations")
+                        setActive(false)
+                    }}
+                >
                     <Text style={styles.buttonText}>New meditations</Text>
                     <Rigth></Rigth>
                 </Pressable>

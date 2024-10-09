@@ -21,10 +21,9 @@ const Notifications = () =>{
     const [minute, setMinute] = useState('00')
 
     const [isEnabled, setIsEnabled] = useState(false);
-    const [isEnabledTwo, setIsEnabledTwo] = useState(false);
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-    const toggleSwitchTwo = () => setIsEnabledTwo(previousState => !previousState);
+ 
 
     const [selectedTime, setSelectedTime] = useState('');
 
@@ -45,7 +44,6 @@ const Notifications = () =>{
             const selectedTime = await AsyncStorage.getItem('selectedTime')
             const hour = await AsyncStorage.getItem('hour')
             const minute = await AsyncStorage.getItem('minute')
-            const everyday =  await AsyncStorage.getItem('everyday')
             const meditation = await AsyncStorage.getItem('meditation')
 
             setSelectedTime(selectedTime)
@@ -54,7 +52,6 @@ const Notifications = () =>{
             setMinute(minute || '00')
 
             setIsEnabled(meditation === 'true');
-            setIsEnabledTwo(everyday === 'true');
 
             setLoading(false)
         } catch (error) {
@@ -76,7 +73,6 @@ const Notifications = () =>{
         await AsyncStorage.setItem('minute', time[1])
 
         await AsyncStorage.setItem('meditation', isEnabled.toString());
-        await AsyncStorage.setItem('everyday', isEnabledTwo.toString());
 
         if(isEnabled){
             await scheduleDailyNotification(parseInt(time[0], 10),parseInt(time[1], 10), true);
@@ -124,7 +120,10 @@ const Notifications = () =>{
  
                  <Pressable 
                      style={styles.button}
-                     onPress={() => saveNotifications()}
+                     onPress={() => {
+                        saveNotifications()
+                        setModalVisible(true)
+                    }}
                  >
                      <Text style={styles.buttonText}>Save</Text>
                  </Pressable>
