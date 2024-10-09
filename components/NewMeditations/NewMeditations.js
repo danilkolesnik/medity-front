@@ -49,9 +49,6 @@ const NewMeditations = () =>{
                 
                 return createdAt >= sevenDaysAgo;
             });
-
-            console.log(sevenDaysAgo);
-            
     
             setSleep(recentMeditations)
             setOriginalSleep(recentMeditations)

@@ -155,7 +155,7 @@ const Home = ({navigation}) =>{
   
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>New meditations</Text>
-                <Pressable  onPress={() => navigation.navigate("Meditations")}>
+                <Pressable  onPress={() => navigation.navigate("New meditations")}>
                   <Text style={styles.textButtonMore}>See all</Text>
                 </Pressable>
               </View>
