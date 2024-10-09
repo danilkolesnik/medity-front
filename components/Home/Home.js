@@ -103,7 +103,7 @@ const Home = ({navigation}) =>{
       } catch (error) {
         console.error('Error getting user:', error.message);
        
-        await refreshTokenAndGetUser();
+        // await refreshTokenAndGetUser();
       }
     };
 
