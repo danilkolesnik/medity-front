@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
         borderRadius:40 
     },
     affirmationsContainer: {
-        marginLeft: 30,
-        marginRight: 30,
         paddingTop:27
     },
     affirmation:{

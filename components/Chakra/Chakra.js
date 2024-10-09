@@ -57,6 +57,8 @@ const Chakra = () => {
         style={styles.background}
         resizeMode="repeat"
       >
+       
+        <ScrollView contentContainerStyle={stylesList.content}>
         <Header currentRoute={currentRoute} currentTitle={item.title} currentBack={true}/>
         <View>
             <View style={styles.affirmationsContainer}>
@@ -73,14 +75,12 @@ const Chakra = () => {
               </View>
             </View>
         </View>
-
-            <View style={[stylesList.buttonMore,{paddingHorizontal:24,marginTop:30}]}>
+        <View style={[stylesList.buttonMore,{marginTop:30}]}>
                 <Text style={stylesList.textMore}>Meditations</Text>
                 
               </View>
 
-
-        <View style={[stylesList.stylesList, {gap:18,  paddingHorizontal: 18}]}>
+              <View style={[stylesList.stylesList, {gap:18}]}>
                 {item.meditations.map((item, index) =>(
                       <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
                     ))}
@@ -95,6 +95,14 @@ const Chakra = () => {
           </Pressable>
         </View>
 
+
+        </ScrollView>
+       
+
+            
+
+
+  
 
       </ImageBackground>
     </SafeAreaView>
