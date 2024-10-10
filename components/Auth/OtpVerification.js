@@ -12,15 +12,8 @@ const OtpVerification = () => {
   const route = useRoute();
   const { email } = route.params;
   const handleVerifyOtp = async () => {
-    setLoading(true);1234
+    setLoading(true);
     try {
-      if(otpCode==="1234"){ 
-        await AsyncStorage.setItem('token', "arstpts")   
-        await AsyncStorage.setItem('refresh_token', "token123");  
-        navigation.navigate("Quiz");
-        return navigation.navigate("Quiz");
-      }
-
       const { data, error } = await supabase.auth.verifyOtp({
         email,
         token: otpCode,
@@ -31,7 +24,6 @@ const OtpVerification = () => {
         Alert.alert("Ошибка", error.message);
         return;
       }
-
       await AsyncStorage.setItem('token', data.session.access_token)   
       await AsyncStorage.setItem('refresh_token', data.session.refresh_token);  
       navigation.navigate("Quiz");

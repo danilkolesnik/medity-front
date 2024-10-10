@@ -21,7 +21,7 @@ import GoalsText from "./components/Goals/GoalsText";
 import TermsUse from "./components/TermsUse/TermsUse";
 import Settings from "./components/Settings/Settings";
 import Favorite from "./components/Player/Favorite";
-import NewMeditations  from "./components/NewMeditations/NewMeditations";
+import NewMeditations from "./components/NewMeditations/NewMeditations";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -37,11 +37,11 @@ const AppNavigator = () => {
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
+              gestureEnabled: false,
             }}
           >
-          
-            <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Auth" component={Auth} />
+            <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Quiz" component={Quiz} />
 
             <Stack.Screen name="Goals" component={Goals} />
@@ -53,21 +53,21 @@ const AppNavigator = () => {
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="Note" component={Note} />
 
-            <Stack.Screen name="Personal Data" component={PersonalData} />     
+            <Stack.Screen name="Personal Data" component={PersonalData} />
             <Stack.Screen name="Profile" component={Profile} />
 
             <Stack.Screen name="Chakras" component={Chakras} />
             <Stack.Screen name="Chakra" component={Chakra} />
 
             <Stack.Screen name="Meditations" component={Meditations} />
-            <Stack.Screen name="New meditations" component={NewMeditations } />
+            <Stack.Screen name="New meditations" component={NewMeditations} />
 
             <Stack.Screen name="Relax" component={Relax} />
             <Stack.Screen name="Player" component={Player} />
             <Stack.Screen name="My favorite meditations" component={Favorite} />
 
             <Stack.Screen name="Sleep" component={Sleep} />
-            
+
             <Stack.Screen name="Introduction" component={Introduction} />
 
             <Stack.Screen name="EmailAuth" component={EmailAuth} />

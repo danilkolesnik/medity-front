@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 24,
     paddingBottom: 120,
+    paddingTop: 10,
   },
   background: {
     flex: 1,
