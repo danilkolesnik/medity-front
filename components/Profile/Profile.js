@@ -94,6 +94,7 @@ const Profile = ({navigation}) =>{
           .eq('id', userId)
 
         await supabase.auth.admin.deleteUser(userId)
+        navigation.navigate("Introduction")
       } catch (error) {
         
       }

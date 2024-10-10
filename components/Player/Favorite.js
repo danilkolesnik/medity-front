@@ -46,9 +46,6 @@ const Favorite = () =>{
           throw new Error('Error selecting favorite: ' + selectError.message);
         }
 
-        console.log(existingFavorite);
-        
-
         const meditationIds = existingFavorite.map(item => item.meditation_id);
       
         const { data } = await axios.get(`${SERVER}/api/meditation`);
