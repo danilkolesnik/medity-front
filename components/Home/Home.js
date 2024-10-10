@@ -101,9 +101,8 @@ const Home = ({navigation}) =>{
 
         return user;
       } catch (error) {
-        navigation.navigate("Auth")
         console.error('Error getting user:', error.message);
-       
+        navigation.navigate("Auth")
         // await refreshTokenAndGetUser();
       }
     };

@@ -37,9 +37,9 @@ const AppNavigator = () => {
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
+              gestureEnabled: false,
             }}
-          >
-          
+          >   
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Auth" component={Auth} />
             <Stack.Screen name="Quiz" component={Quiz} />
