@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     conteiner: {
         width: "100%",
         height: "100%",
-
+        paddingBottom: '40px'
     },
     content: {
         paddingLeft: 24,
