@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 24,
     paddingBottom: 120,
+    paddingTop: 10,
   },
   background: {
     flex: 1,
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#fff",
     fontFamily: "Urbanist-Regular",
-    paddingTop: 75,
+    paddingTop: 0,
     paddingBottom:20
   },
 

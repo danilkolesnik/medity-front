@@ -32,8 +32,6 @@ const Home = ({navigation}) =>{
     const [meditations,setMeditations] = useState([])
     const [originalSleep, setOriginalSleep] = useState([]);
 
-    const [sleep, setSleep] = useState([])
-
     const [currentStep, setCurrentStep] = useState(null);
 
     const [searchText, setSearchText] = useState("");

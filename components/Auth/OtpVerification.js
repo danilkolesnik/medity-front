@@ -24,7 +24,6 @@ const OtpVerification = () => {
         Alert.alert("Ошибка", error.message);
         return;
       }
-
       await AsyncStorage.setItem('token', data.session.access_token)   
       await AsyncStorage.setItem('refresh_token', data.session.refresh_token);  
       navigation.navigate("Quiz");

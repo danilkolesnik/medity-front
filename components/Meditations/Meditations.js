@@ -78,9 +78,6 @@ const Meditations = () =>{
             >
             {!loading ? 
                    <ScrollView style={styles.content}>
-                   <SafeAreaView style={styles.topContent}>
-         
-                   </SafeAreaView>
                   
                            <View>
                        <Text style={styles.title}>Meditations</Text>
