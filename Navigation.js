@@ -40,10 +40,11 @@ const AppNavigator = () => {
               gestureEnabled: false,
             }}
           >   
+           <Stack.Screen name="Auth" component={Auth} />
             <Stack.Screen name="Home" component={Home} />
-
-            <Stack.Screen name="Auth" component={Auth} />
-            <Stack.Screen name="Home" component={Home} />
+           
+            
+            <Stack.Screen name="Verification code" component={OtpVerification} />
             <Stack.Screen name="Quiz" component={Quiz} />
 
             <Stack.Screen name="Goals" component={Goals} />
@@ -72,8 +73,7 @@ const AppNavigator = () => {
 
             <Stack.Screen name="Introduction" component={Introduction} />
 
-            <Stack.Screen name="EmailAuth" component={EmailAuth} />
-            <Stack.Screen name="OtpVerification" component={OtpVerification} />
+            <Stack.Screen name="Email" component={EmailAuth} />
             <Stack.Screen name="Notifications" component={Notifications} />
           </Stack.Navigator>
         </NavigationContainer>

@@ -135,11 +135,11 @@ export default function Auth() {
                 </View>
               </Pressable>
 
-              <Pressable onPress={() => navigation.navigate("EmailAuth")}>
+              <Pressable onPress={() => navigation.navigate("Email")}>
                 <View style={styles.button(true)}>
                   <Email />
                   <Text style={styles.buttonText(true)}>
-                    Continue with email
+                    Continue with Email
                   </Text>
                 </View>
               </Pressable>

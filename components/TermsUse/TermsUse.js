@@ -31,7 +31,7 @@ const TermsUse = () => {
         >
         <View style={styles.content}>
           <View>
-            <Text style={styles.text}>
+            <Text style={[styles.text,{paddingBottom:27}]}>
               Welcome to Medity! These Terms of Use govern your access to and
               use of the Medity app, including any features, content, and
               services offered. Please read these terms carefully before using

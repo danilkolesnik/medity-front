@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert, StyleSheet,ImageBackground,ActivityIndicator,TouchableOpacity,Text } from "react-native";
+import { View, TextInput, Button, Alert, StyleSheet,ImageBackground,ActivityIndicator,TouchableOpacity,Text,Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { supabase } from '../../utils/supabase'
+import Header from "../Header/Header";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -11,6 +12,9 @@ const OtpVerification = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { email } = route.params;
+
+  const currentRoute = "Email"
+
   const handleVerifyOtp = async () => {
     setLoading(true);
     try {
@@ -41,7 +45,9 @@ const OtpVerification = () => {
       source={require("../../assets/images/ostatochni.jpg")}
       style={styles.background}
     >
+       <Header currentRoute={currentRoute} currentBack={true}></Header>
       <View style={styles.container}>
+     
       <TextInput
         style={styles.input}
         placeholder="Your Code"
@@ -70,6 +76,7 @@ const OtpVerification = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    paddingBottom:80,
     height:"100%",
     justifyContent: "center",
     alignItems: "center",

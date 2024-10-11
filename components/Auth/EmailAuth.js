@@ -3,6 +3,7 @@ import { Alert, StyleSheet, View, TextInput, Text, TouchableOpacity, AppState, A
 import { supabase } from '../../utils/supabase';
 import Back from '../../assets/icons/Back';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Header from '../Header/Header';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -15,6 +16,8 @@ AppState.addEventListener('change', (state) => {
 export default function Auth({navigation}) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const currentRoute = "Auth"
 
   const signUpWithEmail = async () => {
     setLoading(true);
@@ -44,7 +47,7 @@ export default function Auth({navigation}) {
         Alert.alert("Ошибка", error.message);
         return;
       }
-      navigation.navigate("OtpVerification", { email });
+      navigation.navigate("Verification code", { email });
     } catch (err) {
       Alert.alert("Error", "Something went wrong. Try again.");
       console.error(err);
@@ -58,12 +61,10 @@ export default function Auth({navigation}) {
       source={require("../../assets/images/ostatochni.jpg")}
       style={styles.background}
     >
+      <Header currentRoute={currentRoute} currentBack={true}></Header>
        <View style={styles.container}>
-        <Pressable onPress={() => navigation.navigate("Auth")}>
-          <Back></Back>
-        </Pressable>
+        
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => setEmail(text)}
@@ -95,8 +96,11 @@ export default function Auth({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
-    padding: 12,
+    padding: 20,
+    paddingBottom:80,
+    height:"100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   verticallySpaced: {
     paddingTop: 4,
