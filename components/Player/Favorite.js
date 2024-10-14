@@ -50,8 +50,9 @@ const Favorite = () =>{
       
         const { data } = await axios.get(`${SERVER}/api/meditation`);
         const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
+        const { data: dataRelax }  = await axios.get(`${SERVER}/api/home-meditation`);
         
-        const meditations = [...data.docs, ...dataSleep.docs]
+        const meditations = [...data.docs, ...dataSleep.docs, ...dataRelax.docs]
 
         const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
       

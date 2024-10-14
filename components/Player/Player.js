@@ -188,13 +188,14 @@ const Player = () => {
                <View style={styles.textContent}>
                    
                <Text style={styles.trackTitle}>
-                {category ? category.title : 'Sleep'}
+               
+                {currentTrackTitle}
               </Text>
         
                     
                            
                    <Text style={styles.trackText}>
-                       {currentTrackTitle}
+                   {category ? category.title : 'Sleep'}
                    </Text>
                    <PlayerProgressBar style={{ paddingBottom: 40 }} />
                    <ControllPanel title={title}/>

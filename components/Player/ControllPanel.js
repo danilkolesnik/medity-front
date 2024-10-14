@@ -31,7 +31,7 @@ const ControllPanel = ({ title }) => {
           if (error) {
             console.error('Ошибка при отправке данных на сервер:', error);
           } else {
-            console.log('Данные отправлены успешно:', data);
+            // console.log('Данные отправлены успешно:', data);
           }
         } catch (error) {
           console.error('Ошибка:', error);

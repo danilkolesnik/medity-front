@@ -1,73 +1,79 @@
-import { colors, fontSize } from '../../constants/tokens'
-import { formatSecondsToMinutes } from '../../helpers/miscellaneous'
-import { defaultStyles, utilsStyles } from '../../styles/index'
-import { StyleSheet, Text, View, ViewProps } from 'react-native'
-import { Slider } from 'react-native-awesome-slider'
-import { useSharedValue } from 'react-native-reanimated'
-import TrackPlayer, { useProgress } from 'react-native-track-player'
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
+import TrackPlayer, { useProgress } from 'react-native-track-player';
+import { formatSecondsToMinutes } from '../../helpers/miscellaneous';
+import Animated, { withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 
-export const PlayerProgressBar = ({ style }) => {
-	const { duration, position } = useProgress()
-	const isSliding = useSharedValue(false)
-	const progress = useSharedValue(0)
-	const min = useSharedValue(0)
-	const max = useSharedValue(1)
+export const PlayerProgressBar = () => {
+  const { position, duration } = useProgress(); // Получаем позицию и длительность трека
+  const progress = useSharedValue(0); // Shared value для прогресса
+  const previousPosition = useRef(position); // Ссылка на предыдущую позицию, чтобы не обновлять слишком часто
 
-	const trackElapsedTime = formatSecondsToMinutes(position)
-	const trackRemainingTime = formatSecondsToMinutes(duration - position)
+  useEffect(() => {
+    if (duration > 0) {
+      // Обновляем прогресс только при изменении позиции, чтобы избежать лишних обновлений
+      if (Math.abs(position - previousPosition.current) > 0.1) { // обновляем, если изменения более чем на 0.1
+        previousPosition.current = position;
+        progress.value = withTiming(position / duration, { duration: 300 }); // Плавная анимация
+      }
+    }
+  }, [position, duration]);
 
-	if (!isSliding.value) {
-		progress.value = duration > 0 ? position / duration : 0
-	}
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      width: `${progress.value * 100}%`, // Плавно изменяем ширину прогресс-бара
+    };
+  });
 
-	return (
-		<View style={[style, {
-			paddingLeft:24, 
-        	paddingRight:24,
-			backgroundColor:"#050505"
-		}]}>
+  const trackElapsedTime = formatSecondsToMinutes(position);
+  const trackRemainingTime = formatSecondsToMinutes(duration - position);
 
-            <View style={styles.timeRow}>
-				<Text style={[styles.timeText,{color:'#fff'}]}>
-                    {trackElapsedTime}
-                </Text>
-
-				<Text style={[styles.timeText, {color:"rgba(255,255,255,0.5)"}]}>
-					{trackRemainingTime}
-				</Text>
-			</View>
-
-			<Slider
-				progress={progress}
-				minimumValue={min}
-				maximumValue={max}
-				containerStyle={utilsStyles.slider}
-				thumbWidth={0}
-				renderBubble={() => null}
-				disabled={true}
-				theme={{
-					minimumTrackTintColor: colors.minimumTrackTintColor,
-					maximumTrackTintColor: colors.maximumTrackTintColor,
-				}}
-			/>
-
-			
-		</View>
-	)
-}
+  return (
+    <View style={styles.container}>
+      <View style={styles.timeRow}>
+        <Text style={styles.timeText}>{trackElapsedTime}</Text>
+        <Text style={[styles.timeText, { color: 'rgba(255,255,255,0.5)' }]}>
+          {trackRemainingTime}
+        </Text>
+      </View>
+      
+      <View style={styles.progressBarContainer}>
+        <Animated.View style={[styles.progressBar, animatedStyle]} />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-	timeRow: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'baseline',
-		paddingBottom:10
-	},
-	timeText: {
-        
-		fontSize:12,
-        lineHeight:16,
-        fontFamily:'Urbanist-Regular',
-		fontWeight: '400',
-	},
-})
+  container: {
+    paddingLeft: 24,
+    paddingRight: 24,
+    backgroundColor: '#050505',
+	paddingVertical:26,
+  },
+  timeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    paddingBottom: 10,
+  },
+  timeText: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: 'Urbanist-Regular',
+    fontWeight: '400',
+    color: '#fff',
+  },
+  progressBarContainer: {
+    backgroundColor: '#565656',
+    height: 8,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressBar: {
+    height: 8,
+    backgroundColor: '#BBBBBB',
+    borderRadius: 4,
+  },
+});

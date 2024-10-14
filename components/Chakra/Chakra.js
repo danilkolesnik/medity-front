@@ -75,7 +75,7 @@ const Chakra = () => {
 
               <View style={[stylesList.stylesList, {gap:18}]}>
                 {item.meditations.map((item, index) =>(
-                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} setCurrentStep={setCurrentStep} />
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} active={currentStep} index={index} type={item.type} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
         <View style={styles.bottomNavContainer}>

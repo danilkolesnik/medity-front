@@ -1,1 +1,1 @@
-export const SERVER = "https://medity.slan.studio";
+export const SERVER = "https://admin.medity.xyz";
