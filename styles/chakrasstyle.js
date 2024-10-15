@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
         paddingBottom: 70,
         paddingTop:80,
         width:'100%',
-        gap:16
-
+        gap:16,
+        overflow:'hidden',
     },
     chakraWrapper: {
         height: 192,
-        borderRadius: 40,
+        borderRadius:12,
         marginTop: 10,
         width:'100%',
     },
@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
         height: 60,
         width:'100%',     
         padding: 12,
+        overflow:'hidden',
+        borderRadius:12
     },
     infoBarText: {
         color: "#FFF",
@@ -57,7 +59,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: "100%",
         justifyContent: 'flex-end',   
-        borderRadius:40 
+        borderRadius:12 ,
+        overflow:'hidden'
     },
     affirmationsContainer: {
         paddingTop:27

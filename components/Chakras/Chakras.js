@@ -57,7 +57,7 @@ const Chakras = () => {
                          }}>
                           <ImageBackground
                               source={{uri:`${SERVER}${item.image.url}`}}
-                              style={styles.backgroundCardRelax}
+                              style={[styles.backgroundCardRelax]}
                           >
                          
                           <View style={styles.infoBar}>
