@@ -165,11 +165,6 @@ const Player = () => {
                     </Pressable>
                     <View>
                         
-                        <Pressable onPress={() => {
-                            resetSettings()
-                        }}>
-                            <Setting></Setting>
-                        </Pressable>
                         <Pressable
                             onPress={() => addFavorite()}
                             style={{

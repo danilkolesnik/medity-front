@@ -90,6 +90,7 @@ const Card = ({title,options,active,index,audio,setCurrentStep,type}) =>{
     
     const unsubscribeBlur = navigation.addListener('blur', async () => {
       await TrackPlayer.reset();
+      await TrackPlayer.pause()
       setCurrentStep(null)
     });
   

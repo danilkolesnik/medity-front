@@ -6,7 +6,6 @@ import {
   ScrollView,
   Image
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../Header/Header";
 import styles from "../../styles/chakrasstyle";
 import Next from "../../assets/icons/Next";
@@ -14,8 +13,8 @@ import Prev from "../../assets/icons/Prev";
 import Like from "../../assets/icons/Like";
 import Bell from "../../assets/icons/Bell";
 import Notes from "../../assets/icons/Notes";
-import { useState } from "react";
-import { useNavigation,useRoute } from "@react-navigation/native";
+import { useState,useCallback } from "react";
+import { useNavigation,useRoute,useFocusEffect } from "@react-navigation/native";
 
 import Card from "../Home/Card";
 
@@ -52,7 +51,7 @@ const Chakra = () => {
       >
        
         <ScrollView contentContainerStyle={stylesList.content}>
-        <Header currentRoute={currentRoute} currentTitle={item.title} currentBack={true}/>
+        <Header currentRoute={currentRoute} currentTitle={item.title} currentBack={true} />
         <View>
             <View style={styles.affirmationsContainer}>
               <Text style={styles.affirmation}>{item.affirmations[activeAffirmation].affirmation}</Text>

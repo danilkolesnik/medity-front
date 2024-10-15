@@ -18,7 +18,6 @@ const Header = ({currentRoute,currentTitle,currentBack}) =>{
         <Pressable
               onPress={() => {
                  navigation.navigate(currentRoute)
-                 
               }}
          >
              <View style={styles.icon}>

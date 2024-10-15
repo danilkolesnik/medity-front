@@ -24,7 +24,8 @@ const Chakras = () => {
         setLoading(true)
         try {
           const { data } = await axios.get(`${SERVER}/api/chakra`);
-          setChakras(data.docs)
+ 
+          setChakras(data.docs)   
           return data.docs
         } catch (error) {
           console.log(error);
@@ -50,7 +51,7 @@ const Chakras = () => {
                     <Header currentRoute={currentRoute} currentBack={false}/>
                    
                      <View style={styles.chakrasContainer}>
-                     {chakras.map((item, index) =>(
+                     {chakras.reverse().map((item, index) =>(
                          <Pressable style={styles.chakraWrapper} key={index} onPress={() => {
                              navigation.navigate("Chakra",{item})
                          }}>

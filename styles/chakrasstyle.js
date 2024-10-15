@@ -81,17 +81,14 @@ const styles = StyleSheet.create({
         opacity: 0,
     },
     bottomNavContainer:{
-        position:"absolute",
-        bottom:36,
-        width:327,
-        left: '50%',
-        transform: [{ translateX: -163.5 }],
+
+        
         flex: 1,
         flexDirection: "row",
         margin: "auto",
         justifyContent: "center",
-        gap: 20,
-        marginTop: 20,
+        gap: 36,
+        marginTop: 30,
     },
     overlay:{
         ...StyleSheet.absoluteFillObject,

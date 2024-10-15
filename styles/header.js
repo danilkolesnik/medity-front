@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
     conteiner:{
         textAlign:'center',
         width:"100%",  
-        paddingLeft:65,
         paddingRight:"10px",
         paddingTop: -40,
         zIndex: 1
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight:"600",
         fontFamily:"Urbanist-Bold",
-        left: 40,
+        left: 0,
     },
     icon:{
        
