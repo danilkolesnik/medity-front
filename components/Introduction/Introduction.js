@@ -41,6 +41,7 @@ export default function Introduction({navigation}) {
                   fontSize: 50,
                   fontWeight: "400",
                   width: "80%",
+                  paddingTop:160,
                 }}
               >
                 A daily {"\n"}<Text style={{color:"#515151"}}>mind</Text> meditation <Text style={{color:"#515151"}}>practice</Text>

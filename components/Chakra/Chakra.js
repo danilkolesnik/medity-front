@@ -67,7 +67,7 @@ const Chakra = () => {
               </View>
             </View>
         </View>
-        <View style={[stylesList.buttonMore,{marginTop:30}]}>
+        <View style={[stylesList.buttonMore]}>
                 <Text style={stylesList.textMore}>Meditations</Text>
                 
               </View>
