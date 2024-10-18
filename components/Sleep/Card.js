@@ -11,42 +11,44 @@ import { SERVER } from "../../constants/async";
 import { useNavigation,useRoute } from '@react-navigation/native';
 import styles from "../../styles/sleep";
 
-const Card = ({item,style}) =>{
+const Card = ({item, style}) => {
+    const {title, image, media, category, type} = item;
+    const navigation = useNavigation();
+    const route = useRoute();
+    const currentRoute = route.name;
 
-    const {title,image,media,category,type} = item
-    const navigation = useNavigation()
-    const route = useRoute()
+    const imageSource = image && image.url
+        ? image.url.startsWith('file://')
+            ? { uri: image.url } 
+            : { uri: `${SERVER}${image.url}` } 
+        : '' 
 
-    const currentRoute = route.name
-
-    return(
+    return (
         <Pressable 
             style={styles.card}
-            onPress={() => navigation.navigate("Player",{ title,category,currentRoute})}
+            onPress={() => navigation.navigate("Player", { title, category, currentRoute, media, image })}
         >
             <ImageBackground
                 style={style}
-                source={{uri:`${SERVER}${image.url}`}}
-              
+                source={imageSource} // Подставляем корректный источник изображения
+                defaultSource={require('../../assets/images/image.jpg')}
             >
                 <View style={styles.cardContent}>
                     <Text style={styles.cardTitle}>{title}</Text>
-                    <View style={{flexDirection:'row',alignItems:"center"}}>
-                        <View style={{flexDirection:'row',alignItems:"center",paddingRight:8}}>
-                            <Mic></Mic>
+                    <View style={{flexDirection: 'row', alignItems: "center"}}>
+                        <View style={{flexDirection: 'row', alignItems: "center", paddingRight: 8}}>
+                            <Mic />
                             <Text style={styles.cardText}>Unguided</Text>
                         </View>
-                        <View style={{flexDirection:'row',alignItems:"center"}}>
-                            <Clock></Clock>
-                            <Text style={[styles.cardText,{paddingLeft:3}]}>{type} min</Text>
+                        <View style={{flexDirection: 'row', alignItems: "center"}}>
+                            <Clock />
+                            <Text style={[styles.cardText, {paddingLeft: 3}]}>{type} min</Text>
                         </View>
-                       
                     </View>
                 </View>
-                
             </ImageBackground>
         </Pressable>
-    )
-}
+    );
+};
 
-export default Card
+export default Card;

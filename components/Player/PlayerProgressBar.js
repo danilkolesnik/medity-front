@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 24,
     backgroundColor: '#050505',
-	paddingVertical:26,
+	  paddingVertical:26,
   },
   timeRow: {
     flexDirection: 'row',

@@ -2,7 +2,6 @@ import TrackPlayer from 'react-native-track-player';
 import { SERVER } from "../constants/async";
 
 export const QueueInitialTracksService = async (title,audio,id) => {
-    
     await TrackPlayer.add([
         {
             id: id, 

@@ -22,6 +22,7 @@ import TermsUse from "./components/TermsUse/TermsUse";
 import Settings from "./components/Settings/Settings";
 import Favorite from "./components/Player/Favorite";
 import NewMeditations from "./components/NewMeditations/NewMeditations";
+import DownloadMeditations from "./components/DownloadMeditations/DownloadMeditations";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -40,7 +41,7 @@ const AppNavigator = () => {
               gestureEnabled: false,
             }}
           >   
-        
+           
            <Stack.Screen name="Home" component={Home} />
            <Stack.Screen name="Auth" component={Auth} />
            <Stack.Screen name="Introduction" component={Introduction} />
@@ -67,13 +68,14 @@ const AppNavigator = () => {
             <Stack.Screen name="New meditations" component={NewMeditations} />
 
             <Stack.Screen name="Relax" component={Relax} />
+            
             <Stack.Screen name="Player" component={Player} />
+            <Stack.Screen name="Download Meditations" component={DownloadMeditations} />
+
             <Stack.Screen name="My favorite meditations" component={Favorite} />
 
             <Stack.Screen name="Sleep" component={Sleep} />
-
-           
-
+         
             <Stack.Screen name="Email" component={EmailAuth} />
             <Stack.Screen name="Notifications" component={Notifications} />
           </Stack.Navigator>

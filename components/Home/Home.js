@@ -21,6 +21,7 @@ import CardTop from "./CardTop";
 import styles from "../../styles/home";
 import stylesList from "../../styles/sleep";
 import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
+import TrackPlayer, { useTrackPlayerEvents } from 'react-native-track-player';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { supabase } from "../../utils/supabase";
@@ -58,6 +59,44 @@ const Home = ({navigation}) =>{
         item.title.toLowerCase().includes(text.toLowerCase())
       );
       setMeditations(filtered);
+    };
+
+    const downloadFile = async () => {
+      const file = 'file:///data/user/0/com.meditycompany.medity/files/a-space-journey-through-the-solar-system-153277.mp3'
+
+      const track = {
+          url: file, // Load media from the file system
+          title: 'Ice Age',
+          artist: 'deadmau5',
+          duration: 411
+      };
+
+      await TrackPlayer.add([track]);
+      TrackPlayer.play();  
+      // const audioUrl = `${SERVER}${media.url}`;  
+      // const fileUri = FileSystem.documentDirectory + `${media.filename}`; 
+  
+      // const callback = (downloadProgress) => {
+      //   const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
+      //   setDownloadProgress(progress);
+      // };
+  
+      // const downloadResumable = FileSystem.createDownloadResumable(
+      //   audioUrl,
+      //   fileUri,
+      //   {},
+      //   callback
+      // );
+  
+      // try {
+      //   const { uri } = await downloadResumable.downloadAsync();
+      //   setDownloadComplete(true);
+      //   console.log('Файл загружен на устройство по пути:', uri);
+      // } catch (e) {
+      //   console.error(e);
+      //   setError('Ошибка при скачивании файла');
+      // }
+      
     };
 
     const refreshTokenAndGetUser = async () => {
