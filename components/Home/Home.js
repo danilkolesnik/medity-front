@@ -35,6 +35,7 @@ const Home = ({navigation}) =>{
     const [favoriteMeditations, setFavoriteMeditations] = useState([])
 
     const [currentStep, setCurrentStep] = useState(null);
+    const [currentStepFavorite, setCurrentStepFavorite] = useState(null);
 
     const [searchText, setSearchText] = useState("");
 
@@ -73,11 +74,17 @@ const Home = ({navigation}) =>{
         const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
         const { data: dataRelax }  = await axios.get(`${SERVER}/api/home-meditation`);
         
-        const meditations = [...data.docs, ...dataSleep.docs, ...dataRelax.docs]
+        const meditations = [
+          ...data.docs, 
+          ...dataSleep.docs, 
+          ...dataRelax.docs
+        ]
 
         const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
 
-        return filteredDocs;
+        setFavoriteMeditations(filteredDocs);
+
+        return true
       } catch (error) {
         console.log(error);
       }finally {
@@ -117,13 +124,14 @@ const Home = ({navigation}) =>{
 
     useEffect(() => {
       setLoading(true);
-      Promise.all([getMeditations(), getUser(),getFavorite()])
-        .then(([questions, userData,favoriteData]) =>{
+    
+      Promise.all([getMeditations(), getUser(), getFavorite()])
+        .then(([questions, userData, favoriteData]) => {
           setMeditations(questions);
-          setOriginalSleep(questions)
-          setFavoriteMeditations(favoriteData)
+          setOriginalSleep(questions);   
+    
+          if (questions && userData && favoriteData) setLoading(false);
 
-          if(questions && userData) setLoading(false);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -171,7 +179,7 @@ const Home = ({navigation}) =>{
   
                 <View style={styles.list}>
                     {favoriteMeditations.map((item, index) =>(
-                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStepFavorite} index={index} setCurrentStep={setCurrentStepFavorite} />
                     ))}
                 </View>
               </> 

@@ -44,7 +44,6 @@ const Card = ({title,options,active,index,audio,setCurrentStep,type}) =>{
     }
   };
 
-
   const playAudio = async () => {
   try {
     const currentTrack = await TrackPlayer.getActiveTrack();
