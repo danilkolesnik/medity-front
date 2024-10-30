@@ -32,6 +32,7 @@ const Home = ({navigation}) =>{
 
     const [meditations,setMeditations] = useState([])
     const [originalSleep, setOriginalSleep] = useState([]);
+    const [favoriteMeditations, setFavoriteMeditations] = useState([])
 
     const [currentStep, setCurrentStep] = useState(null);
 
@@ -53,6 +54,37 @@ const Home = ({navigation}) =>{
       }
     }
 
+    const getFavorite = async() =>{
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+
+        const { data: existingFavorite, error: selectError } = await supabase
+          .from('favorite')
+          .select('*')
+          .eq('user_id', userId);
+      
+        if (selectError) {
+          throw new Error('Error selecting favorite: ' + selectError.message);
+        }
+
+        const meditationIds = existingFavorite.map(item => item.meditation_id);
+      
+        const { data } = await axios.get(`${SERVER}/api/meditation`);
+        const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
+        const { data: dataRelax }  = await axios.get(`${SERVER}/api/home-meditation`);
+        
+        const meditations = [...data.docs, ...dataSleep.docs, ...dataRelax.docs]
+
+        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
+
+        return filteredDocs;
+      } catch (error) {
+        console.log(error);
+      }finally {
+        setLoading(false);
+      }
+    }
+
     const searchItem = (text) => {
       setSearchText(text)
       const filtered = originalSleep.filter(item =>
@@ -60,68 +92,7 @@ const Home = ({navigation}) =>{
       );
       setMeditations(filtered);
     };
-
-    const downloadFile = async () => {
-      const file = 'file:///data/user/0/com.meditycompany.medity/files/a-space-journey-through-the-solar-system-153277.mp3'
-
-      const track = {
-          url: file, // Load media from the file system
-          title: 'Ice Age',
-          artist: 'deadmau5',
-          duration: 411
-      };
-
-      await TrackPlayer.add([track]);
-      TrackPlayer.play();  
-      // const audioUrl = `${SERVER}${media.url}`;  
-      // const fileUri = FileSystem.documentDirectory + `${media.filename}`; 
-  
-      // const callback = (downloadProgress) => {
-      //   const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
-      //   setDownloadProgress(progress);
-      // };
-  
-      // const downloadResumable = FileSystem.createDownloadResumable(
-      //   audioUrl,
-      //   fileUri,
-      //   {},
-      //   callback
-      // );
-  
-      // try {
-      //   const { uri } = await downloadResumable.downloadAsync();
-      //   setDownloadComplete(true);
-      //   console.log('Файл загружен на устройство по пути:', uri);
-      // } catch (e) {
-      //   console.error(e);
-      //   setError('Ошибка при скачивании файла');
-      // }
-      
-    };
-
-    const refreshTokenAndGetUser = async () => {
-      try {
-        const refreshToken = await AsyncStorage.getItem('refresh_token');
-        if (!refreshToken) {
-          throw new Error('Refresh token not found');
-        }
-  
-        const { data: { session }, error } = await supabase.auth.refreshSession({ refresh_token: refreshToken });
-        if (error) {
-          throw error;
-        }
-        
-        await AsyncStorage.setItem('access_token', session.access_token);
-        await AsyncStorage.setItem('refresh_token', session.refresh_token);
-  
-        return getUser();
-      } catch (error) {
-        navigation.navigate("Auth")
-        console.error('Error refreshing token:', error.message);
-        Alert.alert('Error', 'Failed to refresh token. Please log in again.');
-      }
-    };
-
+    
     const getUser = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
@@ -146,11 +117,11 @@ const Home = ({navigation}) =>{
 
     useEffect(() => {
       setLoading(true);
-      Promise.all([getMeditations(), getUser()])
-        .then(([questions, userData]) =>{
+      Promise.all([getMeditations(), getUser(),getFavorite()])
+        .then(([questions, userData,favoriteData]) =>{
           setMeditations(questions);
           setOriginalSleep(questions)
-
+          setFavoriteMeditations(favoriteData)
 
           if(questions && userData) setLoading(false);
         })
@@ -189,7 +160,23 @@ const Home = ({navigation}) =>{
                       <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                   ))}
               </View>
+              {favoriteMeditations.length ? 
+              <>
+              <View style={styles.buttonMore}>
+                <Text style={styles.textMore}>My favorite meditation</Text>
+                <Pressable  onPress={() => navigation.navigate("My favorite meditations")}>
+                  <Text style={styles.textButtonMore}>See all</Text>
+                </Pressable>
+              </View>
   
+                <View style={styles.list}>
+                    {favoriteMeditations.map((item, index) =>(
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
+                    ))}
+                </View>
+              </> 
+              : null}
+
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>New meditations</Text>
                 <Pressable  onPress={() => navigation.navigate("New meditations")}>
