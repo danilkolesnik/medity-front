@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
     text:{
         color:'#fff',
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: "600",
         fontFamily:"Urbanist-SemiBold",
         paddingRight:40

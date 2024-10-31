@@ -16,6 +16,8 @@ const TimePicker = ({ onTimeChange, hour,minute}) => {
   const [selectedHour, setSelectedHour] = useState(hour);
   const [selectedMinute, setSelectedMinute] = useState(minute);
 
+  const [runCount, setRunCount] = useState(0); // Counter to track effect executions
+
   const hours = generateTimeArray(0, 23);
   const minutes = generateTimeArray(0, 59);
 
@@ -40,19 +42,22 @@ const TimePicker = ({ onTimeChange, hour,minute}) => {
   };
 
   useEffect(() => {
-    // Прокрутка к начальному значению для часов и минут
-    const hourIndex = hours.indexOf(selectedHour);
-    const minuteIndex = minutes.indexOf(selectedMinute);
-
+    const hourIndex = hours.indexOf(selectedHour); 
+    const minuteIndex = minutes.indexOf(selectedMinute); 
+  
     if (hourRef.current) {
-      hourRef.current.scrollTo({ y: hourIndex * ITEM_HEIGHT, animated: false });
-      animatedHourValue.setValue(hourIndex * ITEM_HEIGHT); // Синхронизация с анимацией
+      hourRef.current.scrollTo({ y: hourIndex * ITEM_HEIGHT, animated: true });
+      animatedHourValue.setValue(hourIndex * ITEM_HEIGHT); 
     }
     if (minuteRef.current) {
-      minuteRef.current.scrollTo({ y: minuteIndex * ITEM_HEIGHT, animated: false });
-      animatedMinuteValue.setValue(minuteIndex * ITEM_HEIGHT); // Синхронизация с анимацией
+      minuteRef.current.scrollTo({ y: minuteIndex * ITEM_HEIGHT, animated: true });
+      animatedMinuteValue.setValue(minuteIndex * ITEM_HEIGHT);
     }
-  }, []);
+
+    // Increase count after running the effect
+    if (runCount < 1) setRunCount(runCount + 1);
+
+  }, [hour, minute, runCount]);
 
   const renderPicker = (itemsArray, animatedValue, setSelected, type, selectedItem) => {
     return (

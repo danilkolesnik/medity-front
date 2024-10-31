@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Auth from "./components/Auth/Auth";
 import EmailAuth from "./components/Auth/EmailAuth";
 import Introduction from "./components/Introduction/Introduction";
@@ -31,57 +31,64 @@ import CustomStatusBar from "./components/CustomStatusBar/CustomStatusBar";
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
+  const [currentRoute, setCurrentRoute] = useState("");
+
   return (
-    <CustomStatusBar>
-      <View style={styles.screenWrapper}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              gestureEnabled: false,
+    <>
+      {/* Conditionally render CustomStatusBar based on the current route */}
+      <CustomStatusBar>
+        <View style={styles.screenWrapper}>
+          <NavigationContainer
+            onStateChange={(state) => {
+              const currentScreen = state.routes[state.index].name;
+              setCurrentRoute(currentScreen);
             }}
-          >   
-           
-           <Stack.Screen name="Home" component={Home} />
-           <Stack.Screen name="Auth" component={Auth} />
-           <Stack.Screen name="Introduction" component={Introduction} />
-                     
-            <Stack.Screen name="Verification code" component={OtpVerification} />
-            <Stack.Screen name="Quiz" component={Quiz} />
+          >
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                gestureEnabled: false,
+              }}
+            >
 
-            <Stack.Screen name="Goals" component={Goals} />
-            <Stack.Screen name="GoalsText" component={GoalsText} />
-
-            <Stack.Screen name="Terms of use" component={TermsUse} />
-            <Stack.Screen name="Settings" component={Settings} />
-
-            <Stack.Screen name="Notes" component={Notes} />
-            <Stack.Screen name="Note" component={Note} />
-
-            <Stack.Screen name="Personal Data" component={PersonalData} />
-            <Stack.Screen name="Profile" component={Profile} />
-
-            <Stack.Screen name="Chakras" component={Chakras} />
-            <Stack.Screen name="Chakra" component={Chakra} />
-
-            <Stack.Screen name="Meditations" component={Meditations} />
-            <Stack.Screen name="New meditations" component={NewMeditations} />
-
-            <Stack.Screen name="Relax" component={Relax} />
-            
-            <Stack.Screen name="Player" component={Player} />
-            <Stack.Screen name="Download Meditations" component={DownloadMeditations} />
-
-            <Stack.Screen name="My favorite meditations" component={Favorite} />
-
-            <Stack.Screen name="Sleep" component={Sleep} />
-         
-            <Stack.Screen name="Email" component={EmailAuth} />
-            <Stack.Screen name="Notifications" component={Notifications} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
-    </CustomStatusBar>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Auth" component={Auth} />
+              <Stack.Screen name="Introduction" component={Introduction} />
+              <Stack.Screen
+                name="Verification code"
+                component={OtpVerification}
+              />
+              <Stack.Screen name="Quiz" component={Quiz} />
+              <Stack.Screen name="Goals" component={Goals} />
+              <Stack.Screen name="GoalsText" component={GoalsText} />
+              <Stack.Screen name="Terms of use" component={TermsUse} />
+              <Stack.Screen name="Settings" component={Settings} />
+              <Stack.Screen name="Notes" component={Notes} />
+              <Stack.Screen name="Note" component={Note} />
+              <Stack.Screen name="Personal Data" component={PersonalData} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Chakras" component={Chakras} />
+              <Stack.Screen name="Chakra" component={Chakra} />
+              <Stack.Screen name="Meditations" component={Meditations} />
+              <Stack.Screen name="New meditations" component={NewMeditations} />
+              <Stack.Screen name="Relax" component={Relax} />
+              <Stack.Screen name="Player" component={Player} />
+              <Stack.Screen
+                name="Download Meditations"
+                component={DownloadMeditations}
+              />
+              <Stack.Screen
+                name="My favorite meditations"
+                component={Favorite}
+              />
+              <Stack.Screen name="Sleep" component={Sleep} />
+              <Stack.Screen name="Email" component={EmailAuth} />
+              <Stack.Screen name="Notifications" component={Notifications} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </CustomStatusBar>
+    </>
   );
 };
 

@@ -71,6 +71,10 @@ export default function Auth() {
                         provider: "apple",
                         token: credential.identityToken,
                       });
+
+                      console.log('====================================');
+                      console.log(error, data);
+                      console.log('====================================');
                       console.log(JSON.stringify({ error, data }, null, 2));
                       if (!error) {
                         await AsyncStorage.setItem('token', data.session.access_token) 
@@ -105,7 +109,6 @@ export default function Auth() {
                           provider: "google",
                           token: userInfo.idToken,
                         });
-                        
                       if(!error){
                         await AsyncStorage.setItem('token', data.session.access_token) 
                         navigation.navigate("Quiz");

@@ -7,8 +7,8 @@ const Download = ({ width = 19, height = 21 }) => {
     <View>
        <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={30}
-    height={30}
+    width={28}
+    height={28}
     fill="none"
     viewBox="0 0 24 24"
    
