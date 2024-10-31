@@ -14,9 +14,10 @@ const styles = StyleSheet.create({
     },
     chakrasContainer: {
         margin: 20,
-        marginTop: 0,
+        marginTop: -50,
         paddingBottom: 70,
         paddingTop:80,
+        marginLeft: 15,
         width:'100%',
         gap:16,
         overflow:'hidden',
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
         borderRadius:12,
         marginTop: 10,
         width:'100%',
+        marginRight: 20,
     },
     infoBar: {
         backgroundColor: "rgba(15, 23, 42, 0.40)",
