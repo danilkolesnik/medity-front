@@ -297,7 +297,6 @@ const Home = ({navigation}) =>{
             
   
             </ScrollView>
-            <Burger/>
             </>       
             :
               <Loader></Loader>

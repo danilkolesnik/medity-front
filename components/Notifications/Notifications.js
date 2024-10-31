@@ -112,8 +112,7 @@ const Notifications = () =>{
                  </View>
                  
                  <SafeAreaView>
-                     <TimePicker onTimeChange={handleTimeChange} hour={hour} minute={minute}/>
- 
+                      <TimePicker onTimeChange={handleTimeChange} hour={hour} minute={minute}/>
                  </SafeAreaView>
                 </View>
                  
