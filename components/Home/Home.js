@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useCallback } from "react";
 import {
   ImageBackground,
   View,
@@ -14,6 +14,7 @@ import Menu from '../Menu/menu'
 import Burger from "./Burger";
 import SearchIcon from "../../assets/icons/Search";
 import Loader from "../Loader/Loader";
+import { useFocusEffect } from "@react-navigation/native";
 import { SERVER } from "../../constants/async";
 import axios from "axios";
 import CardTop from "./CardTop";
@@ -69,7 +70,7 @@ const Home = ({navigation}) =>{
         }
 
         const meditationIds = existingFavorite.map(item => item.meditation_id);
-      
+
         const { data } = await axios.get(`${SERVER}/api/meditation`);
         const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
         const { data: dataRelax }  = await axios.get(`${SERVER}/api/home-meditation`);
@@ -117,12 +118,12 @@ const Home = ({navigation}) =>{
         return user;
       } catch (error) {
         console.error('Error getting user:', error.message);
-        navigation.navigate("Auth")
-        // await refreshTokenAndGetUser();
+        navigation.navigate("Introduction")
       }
     };
 
-    useEffect(() => {
+    useFocusEffect(
+      useCallback(() => {
       setLoading(true);
     
       Promise.all([getMeditations(), getUser(), getFavorite()])
@@ -137,7 +138,8 @@ const Home = ({navigation}) =>{
           console.error('Error:', error);
           setLoading(false);
         });
-    }, []);
+      }, [])
+    );
 
     return (
       <>
