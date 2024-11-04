@@ -69,22 +69,13 @@ const AppNavigator = () => {
                 gestureEnabled: false,
               }}
             >
-<<<<<<< HEAD
-              <Stack.Screen name="Auth" component={Auth} />
-             
-              <Stack.Screen name="Quiz" component={Quiz} />
-              <Stack.Screen name="Home" component={Home} />
-              
-              <Stack.Screen name="Introduction" component={Introduction} />
-=======
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Auth" component={Auth} />
->>>>>>> 4314648001330f103b50db089d366728c94ecbbb
               <Stack.Screen
                 name="Verification code"
                 component={OtpVerification}
               />
-             
+              <Stack.Screen name="Quiz" component={Quiz} />
               <Stack.Screen name="Goals" component={Goals} />
               <Stack.Screen name="GoalsText" component={GoalsText} />
               <Stack.Screen name="Terms of use" component={TermsUse} />
