@@ -81,7 +81,7 @@ const Home = ({navigation}) =>{
           ...dataRelax.docs
         ]
 
-        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
+        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.title));
 
         setFavoriteMeditations(filteredDocs);
 

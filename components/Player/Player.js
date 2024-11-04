@@ -72,7 +72,7 @@ const Player = () => {
       const { data: existingGoals, error: selectError } = await supabase
         .from("favorite")
         .select("*")
-        .eq("meditation_id", track.id);
+        .eq("meditation_id", title);
 
       if (existingGoals.length != 0) {
         setCurrentFavorite(true);
@@ -102,7 +102,7 @@ const Player = () => {
       const { data: existingGoals, error: selectError } = await supabase
         .from("favorite")
         .select("*")
-        .eq("meditation_id", track.id);
+        .eq("meditation_id", title);
 
       if (selectError) {
         throw selectError;
@@ -112,7 +112,7 @@ const Player = () => {
         const { data, error } = await supabase
           .from("favorite")
           .delete()
-          .eq("meditation_id", track.id);
+          .eq("meditation_id", title);
 
         setCurrentFavorite(false);
 
@@ -123,7 +123,7 @@ const Player = () => {
         const { data, error } = await supabase.from("favorite").insert([
           {
             user_id: userId,
-            meditation_id: track.id,
+            meditation_id: title,
           },
         ]);
 
@@ -209,7 +209,19 @@ const Player = () => {
           JSON.stringify(updatedData)
         );
 
-        addFavorite();
+        const userId = await AsyncStorage.getItem("userId");
+
+        const queue = await TrackPlayer.getQueue();
+        const track = queue.find((t) => t.title === title);
+
+        const { data, error } = await supabase.from("favorite").insert([
+          {
+            user_id: userId,
+            meditation_id: title,
+          },
+        ]);
+
+        setCurrentFavorite(true);
 
         console.log("Данные успешно сохранены в AsyncStorage");
       }

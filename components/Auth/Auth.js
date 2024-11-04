@@ -77,7 +77,22 @@ export default function Auth() {
                       console.log('====================================');
                       console.log(JSON.stringify({ error, data }, null, 2));
                       if (!error) {
-                        await AsyncStorage.setItem('token', data.session.access_token) 
+                        await AsyncStorage.setItem('token', data.session.access_token)
+
+                        const { data: dataQuiz, error: selectError } = await supabase
+                          .from('quiz_select')
+                          .select('*')
+                          .eq('userId', dataQuiz.user.id);
+      
+                        if (selectError) {
+                          throw new Error('Error selecting userQuiz: ' + selectError.message);
+                        }
+
+                        if (dataQuiz.length) {       
+                          navigation.navigate("Home");
+                          return; 
+                        }
+
                         navigation.navigate("Quiz");
                       }
                     } else {
@@ -111,6 +126,21 @@ export default function Auth() {
                         });
                       if(!error){
                         await AsyncStorage.setItem('token', data.session.access_token) 
+
+                        const { data: dataQuiz, error: selectError } = await supabase
+                          .from('quiz_select')
+                          .select('*')
+                          .eq('userId', dataQuiz.user.id);
+      
+                        if (selectError) {
+                          throw new Error('Error selecting userQuiz: ' + selectError.message);
+                        }
+
+                        if (dataQuiz.length) {       
+                          navigation.navigate("Home");
+                          return; 
+                        }
+
                         navigation.navigate("Quiz");
                       }
 

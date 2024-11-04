@@ -54,7 +54,7 @@ const Favorite = () =>{
         
         const meditations = [...data.docs, ...dataSleep.docs, ...dataRelax.docs]
 
-        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.id));
+        const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.title));
       
         setSleep(filteredDocs);
         setOriginalSleep(filteredDocs);
