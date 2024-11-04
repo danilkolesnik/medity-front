@@ -1,79 +1,96 @@
-  import React, { useEffect, useState } from 'react';
-  import { useFonts } from 'expo-font';
-  import { AppNavigator } from './Navigation';
-  import { PaperProvider } from 'react-native-paper';
-  import TrackPlayer, { Capability,AppKilledPlaybackBehavior,RepeatMode} from 'react-native-track-player';
+import React, { useEffect, useState } from "react";
+import { useFonts } from "expo-font";
+import { AppNavigator } from "./Navigation";
+import { PaperProvider } from "react-native-paper";
+import TrackPlayer, {
+  Capability,
+  AppKilledPlaybackBehavior,
+  RepeatMode,
+} from "react-native-track-player";
 
-  import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Purchases from "react-native-purchases";
+import { Platform } from "react-native";
 
-  export default function App() {
-    const [fontsLoaded] = useFonts({
-      "Urbanist-Bold": require("./assets/fonts/Urbanist-Bold.ttf"),
-      "Urbanist-Black": require("./assets/fonts/Urbanist-Black.ttf"),
-      "Urbanist-BlackItalic": require("./assets/fonts/Urbanist-BlackItalic.ttf"),
-      "Urbanist-BoldItalic": require("./assets/fonts/Urbanist-BoldItalic.ttf"),
-      "Urbanist-ExtraBold": require("./assets/fonts/Urbanist-ExtraBold.ttf"),
-      "Urbanist-Light": require("./assets/fonts/Urbanist-Light.ttf"),
-      "Urbanist-Regular": require("./assets/fonts/Urbanist-Regular.ttf"),
-      "Urbanist-SemiBold": require("./assets/fonts/Urbanist-SemiBold.ttf"),
-      "Urbanist-Medium": require("./assets/fonts/Urbanist-Medium.ttf"),
-    });
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Urbanist-Bold": require("./assets/fonts/Urbanist-Bold.ttf"),
+    "Urbanist-Black": require("./assets/fonts/Urbanist-Black.ttf"),
+    "Urbanist-BlackItalic": require("./assets/fonts/Urbanist-BlackItalic.ttf"),
+    "Urbanist-BoldItalic": require("./assets/fonts/Urbanist-BoldItalic.ttf"),
+    "Urbanist-ExtraBold": require("./assets/fonts/Urbanist-ExtraBold.ttf"),
+    "Urbanist-Light": require("./assets/fonts/Urbanist-Light.ttf"),
+    "Urbanist-Regular": require("./assets/fonts/Urbanist-Regular.ttf"),
+    "Urbanist-SemiBold": require("./assets/fonts/Urbanist-SemiBold.ttf"),
+    "Urbanist-Medium": require("./assets/fonts/Urbanist-Medium.ttf"),
+  });
 
-    const [playerInitialized, setPlayerInitialized] = useState(false);
-      
-    useEffect(() => {
-      const setupPlayer = async () => {
-        try {
-          await TrackPlayer.setupPlayer();
-          await TrackPlayer.updateOptions({
-            android: {
-              appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback
-            },
-            capabilities: [
-              Capability.Play,
-              Capability.Pause,
-              Capability.SkipToNext,
-              Capability.SkipToPrevious,
-              Capability.Stop,
-              Capability.PlayFromId,
-              Capability.PlayFromSearch
-            ],
-            compactCapabilities: [
-              Capability.Play,
-              Capability.Pause,
-              Capability.SkipToNext,
-              Capability.SkipToPrevious
-            ],
-          });
+  const [playerInitialized, setPlayerInitialized] = useState(false);
 
-          await TrackPlayer.setRepeatMode(RepeatMode.Queue)
+  useEffect(() => {
+    const setupPlayer = async () => {
+      try {
+        await TrackPlayer.setupPlayer();
+        await TrackPlayer.updateOptions({
+          android: {
+            appKilledPlaybackBehavior:
+              AppKilledPlaybackBehavior.ContinuePlayback,
+          },
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+            Capability.Stop,
+            Capability.PlayFromId,
+            Capability.PlayFromSearch,
+          ],
+          compactCapabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+          ],
+        });
 
-          console.log('Track player setup success...');
-          setPlayerInitialized(true);
-        } catch (error) {
-          console.error('Error setting up track player:', error);
-        }
-      };
+        await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 
-      if (fontsLoaded && !playerInitialized) {
-        setupPlayer();
+        console.log("Track player setup success...");
+        setPlayerInitialized(true);
+      } catch (error) {
+        console.error("Error setting up track player:", error);
       }
+    };
 
-      return () => {
-        TrackPlayer.reset();
-      };
-    }, [fontsLoaded, playerInitialized]);
-
-    if (!fontsLoaded) {
-      return null;
+    if (fontsLoaded && !playerInitialized) {
+      setupPlayer();
     }
 
-    return (
-      <GestureHandlerRootView >
-        <PaperProvider>
-          <AppNavigator />
-        </PaperProvider>
-      </GestureHandlerRootView>
-    
-    );
+    async function getPurchase() {
+      if (Platform.OS === "ios") {
+        await Purchases.configure({
+          apiKey: "appl_ohgFqtIEKnRksLfUshJwAcJjpoR",
+        });
+
+      }
+    }
+
+    getPurchase();
+
+    return () => {
+      TrackPlayer.reset();
+    };
+  }, [fontsLoaded, playerInitialized]);
+
+  if (!fontsLoaded) {
+    return null;
   }
+
+  return (
+    <GestureHandlerRootView>
+      <PaperProvider>
+        <AppNavigator />
+      </PaperProvider>
+    </GestureHandlerRootView>
+  );
+}

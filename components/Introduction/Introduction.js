@@ -30,6 +30,7 @@ export default function Introduction({navigation}) {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                marginTop: '18%',
                 
               }}
             >

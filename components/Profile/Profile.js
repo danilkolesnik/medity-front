@@ -298,6 +298,13 @@ const Profile = ({navigation}) =>{
                         </Pressable>
                         <Pressable 
                           style={styles.linkButton}
+                          onPress={() => navigation.navigate("Subscription")}
+                        >
+                            <Text style={styles.linkText}>Subscription</Text>
+                            <Rigth></Rigth>
+                        </Pressable>
+                        <Pressable 
+                          style={styles.linkButton}
                           onPress={() => navigation.navigate("Terms of use")}
                         >
                             <Text style={styles.linkText}>Terms of use</Text>
