@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "600",
         fontFamily:"Urbanist-SemiBold",
-        paddingRight:40
+        marginRight: '4.5%'
     },
 
 })

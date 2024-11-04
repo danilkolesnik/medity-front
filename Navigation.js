@@ -36,6 +36,25 @@ const AppNavigator = () => {
   return (
     <>
       {/* Conditionally render CustomStatusBar based on the current route */}
+      {currentRoute === "Introduction" && (
+        <View style={styles.screenWrapper}>
+          <NavigationContainer
+            onStateChange={(state) => {
+              const currentScreen = state.routes[state.index].name;
+              setCurrentRoute(currentScreen);
+            }}
+          >
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                gestureEnabled: false,
+              }}
+            >
+              <Stack.Screen name="Introduction" component={Introduction} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      )}
       <CustomStatusBar>
         <View style={styles.screenWrapper}>
           <NavigationContainer
@@ -50,12 +69,17 @@ const AppNavigator = () => {
                 gestureEnabled: false,
               }}
             >
+<<<<<<< HEAD
               <Stack.Screen name="Auth" component={Auth} />
              
               <Stack.Screen name="Quiz" component={Quiz} />
               <Stack.Screen name="Home" component={Home} />
               
               <Stack.Screen name="Introduction" component={Introduction} />
+=======
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Auth" component={Auth} />
+>>>>>>> 4314648001330f103b50db089d366728c94ecbbb
               <Stack.Screen
                 name="Verification code"
                 component={OtpVerification}
