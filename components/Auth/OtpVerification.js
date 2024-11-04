@@ -15,6 +15,29 @@ const OtpVerification = () => {
 
   const currentRoute = "Email"
 
+  const userQuiz = async(userId) =>{
+    try {
+      const { data, error: selectError } = await supabase
+        .from('quiz_select')
+        .select('*')
+        .eq('userId', userId);
+      
+      if (selectError) {
+        throw new Error('Error selecting userQuiz: ' + selectError.message);
+      }
+
+      if (data.length) {       
+        navigation.navigate("Home");
+        return; 
+      }
+
+      navigation.navigate("Quiz");
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleVerifyOtp = async () => {
     setLoading(true);
     try {
@@ -23,15 +46,17 @@ const OtpVerification = () => {
         token: otpCode,
         type: "email",
       });
-
-      if (error) {
+      
+      if (error) {  
         Alert.alert("Ошибка", error.message);
         return;
       }
       await AsyncStorage.setItem('token', data.session.access_token)   
       await AsyncStorage.setItem('refresh_token', data.session.refresh_token);  
-      navigation.navigate("Quiz");
+      await AsyncStorage.setItem('userId', data.user.id);  
 
+      userQuiz(data.user.id) 
+      
     } catch (err) {
       Alert.alert("Error", "Something went wrong. Try again.");
       console.error(err);

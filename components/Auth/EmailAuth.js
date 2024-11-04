@@ -30,8 +30,7 @@ export default function Auth({navigation}) {
           password: '1234'
         });
         await AsyncStorage.setItem('token', data.session.access_token)   
-      await AsyncStorage.setItem('refresh_token', data.session.refresh_token);  
-
+        await AsyncStorage.setItem('refresh_token', data.session.refresh_token);  
 
         return navigation.navigate("Quiz");
       }
@@ -41,8 +40,7 @@ export default function Auth({navigation}) {
           emailRedirectTo: "",
         },
       });
-      console.log(error);
-      
+
       if (error) {
         Alert.alert("Ошибка", error.message);
         return;

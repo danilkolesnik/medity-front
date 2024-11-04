@@ -50,15 +50,17 @@ const AppNavigator = () => {
                 gestureEnabled: false,
               }}
             >
-
-              <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Auth" component={Auth} />
+             
+              <Stack.Screen name="Quiz" component={Quiz} />
+              <Stack.Screen name="Home" component={Home} />
+              
               <Stack.Screen name="Introduction" component={Introduction} />
               <Stack.Screen
                 name="Verification code"
                 component={OtpVerification}
               />
-              <Stack.Screen name="Quiz" component={Quiz} />
+             
               <Stack.Screen name="Goals" component={Goals} />
               <Stack.Screen name="GoalsText" component={GoalsText} />
               <Stack.Screen name="Terms of use" component={TermsUse} />

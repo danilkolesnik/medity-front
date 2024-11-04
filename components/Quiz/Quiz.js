@@ -4,8 +4,10 @@ import { ImageBackground, View, Text, Pressable, TouchableOpacity } from "react-
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Loader from "../Loader/Loader";
 import { SERVER } from '../../constants/async';
+import { supabase } from "../../utils/supabase";
 import axios from "axios";
 import styles from "../../styles/quiz";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Quiz = () => {
   const [loading, setLoading] = useState(false);
@@ -15,11 +17,29 @@ const Quiz = () => {
 
   const navigation = useNavigation();
 
+  const postQuiz = async() =>{
+
+    const userId = await AsyncStorage.getItem('userId')
+
+    try {
+      const { data, error } = await supabase.from("quiz_select").insert([
+        {
+          userId: userId,
+          quiz_select: answers,
+        },
+      ]);
+
+      await navigation.push('Home')
+    } catch (error) {
+      
+    }
+  }
+
   const handleNextStep = () => {
     if (currentStep < questions.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      navigation.push('Home');
+      postQuiz()
     }
   };
 
@@ -27,6 +47,7 @@ const Quiz = () => {
     const newAnswers = [...answers];
     newAnswers[currentStep] = option;
     setAnswers(newAnswers);
+
   };
 
   const currentQuestion = questions[currentStep];
