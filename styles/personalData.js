@@ -14,8 +14,8 @@ const  styles = StyleSheet.create({
     },
     content:{
         paddingTop:25,
-        paddingLeft:24,
-        paddingRight:24,
+        paddingLeft:'4%',
+        paddingRight:'4%',
         height:'100%',
         width:'100%'
     },
@@ -44,14 +44,14 @@ const  styles = StyleSheet.create({
     },
     button:{
         position:"absolute",
-        bottom:100,
+        bottom: '20%',
         width:"100%",
         backgroundColor:"#484848",
         borderRadius:12,
         paddingBottom: 19,
         paddingTop:19,
         paddingVertical: 19,
-        marginLeft:24
+        marginLeft:'4%'
         
     },
     buttonText:{

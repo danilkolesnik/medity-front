@@ -1,178 +1,186 @@
 import { useState, useEffect } from "react";
-import { 
-    View,
-    Text, 
-    ImageBackground,
-    ScrollView,
-    Pressable,
-} from "react-native"
+import {
+  View,
+  Text,
+  ImageBackground,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import Header from "../Header/Header";
 import Charts from "./Charts";
 import Menu from "../Menu/menu";
 import ModalProfile from "./Modal";
-import { ProgressBar} from 'react-native-paper';
+import { ProgressBar } from "react-native-paper";
 
 import Rigth from "../../assets/icons/Rigth";
 import Loader from "../Loader/Loader";
 
-
 import aggregateListeningProgress from "../../utils/aggregateListeningProgress";
 import { supabase } from "../../utils/supabase";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "../../styles/profile";
 import stylesProggersBar from "../../styles/home";
 import { floorToOneDecimals } from "../../utils/math";
 
-const Profile = ({navigation}) =>{
+const Profile = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
 
-    const [loading,setLoading] = useState(false)
+  const currentRoute = "Home";
 
-    const currentRoute = "Home"
+  const [activeTab, setActiveTab] = useState("week");
+  const [goals, setGoals] = useState(null);
 
-    const [activeTab, setActiveTab] = useState('week')
-    const [goals, setGoals] = useState(null)
+  const [stats9Days, setStats9Days] = useState(null);
+  const [stats7Days, setStats7Days] = useState(null);
 
-    const [stats9Days, setStats9Days] = useState(null);
-    const [stats7Days, setStats7Days] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
-    const [modalVisible, setModalVisible] = useState(false);
-    
+  const getUser = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const {
+        data: { user },
+      } = await supabase.auth.getUser(token);
 
-    const getUser = async() =>{
-      try {
-        const token = await AsyncStorage.getItem('token')
-        const { data: { user } } = await supabase.auth.getUser(token)
-
-        if(user){
-          await AsyncStorage.setItem('userId', user.id)
-          return user
-        }
-        return user
-
-      } catch (error) {
-        
+      if (user) {
+        await AsyncStorage.setItem("userId", user.id);
+        return user;
       }
+      return user;
+    } catch (error) {}
+  };
+
+  const getGoals = async () => {
+    try {
+      const userId = await AsyncStorage.getItem("userId");
+
+      const { data, error } = await supabase
+        .from("goals")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+
+      setGoals(data);
+
+      return true;
+    } catch (error) {
+      console.error("Error in getGoals:", error);
     }
+  };
 
-    const getGoals = async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-  
-        const { data, error } = await supabase
-          .from('goals')
-          .select('*')
-          .eq('user_id', userId)
-          .single();
-  
-        setGoals(data);
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("userId");
+      await supabase.auth.signOut();
+      navigation.navigate("Introduction");
+    } catch (error) {}
+  };
 
-        return true
-      } catch (error) {
-        console.error('Error in getGoals:', error);
-      }
-    };
+  const deleteUser = async () => {
+    try {
+      const userId = await AsyncStorage.setItem("userId", user.id);
 
-    const logOut = async() =>{
-      try {
-        await AsyncStorage.removeItem('token')
-        await AsyncStorage.removeItem('userId')
-        await supabase.auth.signOut()
-        navigation.navigate("Introduction")
-      } catch (error) {
-        
-      }
-    }
+      await supabase.from("profiles").delete().eq("id", userId);
 
-    const deleteUser = async() =>{
-      try {
-        const userId = await AsyncStorage.setItem('userId', user.id)
+      await supabase.auth.admin.deleteUser(userId);
+      navigation.navigate("Introduction");
+    } catch (error) {}
+  };
 
-        await supabase
-          .from('profiles')
-          .delete()
-          .eq('id', userId)
+  const fetchStats = async () => {
+    const currentDate = new Date();
+    const stats9Dayss = await aggregateListeningProgress("9days", currentDate);
+    const stats7Dayss = await aggregateListeningProgress("7days", currentDate);
 
-        await supabase.auth.admin.deleteUser(userId)
-        navigation.navigate("Introduction")
-      } catch (error) {
-        
-      }
-    }
+    setStats9Days(floorToOneDecimals(stats9Dayss.averageSecondsPerDay));
+    setStats7Days(floorToOneDecimals(stats7Dayss.averageSecondsPerDay));
 
-    const fetchStats = async () => {
-      const currentDate = new Date();
-      const stats9Dayss = await aggregateListeningProgress('9days', currentDate);
-      const stats7Dayss = await aggregateListeningProgress('7days', currentDate);
+    return true;
+  };
 
-      setStats9Days(floorToOneDecimals(stats9Dayss.averageSecondsPerDay));
-      setStats7Days(floorToOneDecimals(stats7Dayss.averageSecondsPerDay));
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([fetchStats(), getUser(), getGoals()])
+      .then(([questions, userData, goalsData]) => {
+        if (questions && userData && goalsData) setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+      });
+  }, []);
 
-      return true
-    };
+  return (
+    <>
+      <ImageBackground
+        source={require("../../assets/images/ostatochni.jpg")}
+        style={[styles.background]}
+      >
+        {!loading ? (
+          <ScrollView style={styles.conteiner}>
+            <Header currentRoute={currentRoute} currentBack={false}></Header>
+            <Text style={styles.progressTitle}>Progress</Text>
 
-    useEffect(() =>{
-      setLoading(true);
-      Promise.all([fetchStats(), getUser(),getGoals()])
-        .then(([questions, userData, goalsData]) =>{  
-           if(questions && userData && goalsData) setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setLoading(false);
-        });
-    },[])
-
-
-    return(
-        <>
-            <ImageBackground
-                source={require("../../assets/images/ostatochni.jpg")}
-                style={[styles.background]}
-            >
-              {!loading ?
-                <ScrollView>
-                {/* <Header currentRoute={currentRoute} currentBack={false}></Header> */}
-                <Text style={styles.progressTitle}>Progress</Text>
-
-                <View style={styles.tabContent}>
-                    <Pressable onPress={() => setActiveTab("day")}>
-                        <Text style={[styles.tabText, activeTab === "day" ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
-                            Day
-                        </Text>
-                    </Pressable>
-                  
-                    <Pressable onPress={() => setActiveTab('week')}>
-                        <Text style={[styles.tabText, activeTab === 'week' ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
-                            Week
-                        </Text>
-                    </Pressable>
-                   
-                    <Pressable onPress={() => setActiveTab('month')}>
-                        <Text style={[styles.tabText, activeTab === 'month' ? {backgroundColor: "#FFFFFFA8", color:'#535353'} : '']}>
-                            Month
-                        </Text>
-                    </Pressable>
-                    
-                </View>
-
-                <Charts activeData={activeTab} />
-
-                <View
-                    style={{
-                        paddingHorizontal:24,
-                        paddingTop:24
-                    }}
+            <View style={styles.tabContent}>
+              <Pressable onPress={() => setActiveTab("day")}>
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === "day"
+                      ? { backgroundColor: "#FFFFFFA8", color: "#535353" }
+                      : "",
+                  ]}
                 >
-                <Text style={stylesProggersBar.progressStatusTittle}>Weekly progress</Text>
+                  Day
+                </Text>
+              </Pressable>
+
+              <Pressable onPress={() => setActiveTab("week")}>
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === "week"
+                      ? { backgroundColor: "#FFFFFFA8", color: "#535353" }
+                      : "",
+                  ]}
+                >
+                  Week
+                </Text>
+              </Pressable>
+
+              <Pressable onPress={() => setActiveTab("month")}>
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === "month"
+                      ? { backgroundColor: "#FFFFFFA8", color: "#535353" }
+                      : "",
+                  ]}
+                >
+                  Month
+                </Text>
+              </Pressable>
+            </View>
+
+            <Charts activeData={activeTab} />
+
+            <View
+              style={{
+                paddingHorizontal: 24,
+                paddingTop: 24,
+              }}
+            >
+              <Text style={stylesProggersBar.progressStatusTittle}>
+                Weekly progress
+              </Text>
               <Text style={stylesProggersBar.progressStatusText}>
                 On average, you practiced mindfulness{"\n"}{" "}
                 <Text style={{ fontWeight: "700" }}>4%</Text> more this week
                 compared to last.
               </Text>
-                <View
-                 
-                >
+              <View>
                 <View
                   style={{
                     flex: 1,
@@ -188,7 +196,9 @@ const Profile = ({navigation}) =>{
                     }}
                   >
                     <Text style={stylesProggersBar.progressText}>min/day</Text>
-                    <Text style={[stylesProggersBar.progressText, { fontSize: 10 }]}>
+                    <Text
+                      style={[stylesProggersBar.progressText, { fontSize: 10 }]}
+                    >
                       This week
                     </Text>
                   </View>
@@ -206,7 +216,7 @@ const Profile = ({navigation}) =>{
               <View
                 style={{
                   paddingTop: 27,
-                  paddingBottom:46
+                  paddingBottom: 46,
                 }}
               >
                 <View
@@ -224,13 +234,15 @@ const Profile = ({navigation}) =>{
                     }}
                   >
                     <Text style={stylesProggersBar.progressText}>min/day</Text>
-                    <Text style={[stylesProggersBar.progressText, { fontSize: 10 }]}>
+                    <Text
+                      style={[stylesProggersBar.progressText, { fontSize: 10 }]}
+                    >
                       This week
                     </Text>
                   </View>
                 </View>
-                <ProgressBar     
-                   progress={stats7Days}
+                <ProgressBar
+                  progress={stats7Days}
                   color="#BBBBBB"
                   style={{
                     backgroundColor: "#565656",
@@ -239,111 +251,141 @@ const Profile = ({navigation}) =>{
                   }}
                 />
               </View>
-                </View>
+            </View>
 
-                <View style={styles.goalContent}>
-                  <View>
-                    <Text style={styles.goalText}>Goal streak</Text>
-                    <Text style={[styles.progressTitle,
-                    { 
-                      paddingLeft:0,
-                      paddingTop:0
-                    }]}>3 days in a row</Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection:'row',
-                      gap:3
-                    }}
-                  >
-                    <View style={[styles.line, goals?.better_sleep ? styles.activeLine : null]}></View>
-                    <View style={[styles.line, goals?.declutter_mind ? styles.activeLine : null]}></View>
-                    <View style={[styles.line, goals?.mindfulness ? styles.activeLine : null]}></View>
-                    <View style={[styles.line, goals?.reduce_stress ? styles.activeLine : null]}></View>
-                    <View style={[styles.line, goals?.sleep ? styles.activeLine : null]}></View>
-                  </View>
-                </View>
-
-                <View
-                    style={{
-                        paddingHorizontal:24
-                    }}
+            <View style={styles.goalContent}>
+              <View>
+                <Text style={styles.goalText}>Goal streak</Text>
+                <Text
+                  style={[
+                    styles.progressTitle,
+                    {
+                      paddingLeft: 0,
+                      paddingTop: 0,
+                    },
+                  ]}
                 >
-                    <View
-                       style={{
-                        borderColor: '#F1F5F9',
-                        borderTopWidth: 1,
-                      }}
-                    >
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => navigation.navigate("Notifications")}
-                        >
-                            <Text style={styles.linkText}>Notifications</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => navigation.navigate("Notes")}
-                        >
-                            <Text style={styles.linkText}>Notes</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => navigation.navigate("Personal Data")}
-                        >
-                            <Text style={styles.linkText}>Personal data</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => navigation.navigate("Subscription")}
-                        >
-                            <Text style={styles.linkText}>Subscription</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => navigation.navigate("Terms of use")}
-                        >
-                            <Text style={styles.linkText}>Terms of use</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                    </View>
+                  3 days in a row
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 3,
+                }}
+              >
+                <View
+                  style={[
+                    styles.line,
+                    goals?.better_sleep ? styles.activeLine : null,
+                  ]}
+                ></View>
+                <View
+                  style={[
+                    styles.line,
+                    goals?.declutter_mind ? styles.activeLine : null,
+                  ]}
+                ></View>
+                <View
+                  style={[
+                    styles.line,
+                    goals?.mindfulness ? styles.activeLine : null,
+                  ]}
+                ></View>
+                <View
+                  style={[
+                    styles.line,
+                    goals?.reduce_stress ? styles.activeLine : null,
+                  ]}
+                ></View>
+                <View
+                  style={[styles.line, goals?.sleep ? styles.activeLine : null]}
+                ></View>
+              </View>
+            </View>
 
-                    <View
-                      style={{
-                        borderColor: '#F1F5F9',
-                        borderTopWidth: 1,
-                        paddingBottom:80
-                      }}
-                    >
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => logOut()}
-                        >
-                            <Text style={styles.linkText}>Log out</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                        <Pressable 
-                          style={styles.linkButton}
-                          onPress={() => setModalVisible(true)}
-                        >
-                            <Text style={styles.linkText}>Delete my account</Text>
-                            <Rigth></Rigth>
-                        </Pressable>
-                    </View>
-                </View>
-            </ScrollView>
-              : <Loader></Loader>  
-            }
-          
-            <ModalProfile active={modalVisible} setModalVisible={setModalVisible} deleteUser={deleteUser}></ModalProfile>
-            <Menu></Menu>
-            </ImageBackground>
-        </>
-    )
-}
+            <View
+              style={{
+                paddingHorizontal: 24,
+              }}
+            >
+              <View
+                style={{
+                  borderColor: "#F1F5F9",
+                  borderTopWidth: 1,
+                }}
+              >
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => navigation.navigate("Notifications")}
+                >
+                  <Text style={{...styles.linkText, paddingTop: 10}}>Notifications</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => navigation.navigate("Notes")}
+                >
+                  <Text style={styles.linkText}>Notes</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => navigation.navigate("Personal Data")}
+                >
+                  <Text style={styles.linkText}>Personal data</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => navigation.navigate("Subscription")}
+                >
+                  <Text style={styles.linkText}>Subscription</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => navigation.navigate("Terms of use")}
+                >
+                  <Text style={{...styles.linkText, paddingBottom: 10}}>Terms of use</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+              </View>
 
-export default Profile
+              <View
+                style={{
+                  borderColor: "#F1F5F9",
+                  borderTopWidth: 1,
+                  paddingBottom: 80,
+                }}
+              >
+                <Pressable style={styles.linkButton} onPress={() => logOut()}>
+                  <Text style={{...styles.linkText, paddingTop: 10}}>Log out</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+                <Pressable
+                  style={styles.linkButton}
+                  onPress={() => setModalVisible(true)}
+                >
+                  <Text style={styles.linkText}>Delete my account</Text>
+                  <Rigth></Rigth>
+                </Pressable>
+              </View>
+            </View>
+          </ScrollView>
+        ) : (
+          <Loader></Loader>
+        )}
+
+        <ModalProfile
+          active={modalVisible}
+          setModalVisible={setModalVisible}
+          deleteUser={deleteUser}
+        ></ModalProfile>
+        <Menu></Menu>
+      </ImageBackground>
+    </>
+  );
+};
+
+export default Profile;

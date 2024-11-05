@@ -1,90 +1,85 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    conteiner:{
-        flex:1,
-        height: "100%",
-        width: "100%",
-      
-    },
-    background:{
-        flex: 1, 
-        width: null, 
-        height: "69%",
-    },
+  conteiner: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+  },
+  background: {
+    flex: 1,
+    width: null,
+    height: "90%",
+  },
 
-    content:{
-        backgroundColor:"#050505",
-        flexDirection:'row',
-        alignItems:"center",
-        justifyContent:"space-between",
-        paddingLeft:24, 
-        paddingRight:24
-    },
-    trackTitle:{
-        position:'relative',
-        color:"#fff",
-        fontSize:24,
-        textAlign:"center",
-        fontWeight:"600",
-        fontFamily:"Urbanist-SemiBold",
-        backgroundColor:"#050505",
-    },
-    leftGradient: {
-        position: 'absolute',
-        left: 0,
-        width: 50,
-        height: '100%',
-      },
-      rightGradient: {
-        position: 'absolute',
-        right: 0,
-        width: 50,
-        height: '100%',
-      },
-      trackText:{
-        fontSize:16,
-        fontWeight:"400",
-        color:"rgba(255,255,255,0.5)",
-        textAlign:"center",
-        backgroundColor:"#050505",
-        paddingTop:12,
-        paddingBottom:24,
-        fontWeight:"400",
-        fontFamily:'Urbanist-Regular'
+  content: {
+    backgroundColor: "#050505",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingLeft: 24,
+    paddingRight: 24,
+  },
+  trackTitle: {
+    position: "relative",
+    color: "#fff",
+    fontSize: 24,
+    textAlign: "center",
+    fontWeight: "600",
+    fontFamily: "Urbanist-SemiBold",
+    // backgroundColor: "#050505",
+  },
+  leftGradient: {
+    position: "absolute",
+    left: 0,
+    width: 50,
+    height: "100%",
+  },
+  rightGradient: {
+    position: "absolute",
+    right: 0,
+    width: 50,
+    height: "100%",
+  },
+  trackText: {
+    fontSize: 16,
+    fontWeight: "400",
+    color: "rgba(255,255,255,0.5)",
+    textAlign: "center",
+    // backgroundColor: "rgba(0,0,0,0.5)",
+    paddingTop: 12,
+    paddingBottom: 24,
+    fontWeight: "400",
+    fontFamily: "Urbanist-Regular",
+  },
+  textContent: {
+    position: "relative",
+    flex: 1,
+    justifyContent: "flex-end",
+  },
 
-      },
-     textContent:{ 
-        position: 'relative',
-        
-        flex: 1,
-        justifyContent: 'flex-end',
-        
-    },
+  backgroundGradient: {
+    width: "100%",
+    height: 40,
+    paddingTop: 10,
+  },
+  topContent: {
+    width: "100%",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingLeft: 24,
+    paddingRight: 24,
+    // paddingTop: 24,
+  },
+  image: {
+    flex: 1,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
-        backgroundGradient: {
-            width:'100%',
-            height:40,
-            paddingTop:10,
-        },
-    topContent:{
-        width:'100%',
-        justifyContent:'space-between',
-        flexDirection:'row',
-        paddingLeft:24,
-        paddingRight:24,
-        paddingTop:24
-    },
-    image: {
-        flex: 1,
-        position: 'absolute',
-        
-        left: 0,
-        right: 0,
-        top:"20%",
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-})
-
-export default styles
+export default styles;

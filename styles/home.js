@@ -6,10 +6,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   content: {
-    paddingLeft: 24,
-    paddingRight: 24,
-    paddingBottom: 120,
-    paddingTop: 10,
+    // paddingBottom: 50,
+    // paddingTop: 10,
+    marginTop: '18%',
+    marginBottom: '18%',
+    paddingLeft: '4%',
+    paddingRight: '4%',
   },
   background: {
     flex: 1,
@@ -22,9 +24,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Urbanist-Regular",
     paddingTop: 0,
-    paddingBottom:20
+    paddingBottom:'0%'
   },
-
   contentCard: {
     display: "flex",
     flexDirection: "row",
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
   cardConteiner: {
     backgroundColor: "rgba(255, 255, 255, 0.15)",
-    width: 167,
+    width: '48%',
     borderRadius: 32,
     padding: 16,
     marginTop: 8,
@@ -48,11 +49,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 54,
+    paddingTop: 14,
   },
   list: {
     display: "flex",
     gap: 13,
+    // paddingLeft: '4%',
+    // paddingRight: '4%',
   },
   listSearch:{
     paddingTop:26,
@@ -81,12 +84,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 36,
+    paddingTop: 15,
     paddingBottom: 22,
   },
 
   textMore: {
     fontSize: 24,
+    // paddingLeft: '4%',
     fontWeight: "400",
     fontFamily: "Urbanist-Regular",
     color: "#fff",
@@ -131,6 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 18,
+    marginBottom: '3%'
   },
   input: {
     fontSize: 18,

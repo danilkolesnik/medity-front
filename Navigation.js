@@ -31,12 +31,12 @@ import CustomStatusBar from "./components/CustomStatusBar/CustomStatusBar";
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  const [currentRoute, setCurrentRoute] = useState("");
+  const [currentRoute, setCurrentRoute] = useState("Chakras");
 
   return (
     <>
       {/* Conditionally render CustomStatusBar based on the current route */}
-      {currentRoute === "Introduction" && (
+      {/* {currentRoute === "Chakras" && (
         <View style={styles.screenWrapper}>
           <NavigationContainer
             onStateChange={(state) => {
@@ -50,62 +50,85 @@ const AppNavigator = () => {
                 gestureEnabled: false,
               }}
             >
-              <Stack.Screen name="Introduction" component={Introduction} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </View>
-      )}
-      <CustomStatusBar>
-        <View style={styles.screenWrapper}>
-          <NavigationContainer
-            onStateChange={(state) => {
-              const currentScreen = state.routes[state.index].name;
-              setCurrentRoute(currentScreen);
-            }}
-          >
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                gestureEnabled: false,
-              }}
-            >
-              
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Auth" component={Auth} />
-              <Stack.Screen
-                name="Verification code"
-                component={OtpVerification}
-              />
-              <Stack.Screen name="Quiz" component={Quiz} />
-              <Stack.Screen name="Goals" component={Goals} />
-              <Stack.Screen name="GoalsText" component={GoalsText} />
-              <Stack.Screen name="Terms of use" component={TermsUse} />
-              <Stack.Screen name="Settings" component={Settings} />
-              <Stack.Screen name="Notes" component={Notes} />
-              <Stack.Screen name="Note" component={Note} />
-              <Stack.Screen name="Personal Data" component={PersonalData} />
-              <Stack.Screen name="Profile" component={Profile} />
-              <Stack.Screen name="Chakras" component={Chakras} />
-              <Stack.Screen name="Chakra" component={Chakra} />
-              <Stack.Screen name="Meditations" component={Meditations} />
-              <Stack.Screen name="New meditations" component={NewMeditations} />
-              <Stack.Screen name="Relax" component={Relax} />
-              <Stack.Screen name="Player" component={Player} />
-              <Stack.Screen
-                name="Download Meditations"
-                component={DownloadMeditations}
-              />
-              <Stack.Screen
-                name="My favorite meditations"
-                component={Favorite}
-              />
-              <Stack.Screen name="Sleep" component={Sleep} />
               <Stack.Screen name="Email" component={EmailAuth} />
-              <Stack.Screen name="Notifications" component={Notifications} />
+              <Stack.Screen name="Introduction" component={Auth} />
+              <Stack.Screen name="Auth" component={Auth} />
+              <Stack.Screen name="Quiz" component={Quiz} />
+              <Stack.Screen name="Chakras" component={Chakras} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
-      </CustomStatusBar>
+      )} */}
+      <View style={styles.screenWrapper}>
+        <NavigationContainer
+          onStateChange={(state) => {
+            const currentScreen = state.routes[state.index].name;
+            setCurrentRoute(currentScreen);
+          }}
+        >
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+              gestureEnabled: false,
+            }}
+          >
+            {/* <View style={styles.screenWrapper}>
+              <NavigationContainer
+                onStateChange={(state) => {
+                  const currentScreen = state.routes[state.index].name;
+                  setCurrentRoute(currentScreen);
+                }}
+              >
+                <Stack.Navigator
+                  screenOptions={{
+                    headerShown: false,
+                    gestureEnabled: false,
+                  }}
+                > */}
+                  <Stack.Screen name="Home" component={Home} />
+                  <Stack.Screen name="Introduction" component={Auth} />
+                  <Stack.Screen
+                    name="Verification code"
+                    component={OtpVerification}
+                  />
+                  <Stack.Screen name="Quiz" component={Quiz} />
+                  <Stack.Screen name="Goals" component={Goals} />
+                  <Stack.Screen name="GoalsText" component={GoalsText} />
+                  <Stack.Screen name="Terms of use" component={TermsUse} />
+                  <Stack.Screen name="Settings" component={Settings} />
+                  <Stack.Screen name="Notes" component={Notes} />
+                  <Stack.Screen name="Note" component={Note} />
+                  <Stack.Screen name="Personal Data" component={PersonalData} />
+                  <Stack.Screen name="Profile" component={Profile} />
+                  <Stack.Screen name="Chakras" component={Chakras} />
+                  <Stack.Screen name="Chakra" component={Chakra} />
+                  <Stack.Screen name="Meditations" component={Meditations} />
+                  <Stack.Screen
+                    name="New meditations"
+                    component={NewMeditations}
+                  />
+                  <Stack.Screen name="Relax" component={Relax} />
+                  <Stack.Screen name="Player" component={Player} />
+                  <Stack.Screen
+                    name="Download Meditations"
+                    component={DownloadMeditations}
+                  />
+                  <Stack.Screen
+                    name="My favorite meditations"
+                    component={Favorite}
+                  />
+                  <Stack.Screen name="Sleep" component={Sleep} />
+                  <Stack.Screen name="Email" component={EmailAuth} />
+                  <Stack.Screen
+                    name="Notifications"
+                    component={Notifications}
+                  />
+                {/* </Stack.Navigator>
+              </NavigationContainer>
+            </View> */}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
     </>
   );
 };

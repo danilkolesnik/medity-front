@@ -7,7 +7,7 @@ import {
   Image,
   Modal,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -166,9 +166,6 @@ const Player = () => {
 
   const downloadFile = async () => {
     try {
-      console.log("====================================");
-      console.log("HERE");
-      console.log("====================================");
       const audioUrl = `${SERVER}${media.url}`;
       const fileUri = FileSystem.documentDirectory + `${media.filename}`;
 
@@ -279,18 +276,18 @@ const Player = () => {
               onPress={() => downloadFile()}
               style={{
                 alignItems: "center",
-                backgroundColor:"#FFFFFF26",
-                paddingVertical:8,
-                borderRadius:30
+                backgroundColor: "#FFFFFF26",
+                paddingVertical: 8,
+                borderRadius: 30,
               }}
             >
               {Math.round(progress) === 0 ? (
-                  <Download />
+                <Download />
               ) : Math.round(progress) === 100 ? (
-                  <Done />
+                <Done />
               ) : (
                 <ActivityIndicator size={28} color="#fff" />
-              )}        
+              )}
             </Pressable>
             <Pressable
               onPress={() => addFavorite()}

@@ -3,7 +3,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     conteiner:{
         height: "100%",
-        width: "100%",   
+        width: "100%", 
+        marginTop: '18%',  
+        marginBottom: '5%'  
     },
     background:{
         flex: 1, 
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
         fontSize:18,
         fontWeight:"600",
         fontFamily:"Urbanist-Bold",
-        paddingLeft:24,
+        paddingLeft:'4%',
         paddingTop:0
     },
     goalContent:{
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         backgroundColor:'#F1F5F930',
         marginRight:24,
-        marginLeft:24,
+        marginLeft:'4%',
         marginBottom:28,
         padding:12,
         borderRadius:6,
@@ -49,8 +51,8 @@ const styles = StyleSheet.create({
         alignItems:"center",
         backgroundColor:"#F1F5F930",
         paddingVertical:14,
-        marginLeft:24,
-        marginRight:24,
+        marginLeft:'4%',
+        marginRight:'4%',
         borderRadius:12,
         marginTop:17
     },
@@ -71,8 +73,8 @@ const styles = StyleSheet.create({
     },
     chartsContent:{
         backgroundColor:"#F1F5F930",
-        marginLeft:24,
-        marginRight:24,
+        marginLeft:'4%',
+        marginRight:'4%',
         paddingVertical:24,
         borderRadius:12,
         marginTop:24,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'space-between',
-        paddingVertical:20
+        paddingVertical:10
     }
 })
 

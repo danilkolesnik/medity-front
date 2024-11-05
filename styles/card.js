@@ -5,12 +5,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.15)',
         position:'relative',
         padding:16,
-        borderRadius:24
+        borderRadius:24,
+        // marginLeft: '4%',
+        // marginRight: '4%',
+        width: '100%'
     },
     cardContent:{
         display:"flex",
         flexDirection:'row',
         gap:8,
+        borderRadius:17,
     },
     cardTitle:{
         fontSize:18,
@@ -26,11 +30,11 @@ const styles = StyleSheet.create({
         color:"#fff",
         borderWidth: 1,
         borderRadius:17,
-        borderColor:'rgba(255, 255, 255, 0.15)',
+        borderColor:'rgba(/255, 255, 255, 0.15)',
         paddingTop:6,
         paddingBottom:6,
         paddingLeft:12,
-        paddingRight:12
+        paddingRight:12,
     },
     icon:{
         position:'absolute',
