@@ -18,6 +18,7 @@ import Back from "../../assets/icons/Back";
 import Favorite from "../../assets/icons/Favorite";
 import Download from "../../assets/icons/Download";
 import Done from "../../assets/icons/Done";
+import Delete from "../../assets/icons/Delete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../Loader/Loader";
 import { SERVER } from "../../constants/async";
@@ -28,6 +29,7 @@ import styles from "../../styles/player";
 const Player = () => {
   const [loading, setLoading] = useState(true);
   const [curretFavorite, setCurrentFavorite] = useState(false);
+  const [downloadCurrent, setDownloadCurrent] = useState(false)
 
   const [progress, setProgress] = useState(0);
 
@@ -88,6 +90,27 @@ const Player = () => {
     navigation.navigate(currentRoute);
   };
 
+  const deleteFile = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem("downloadedMedia");
+      const parsedData = storedData ? JSON.parse(storedData) : [];
+  
+      const updatedData = parsedData.filter(item => item.id !== media.id);
+
+      const fileUri = FileSystem.documentDirectory + `${media.filename}`;
+      const fileImage = FileSystem.documentDirectory + `${image.filename}`;
+
+      await FileSystem.deleteAsync(fileUri, { idempotent: true });
+      await FileSystem.deleteAsync(fileImage, { idempotent: true });
+      
+      await AsyncStorage.setItem("downloadedMedia", JSON.stringify(updatedData));
+
+    } catch (e) {
+      console.error("Ошибка при удалении файла:", e);
+      setError("Ошибка при удалении файла");
+    }
+  };
+
   const addFavorite = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
@@ -102,7 +125,7 @@ const Player = () => {
       const { data: existingGoals, error: selectError } = await supabase
         .from("favorite")
         .select("*")
-        .eq("meditation_id", title);
+        .eq("meditation_id", track.title);
 
       if (selectError) {
         throw selectError;
@@ -112,7 +135,9 @@ const Player = () => {
         const { data, error } = await supabase
           .from("favorite")
           .delete()
-          .eq("meditation_id", title);
+          .eq("meditation_id", track.title);
+
+        deleteFile()
 
         setCurrentFavorite(false);
 
@@ -123,7 +148,7 @@ const Player = () => {
         const { data, error } = await supabase.from("favorite").insert([
           {
             user_id: userId,
-            meditation_id: title,
+            meditation_id: track.title,
           },
         ]);
 
@@ -210,9 +235,6 @@ const Player = () => {
         );
 
         const userId = await AsyncStorage.getItem("userId");
-
-        const queue = await TrackPlayer.getQueue();
-        const track = queue.find((t) => t.title === title);
 
         const { data, error } = await supabase.from("favorite").insert([
           {

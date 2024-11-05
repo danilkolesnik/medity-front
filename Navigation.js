@@ -69,6 +69,7 @@ const AppNavigator = () => {
                 gestureEnabled: false,
               }}
             >
+              
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Auth" component={Auth} />
               <Stack.Screen

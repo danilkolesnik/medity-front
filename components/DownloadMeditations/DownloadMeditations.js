@@ -1,6 +1,5 @@
 import { 
     useState, 
-    useEffect, 
     useCallback 
 } from "react";
 import { 
@@ -12,22 +11,13 @@ import {
     Pressable 
 } from "react-native";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
-import axios from "axios";
-
 import Menu from '../Menu/menu';
 import Card from "../Sleep/Card";
 import Loader from "../Loader/Loader";
-import Back from "../../assets/icons/Back";
-import Setting from "../../assets/icons/Setting";
 import SearchIcon from "../../assets/icons/Search";
-
-import { QueueInitialTracksService } from "../../utils/QueueInitialTracksService";
 import styles from "../../styles/sleep";
-import { SERVER } from "../../constants/async";
 
 const DownloadMeditations = () => {
     const [loading, setLoading] = useState(true);
@@ -66,9 +56,10 @@ const DownloadMeditations = () => {
         } catch (error) {
             console.error('Error fetching downloaded media:', error);
         } finally {
-            setLoading(false); // Stop loading
+            setLoading(false); 
         }
     }, []);
+
 
     const searchItem = useCallback((text) => {
         setSearchText(text);
