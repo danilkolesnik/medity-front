@@ -86,14 +86,40 @@ const Profile = ({navigation}) =>{
 
     const deleteUser = async() =>{
       try {
-        const userId = await AsyncStorage.setItem('userId', user.id)
+        const userId = await AsyncStorage.getItem('userId')
 
         await supabase
           .from('profiles')
           .delete()
           .eq('id', userId)
 
-        await supabase.auth.admin.deleteUser(userId)
+        await supabase
+          .from('goals')
+          .delete()
+          .eq('user_id', userId)
+
+        await supabase
+          .from('quiz_select')
+          .delete()
+          .eq('userId', userId)
+
+        await supabase
+          .from('favorite')
+          .delete()
+          .eq('user_id', userId)
+
+        await supabase
+          .from('none')
+          .delete()
+          .eq('user_id', userId)
+
+        await supabase
+          .from('listening_stats')
+          .delete()
+          .eq('user_id', userId)
+
+        const { data, error } = await supabase.auth.admin.deleteUser(userId)
+   
         navigation.navigate("Introduction")
       } catch (error) {
         

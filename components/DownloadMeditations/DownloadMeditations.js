@@ -60,7 +60,6 @@ const DownloadMeditations = () => {
         }
     }, []);
 
-
     const searchItem = useCallback((text) => {
         setSearchText(text);
         const filtered = originalMeditations.filter(item =>
