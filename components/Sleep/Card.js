@@ -38,7 +38,7 @@ const Card = ({item, style}) => {
                     <View style={{flexDirection: 'row', alignItems: "center"}}>
                         <View style={{flexDirection: 'row', alignItems: "center", paddingRight: 8}}>
                             <Mic />
-                            <Text style={styles.cardText}>Unguided</Text>
+                            <Text style={styles.cardText}>Sleep</Text>
                         </View>
                         <View style={{flexDirection: 'row', alignItems: "center"}}>
                             <Clock />

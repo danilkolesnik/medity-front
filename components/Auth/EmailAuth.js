@@ -94,9 +94,9 @@ export default function Auth({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: '4%',
     paddingBottom:80,
-    height:"100%",
+    height:"80%",
     justifyContent: "center",
     alignItems: "center",
   },

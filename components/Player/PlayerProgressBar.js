@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 24,
     paddingRight: 24,
-    backgroundColor: '#050505',
-	  paddingVertical:26,
+    // backgroundColor: '#050505',
+	  paddingVertical:10,
   },
   timeRow: {
     flexDirection: 'row',

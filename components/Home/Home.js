@@ -170,7 +170,7 @@ const Home = ({navigation}) =>{
                       <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                   ))}
               </View>
-              {favoriteMeditations.length ? 
+              {/* {favoriteMeditations.length ?  */}
               <>
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>My favorite meditation</Text>
@@ -180,12 +180,12 @@ const Home = ({navigation}) =>{
               </View>
   
                 <View style={styles.list}>
-                    {favoriteMeditations.map((item, index) =>(
-                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStepFavorite} index={index} setCurrentStep={setCurrentStepFavorite} />
+                {meditations.slice(2).map((item, index) =>(
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
               </> 
-              : null}
+              {/* : null} */}
 
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>New meditations</Text>
@@ -210,7 +210,7 @@ const Home = ({navigation}) =>{
   
               <Text style={styles.progressStatusTittle}>Weekly progress</Text>
               <Text style={styles.progressStatusText}>
-                On average, you practiced mindfulness{"\n"}{" "}
+                On average, you practiced mindfulness{"\n"}{""}
                 <Text style={{ fontWeight: "700" }}>4%</Text> more this week
                 compared to last.
               </Text>

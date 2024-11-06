@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     },
     title:{
         color:"#fff",
-        paddingLeft:24,
-        paddingTop:68,
+        paddingLeft:'4%',
+        paddingTop:'5%',
         paddingBottom:44,
         fontSize:40,
         fontWeight:"400",
@@ -22,12 +22,11 @@ const styles = StyleSheet.create({
     },
     containerSlider: {
         backgroundColor: 'rgba(255, 255, 255, 0.15)',
-        marginLeft:20,
-        marginRight:20,
+        marginLeft:'4%',
+        marginRight:'4%',
         paddingTop:16,
         paddingLeft:16,
         paddingRight:16,
-        paddingBottom:25,
         borderRadius:24
     },
     
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
       },
       nextButton: {
         backgroundColor: 'rgba(255, 255, 255, 0.29)',
-        width:327,
+        width:'90%',
         borderRadius:12,
         paddingTop:19,
         paddingBottom:19,
@@ -88,6 +87,7 @@ const styles = StyleSheet.create({
         height: 8,
         borderRadius: 4,
         marginHorizontal: 5,
+        marginBottom: '3%'
       },
       activeStepDot: {
         backgroundColor: '#fff',

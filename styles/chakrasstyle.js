@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     conteiner:{
+        marginTop: '18%',
+        marginBottom: '18%',
         height: "100%",
         width: "100%",
         paddingRight:24
@@ -13,11 +15,11 @@ const styles = StyleSheet.create({
         resizeMode: 'repeat',
     },
     chakrasContainer: {
-        margin: 20,
-        marginTop: -50,
-        paddingBottom: 70,
-        paddingTop:80,
-        marginLeft: 15,
+        // margin: 20,
+        // marginTop: 0,
+        // paddingBottom: 70,
+        // paddingTop:80,
+        marginLeft: '3%',
         width:'100%',
         gap:16,
         overflow:'hidden',
@@ -27,15 +29,16 @@ const styles = StyleSheet.create({
         borderRadius:12,
         marginTop: 10,
         width:'100%',
-        marginRight: 20,
+        // marginRight: 20,
     },
     infoBar: {
-        backgroundColor: "rgba(15, 23, 42, 0.40)",
+        backgroundColor: "rgba(13, 13, 13, 0.85)",
         height: 60,
         width:'100%',     
         padding: 12,
         overflow:'hidden',
-        borderRadius:12
+        borderRadius:12,
+        filter: 'blur(5px)'
     },
     infoBarText: {
         color: "#FFF",
@@ -65,11 +68,13 @@ const styles = StyleSheet.create({
         overflow:'hidden'
     },
     affirmationsContainer: {
-        paddingTop:27
+        paddingTop:27,
+        
     },
     affirmation:{
         fontWeight:"400",
-        fontSize: 18,
+        fontSize: 20,
+        height: 50,
         fontFamily:'Urbanist-Regular',
         textAlign: "center",
         color: "#fff",

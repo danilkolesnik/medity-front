@@ -82,7 +82,7 @@ const Sleep = () => {
               <Text style={[styles.text, { paddingTop: 4, paddingBottom: 12 }]}>
                 {sleep.length} practices
               </Text>
-              <Text style={[styles.text, { paddingBottom: 45 }]}>
+              <Text style={[styles.text, { paddingBottom: "5%" }]}>
                 Meditations for calm sleep
               </Text>
             </View>
