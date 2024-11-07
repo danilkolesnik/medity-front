@@ -53,12 +53,13 @@ const Chakra = () => {
       style={styles.background}
       resizeMode="repeat"
     >
-      <ScrollView contentContainerStyle={stylesList.content}>
-        <Header
+      <Header
           currentRoute={currentRoute}
           currentTitle={item.title}
           currentBack={true}
         />
+      <ScrollView contentContainerStyle={stylesList.content}>
+        
         <View>
           <View style={styles.affirmationsContainer}>
             <Text style={styles.affirmation}>

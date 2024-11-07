@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     conteiner:{
         textAlign:'center',
         width:"100%",  
+        paddingBottom:22,
         // paddingRight:"10px",
         // paddingTop: -50,
         zIndex: 1

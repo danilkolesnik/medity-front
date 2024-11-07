@@ -83,7 +83,8 @@ const Home = ({navigation}) =>{
 
         return true
       } catch (error) {
-        console.log(error);
+
+        return true
       }finally {
         setLoading(false);
       }
@@ -177,7 +178,7 @@ const Home = ({navigation}) =>{
   
                 <View style={styles.list}>
                 {favoriteMeditations.map((item, index) =>(
-                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
+                      <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStepFavorite} index={item.id} setCurrentStep={setCurrentStepFavorite} />
                     ))}
                 </View>
               </> 
