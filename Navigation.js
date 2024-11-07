@@ -86,7 +86,8 @@ const AppNavigator = () => {
                   }}
                 > */}
                   <Stack.Screen name="Home" component={Home} />
-                  <Stack.Screen name="Introduction" component={Auth} />
+                  <Stack.Screen name="Auth" component={Auth} />
+                  <Stack.Screen name="Introduction" component={Introduction} />
                   <Stack.Screen
                     name="Verification code"
                     component={OtpVerification}

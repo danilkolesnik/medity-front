@@ -70,16 +70,12 @@ const Home = ({navigation}) =>{
         }
 
         const meditationIds = existingFavorite.map(item => item.meditation_id);
-
+      
         const { data } = await axios.get(`${SERVER}/api/meditation`);
         const { data: dataSleep }  = await axios.get(`${SERVER}/api/sleep`);
         const { data: dataRelax }  = await axios.get(`${SERVER}/api/home-meditation`);
         
-        const meditations = [
-          ...data.docs, 
-          ...dataSleep.docs, 
-          ...dataRelax.docs
-        ]
+        const meditations = [...data.docs, ...dataSleep.docs, ...dataRelax.docs]
 
         const filteredDocs = meditations.filter(doc => meditationIds.includes(doc.title));
 
@@ -170,7 +166,7 @@ const Home = ({navigation}) =>{
                       <CardTop key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                   ))}
               </View>
-              {/* {favoriteMeditations.length ?  */}
+              {favoriteMeditations.length ? 
               <>
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>My favorite meditation</Text>
@@ -180,12 +176,12 @@ const Home = ({navigation}) =>{
               </View>
   
                 <View style={styles.list}>
-                {meditations.slice(2).map((item, index) =>(
+                {favoriteMeditations.map((item, index) =>(
                       <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStep} index={item.id} setCurrentStep={setCurrentStep} />
                     ))}
                 </View>
               </> 
-              {/* : null} */}
+              : null}
 
               <View style={styles.buttonMore}>
                 <Text style={styles.textMore}>New meditations</Text>
