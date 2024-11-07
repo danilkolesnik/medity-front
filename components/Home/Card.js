@@ -128,6 +128,7 @@ const Card = ({
             styles.cardText,
             {
               color: active === index ? "#000" : "#fff",
+              backgroundColor: active === index ? "#00000026" : "#FFFFFF26",
               borderColor:
                 active === index
                   ? "rgba(59, 70, 239, 0.15)"
