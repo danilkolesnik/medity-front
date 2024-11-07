@@ -62,15 +62,26 @@ const Note = () =>{
                        <View
                         style={{
                             flexDirection:"row",
-                            alignItems:"center"
+                            alignItems:"center",
+
                         }}
                        >
-                       <Pressable onPress={() => deleteNote()}>
+                       <Pressable 
+                            onPress={() => deleteNote()}
+                            style={{
+                                backgroundColor:'#FFFFFF26',
+                                padding:10,
+                                borderRadius:30,
+                            }}
+                       >
                             <Delete></Delete>
                        </Pressable>
                         <Pressable 
                             style={{
-                                paddingLeft:40
+                                marginLeft:40,
+                                padding:8,
+                                borderRadius:30,
+                                backgroundColor:'#FFFFFF26'
                             }}
                             onPress={() => updateNote()}
                         >

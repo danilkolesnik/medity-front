@@ -7,8 +7,8 @@ const Accept = ({ width = 37, height = 37 }) => {
     <View>
        <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={37}
-    height={37}
+    width={32}
+    height={32}
     viewBox="0 0 32 32"
   >
     <Defs></Defs>

@@ -7,8 +7,8 @@ const Delete = ({ width = 19, height = 21 }) => {
     <View>
          <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={37}
-    height={37}
+    width={30}
+    height={30}
     fill="none"
     viewBox="0 0 24 24"
 

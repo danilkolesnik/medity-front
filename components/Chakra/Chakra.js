@@ -57,7 +57,7 @@ const Chakra = () => {
           currentRoute={currentRoute}
           currentTitle={item.title}
           currentBack={true}
-        />
+      />
       <ScrollView contentContainerStyle={stylesList.content}>
         
         <View>
