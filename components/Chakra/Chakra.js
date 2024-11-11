@@ -53,11 +53,15 @@ const Chakra = () => {
       style={styles.background}
       resizeMode="repeat"
     >
+      <View style={{
+        paddingBottom:20
+      }}>
       <Header
           currentRoute={currentRoute}
           currentTitle={item.title}
           currentBack={true}
       />
+      </View>
       <ScrollView contentContainerStyle={stylesList.content}>
         
         <View>

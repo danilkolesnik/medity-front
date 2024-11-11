@@ -46,34 +46,37 @@ const Chakras = () => {
                 resizeMode="repeat"     
             >
                 {!loading ?
-                <ScrollView style={styles.conteiner}>
+                <>
+                 <ScrollView style={styles.conteiner}>
 
-                    <Header currentRoute={currentRoute} currentBack={false}/>
-                   
-                     <View style={styles.chakrasContainer}>
-                     {chakras.reverse().map((item, index) =>(
-                         <Pressable style={styles.chakraWrapper} key={index} onPress={() => {
-                             navigation.navigate("Chakra",{item})
-                         }}>
-                          <ImageBackground
-                              source={{uri:`${SERVER}${item.image.url}`}}
-                              style={[styles.backgroundCardRelax]}
-                          >
-                         
-                          <View style={styles.infoBar}>
-                              <Text style={styles.infoBarText}>{item.title}</Text>
-                              <View style={styles.infoMarksWrapper}>
-                                  <Text style={styles.infoMark}>{item.meditations.length} meditations</Text>
-                                  <Text style={styles.infoMark}>•</Text>
-                                  <Text style={styles.infoMark}>{item.affirmations.length} affirmations</Text>
-                              </View>
-                          </View> 
-                          </ImageBackground>
-                      
-                      </Pressable>
-                     ))}
-                 </View>                  
-                </ScrollView>
+<Header currentRoute={currentRoute} currentBack={false}/>
+
+ <View style={styles.chakrasContainer}>
+ {chakras.reverse().map((item, index) =>(
+     <Pressable style={styles.chakraWrapper} key={index} onPress={() => {
+         navigation.navigate("Chakra",{item})
+     }}>
+      <ImageBackground
+          source={{uri:`${SERVER}${item.image.url}`}}
+          style={[styles.backgroundCardRelax]}
+      >
+     
+      <View style={styles.infoBar}>
+          <Text style={styles.infoBarText}>{item.title}</Text>
+          <View style={styles.infoMarksWrapper}>
+              <Text style={styles.infoMark}>{item.meditations.length} meditations</Text>
+              <Text style={styles.infoMark}>•</Text>
+              <Text style={styles.infoMark}>{item.affirmations.length} affirmations</Text>
+          </View>
+      </View> 
+      </ImageBackground>
+  
+  </Pressable>
+ ))}
+</View>                  
+</ScrollView>
+                </>
+               
                  : <Loader></Loader>
                 }
                 <Menu/>  
