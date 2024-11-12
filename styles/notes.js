@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     bottomNavContainer:{
         position:"absolute",
         bottom:0,
-        right:0,    
+        right:10,    
         flex: 1,
         flexDirection: "row",
         margin: "auto",
