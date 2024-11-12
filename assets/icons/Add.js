@@ -7,8 +7,8 @@ const Add = ({ width = 37, height = 37 }) => {
     <View>
       <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={90}
-    height={90}
+    width={48}
+    height={48}
     fill="none"
   
   >
