@@ -47,10 +47,12 @@ const Chakras = () => {
             >
                 {!loading ?
                 <>
+                <View style={{
+                    paddingTop:40
+                }}>
+                <Header currentRoute={currentRoute} currentBack={false}/>
+                </View>
                  <ScrollView style={styles.conteiner}>
-
-<Header currentRoute={currentRoute} currentBack={false}/>
-
  <View style={styles.chakrasContainer}>
  {chakras.reverse().map((item, index) =>(
      <Pressable style={styles.chakraWrapper} key={index} onPress={() => {
