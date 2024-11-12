@@ -79,7 +79,7 @@ export default function Auth() {
                         const { data: dataQuiz, error: selectError } = await supabase
                           .from('quiz_select')
                           .select('*')
-                          .eq('userId', dataQuiz.user.id);
+                          .eq('userId', data.user.id);
       
                         if (selectError) {
                           throw new Error('Error selecting userQuiz: ' + selectError.message);
@@ -127,7 +127,7 @@ export default function Auth() {
                         const { data: dataQuiz, error: selectError } = await supabase
                           .from('quiz_select')
                           .select('*')
-                          .eq('userId', dataQuiz.user.id);
+                          .eq('userId', data.user.id);
       
                         if (selectError) {
                           throw new Error('Error selecting userQuiz: ' + selectError.message);
