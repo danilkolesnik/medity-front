@@ -73,18 +73,20 @@ export default function Auth() {
                       });
 
                       console.log(JSON.stringify({ error, data }, null, 2));
-                      if (!error) {
+                      if (error==null) {
                         await AsyncStorage.setItem('token', data.session.access_token)
 
+                        console.log("HERE")
                         const { data: dataQuiz, error: selectError } = await supabase
                           .from('quiz_select')
                           .select('*')
                           .eq('userId', data.user.id);
       
+                          console.log("HERE")
                         if (selectError) {
                           throw new Error('Error selecting userQuiz: ' + selectError.message);
                         }
-
+                        console.log("HERE")
                         if (dataQuiz.length) {       
                           navigation.navigate("Home");
                           return; 
@@ -96,6 +98,7 @@ export default function Auth() {
                       throw new Error("No identityToken.");
                     }
                   } catch (e) {
+                    console.log(e)
                     if (e.code === "ERR_REQUEST_CANCELED") {
                       // handle that the user canceled the sign-in flow
                     } else {

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 50,
     // paddingTop: 10,
     marginTop: '18%',
+    paddingBottom: '40%',
     marginBottom: '18%',
     paddingLeft: '4%',
     paddingRight: '4%',

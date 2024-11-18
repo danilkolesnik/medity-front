@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         width:"100%",  
         // paddingRight:"10px",
         // paddingTop: -50,
-        zIndex: 1
+        zIndex: 1,
     },
     text:{
         // position:'absolute',
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         fontFamily:"Urbanist-Bold",
     },
     icon:{
-       left: '4%'
+       left: '4%',
+       top: '4%'
     }
 })
 export default styles

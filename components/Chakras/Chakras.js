@@ -43,7 +43,6 @@ const Chakras = () => {
             <ImageBackground
                 source={require("../../assets/images/ostatochni.jpg")}
                 style={styles.background}
-                resizeMode="repeat"     
             >
                 {!loading ?
                 <>

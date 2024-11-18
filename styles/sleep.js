@@ -88,9 +88,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   list: {
-    paddingTop: '5%',
+    paddingTop: '4%',
     gap: 11.5,
+    display: 'flex',
     flex: 1,
+    width: '100%',
     flexDirection: "row",
     justifyContent: "center",
     flexWrap: "wrap",

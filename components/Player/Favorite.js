@@ -11,7 +11,7 @@ import SearchIcon from "../../assets/icons/Search";
 import Menu from '../Menu/menu'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation,useFocusEffect } from '@react-navigation/native';
-import Card from "../Sleep/Card"
+import Card from "../Home/Card";
 import Back from "../../assets/icons/Back";
 import Setting from "../../assets/icons/Setting";
 import { SERVER } from "../../constants/async";
@@ -98,9 +98,9 @@ const Favorite = () =>{
                        <Pressable onPress={() => navigation.navigate("Home")}>
                            <Back></Back>
                        </Pressable>
-                       <Pressable onPress={() => navigation.navigate("Settings")}>
+                       {/* <Pressable onPress={() => navigation.navigate("Settings")}>
                            <Setting></Setting>
-                       </Pressable>
+                       </Pressable> */}
                    </SafeAreaView>
                   
                            <View>
@@ -108,23 +108,10 @@ const Favorite = () =>{
                        <Text style={[styles.text, {paddingTop: 4, paddingBottom: 12}]}>{sleep.length} practices</Text>
                        <Text style={[styles.text, {paddingBottom:45}]}>All favorite meditations</Text>
                    </View>
-                   
-                   <View style={styles.inputContainer}>
-                       <SearchIcon/>
-                       <TextInput
-                           style={styles.input}
-                           value={searchText}
-                           onChangeText={searchItem}
-                           placeholder="Search"
-                           placeholderTextColor="#949494"
-                       />
-                   </View>
 
                   <View style={styles.list}>
-                    {sleep.map(item =>(
-                      <Pressable key={item.id}>
-                        <Card item={item} style={styles.backgroundCard} />
-                      </Pressable>
+                    {sleep.map((item, index) =>(
+                         <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} index={item.id} />
                     ))}
                   </View>
    
