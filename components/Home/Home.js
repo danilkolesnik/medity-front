@@ -177,7 +177,7 @@ const Home = ({navigation}) =>{
               </View>
   
                 <View style={styles.list}>
-                {favoriteMeditations.map((item, index) =>(
+                {favoriteMeditations.slice(0,3).map((item, index) =>(
                       <Card key={index} title={item.title} options={item.mainCategory} audio={item.media} type={item.type} active={currentStepFavorite} index={item.id} setCurrentStep={setCurrentStepFavorite} />
                     ))}
                 </View>

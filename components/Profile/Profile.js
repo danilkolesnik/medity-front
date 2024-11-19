@@ -109,6 +109,7 @@ const Profile = ({ navigation }) => {
       .eq('user_id', userId)
 
     const { data, error } = await supabase.auth.admin.deleteUser(userId)
+    setModalVisible(false)
 
     navigation.navigate("Introduction")
     } catch (error) {
