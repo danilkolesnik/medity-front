@@ -31,34 +31,11 @@ import CustomStatusBar from "./components/CustomStatusBar/CustomStatusBar";
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  const [currentRoute, setCurrentRoute] = useState("Chakras");
+  const [currentRoute, setCurrentRoute] = useState("");
 
   return (
     <>
       {/* Conditionally render CustomStatusBar based on the current route */}
-      {/* {currentRoute === "Chakras" && (
-        <View style={styles.screenWrapper}>
-          <NavigationContainer
-            onStateChange={(state) => {
-              const currentScreen = state.routes[state.index].name;
-              setCurrentRoute(currentScreen);
-            }}
-          >
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                gestureEnabled: false,
-              }}
-            >
-              <Stack.Screen name="Email" component={EmailAuth} />
-              <Stack.Screen name="Introduction" component={Auth} />
-              <Stack.Screen name="Auth" component={Auth} />
-              <Stack.Screen name="Quiz" component={Quiz} />
-              <Stack.Screen name="Chakras" component={Chakras} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </View>
-      )} */}
       <View style={styles.screenWrapper}>
         <NavigationContainer
           onStateChange={(state) => {
@@ -72,19 +49,6 @@ const AppNavigator = () => {
               gestureEnabled: false,
             }}
           >
-            {/* <View style={styles.screenWrapper}>
-              <NavigationContainer
-                onStateChange={(state) => {
-                  const currentScreen = state.routes[state.index].name;
-                  setCurrentRoute(currentScreen);
-                }}
-              >
-                <Stack.Navigator
-                  screenOptions={{
-                    headerShown: false,
-                    gestureEnabled: false,
-                  }}
-                > */}
                   <Stack.Screen name="Home" component={Home} />
                   <Stack.Screen name="Auth" component={Auth} />
                   <Stack.Screen name="Introduction" component={Introduction} />
@@ -124,9 +88,6 @@ const AppNavigator = () => {
                     name="Notifications"
                     component={Notifications}
                   />
-                {/* </Stack.Navigator>
-              </NavigationContainer>
-            </View> */}
           </Stack.Navigator>
         </NavigationContainer>
       </View>

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     linkText:{
         color:"#fff",
         fontWeight:"600",
-        fontSize:16,
+        fontSize:18,
         fontFamily:"Urbanist-Bold",
 
     },
