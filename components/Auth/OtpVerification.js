@@ -101,7 +101,7 @@ const OtpVerification = () => {
 const styles = StyleSheet.create({
   container: {
     padding: '4%',
-    paddingBottom:80,
+    paddingBottom:50,
     height:"80%",
     justifyContent: "center",
     alignItems: "center",

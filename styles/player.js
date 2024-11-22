@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  imagesize: {
+    width: 342,
+    height: 342
+  }
 });
 
 export default styles;

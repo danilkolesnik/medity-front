@@ -303,6 +303,7 @@ const Player = () => {
           <>
             <View style={styles.image}>
               <Image
+                style={styles.imagesize}
                 source={require("../../assets/images/album-image.png")}
               ></Image>
             </View>

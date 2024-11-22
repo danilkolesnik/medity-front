@@ -9,7 +9,7 @@ export default function Introduction({navigation}) {
       style={{ flex: 1, width: null, height: null, backgroundColor: "#010101" }}
     >
       <ImageBackground
-        source={require("../../assets/images/face-background.jpg")}
+        source={require("../../assets/images/face-background.jpeg")}
         style={{ flex: 1, width: null, height: "60%" }}
       >
         <View style={{ flex: 1 }}>
